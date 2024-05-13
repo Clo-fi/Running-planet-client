@@ -9,5 +9,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <TanstackProvider>
       <App />
     </TanstackProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
