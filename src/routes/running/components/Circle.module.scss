@@ -27,14 +27,14 @@
   @extend %circle;
   width: 30%;
   margin-left: 50%;
-  margin-top: 30%;
+  margin-top: 35%;
 }
 
 .circle_left {
   @extend %circle;
   width: 30%;
   margin-left: 20%;
-  margin-top: 30%;
+  margin-top: 35%;
 }
 
 .circle_active {
@@ -42,7 +42,7 @@
   background-color: black;
   width: 50%;
   margin-left: 25%;
-  margin-top: 35%;
+  margin-top: 45%;
   z-index: 1;
 
   .content {
