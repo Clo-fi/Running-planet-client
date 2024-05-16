@@ -1,0 +1,112 @@
+.home {
+  background: linear-gradient(180deg,
+      rgb(144, 144, 144, 1) 0%,
+      rgba(220, 220, 220, 0.9) 20%,
+      rgba(255, 255, 255, 0.6) 50%,
+      rgba(220, 220, 220, 0.9) 80%,
+      rgb(144, 144, 144, 1) 100%);
+  height: 90vh;
+}
+
+.copyWrite_container {
+  display: flex;
+  position: relative;
+  top: 10vh;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.copyWrite {
+  margin-left: 7.5vw;
+  width: 50vw;
+  font-size: 10vw;
+  font-weight: 700;
+}
+
+.profile_image {
+  margin-right: 7.5vw;
+  height: 5vh;
+}
+
+.missions_container {
+  display: flex;
+  width: 100vw;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 12vh;
+}
+
+.mission {
+  height: 4vh;
+  width: 85vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 0.5vh;
+}
+
+.mission_type {
+  width: 30vw;
+  height: 4vh;
+  display: flex;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 1vh;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.mission_content {
+  width: 85vw;
+  position: absolute;
+  border: 1px solid black;
+  border-radius: 1vh;
+  background-color: lightgray;
+  height: 4vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mission_content_text {
+  position: absolute;
+  left: 30vw;
+  width: 55vw;
+  height: 4vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.map_container {
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 85vh;
+  margin-top: 5vh;
+  z-index: -1;
+}
+
+.btn_container {
+  display: flex;
+  position: absolute;
+  width: 100vw;
+  top: 70vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 4;
+}
+
+.home_start_btn {
+  background-color: lightgray;
+  border: 1px solid black;
+  border-radius: 30px;
+  width: 87vw;
+  height: 7vh;
+  font-size: larger;
+  font-weight: 500;
+}

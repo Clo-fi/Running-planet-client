@@ -1,0 +1,79 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile_img {
+  height: 15vh;
+}
+
+.edit_container {
+  margin-top: 7vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100vw;
+  align-items: center;
+  margin-bottom: 3vh;
+}
+
+.edit_btn_section {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  right: 5vw;
+}
+
+.edit_btn {
+  height: 3vh;
+  margin-bottom: 1vh;
+}
+
+.info_container {
+  width: 88vw;
+  border: 1px solid black;
+  border-radius: 2vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 18.5vh;
+  padding: 1vh;
+}
+
+.info_line {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 80vw;
+}
+
+.left {
+  width: 30vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  font-size: 2vh;
+  font-weight: 600;
+  margin: 2vw;
+}
+
+.progressbar, .right {
+  margin: 2vw;
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.right {
+  font-size: 2vh;
+  font-weight: 300;
+}
+
+.calendar_container {
+  margin-top: 2vh;
+}
