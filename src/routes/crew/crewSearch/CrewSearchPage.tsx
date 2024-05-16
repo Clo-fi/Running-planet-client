@@ -5,7 +5,7 @@ import CrewList from './components/CrewList';
 
 const CrewSearchPage = () => {
   return (
-    <div className={styles.crew__main_container}>
+    <div className={styles.search__main_container}>
       <SearchForm />
       <CrewList />
     </div>
