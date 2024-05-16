@@ -3,7 +3,8 @@ import Circle, { PositionType } from "./Circle";
 import styles from "./RunningTab.module.scss";
 import ArrowLeftIcon from "../../../assets/icons/expandLeft.svg?react";
 import ArrowRightIcon from "../../../assets/icons/expandRight.svg?react";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const RunningTab = () => {
   const [positions, setPositions] = useState<PositionType[]>([
@@ -11,6 +12,30 @@ const RunningTab = () => {
     "RIGHT",
     "CENTER",
   ]);
+  const navigate = useNavigate();
+  const [path, setPath] = useState<{ latitude: number; longitude: number }[]>(
+    []
+  );
+
+  const addCurPosition = useCallback(() => {
+    console.log(path);
+    navigator.geolocation.getCurrentPosition(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ({ coords: { latitude, longitude } }: any) => {
+        setPath((prev) => [...prev, { latitude, longitude }]);
+      }
+    );
+  }, [path]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      addCurPosition();
+    }, 5000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, [addCurPosition]);
 
   return (
     <>
@@ -42,7 +67,11 @@ const RunningTab = () => {
       <section className={styles.time_section}>00 : 30 : 34</section>
       <section className={styles.control_section}>
         <Button value="정지하기" onClick={() => {}} className={styles.button} />
-        <Button value="종료하기" onClick={() => {}} className={styles.button} />
+        <Button
+          value="종료하기"
+          onClick={() => navigate("/running-complete")}
+          className={styles.button}
+        />
       </section>
     </>
   );
