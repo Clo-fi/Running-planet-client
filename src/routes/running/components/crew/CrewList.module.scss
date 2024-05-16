@@ -1,0 +1,13 @@
+.container {
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  height: 70vh;
+  overflow-y: auto;
+  align-items: center;
+  align-content: start;
+
+  padding-bottom: 3rem;
+  margin-bottom: 3rem;
+}

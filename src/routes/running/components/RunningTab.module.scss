@@ -1,0 +1,41 @@
+.status_section {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.time_section {
+  width: 100%;
+  text-align: center;
+  font-size: 3.4rem;
+  font-weight: bold;
+  padding: 0 0 6rem 0;
+}
+
+.control_section {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+}
+
+.button {
+  height: 5rem;
+  width: 8rem;
+}
+
+.right_btn {
+  position: absolute;
+  right: 0;
+  top: 65%;
+  transform: translate(-50%, -50%);
+}
+
+.left_btn {
+  position: absolute;
+  left: 0;
+  top: 65%;
+  transform: translate(50%, -50%);
+}
