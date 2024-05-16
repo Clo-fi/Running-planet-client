@@ -1,4 +1,45 @@
-.home__posts{
-  height: 30%;
-  background: green;
+.posts__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100dvh;
+  background: black;
+}
+
+.posts__sheet_background {
+  position: absolute;
+  top: 0;
+
+  left: 0;
+  width: 100%;
+  height: 100lvh;
+  background: white;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5);
+  border-radius: 24px 24px 0 0;
+  padding: 12px 0 24px 0;
+  will-change: transform;
+}
+
+.posts__bottom_header{
+  height: 50px;
+  cursor: grab;
+  user-select: none;
+}
+
+.posts__handle_bar{
+  width: 58px;
+  height: 8px;
+  background: #dfdfdf;
+  margin: 0 auto;
+}
+
+.posts__sheet_content_wrapper{
+  width: 100%;
+  color: black;
+  padding: 24px;
+}
+
+.posts__sheet_content{
+  width: 100%;
 }
