@@ -1,0 +1,12 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile {
+  width: 100%;
+  aspect-ratio: 1;
+  background-color: ghostwhite;
+}

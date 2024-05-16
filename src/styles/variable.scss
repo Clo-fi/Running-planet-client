@@ -1,0 +1,27 @@
+// 작은 디바이스 (모바일 등)용 폰트 크기
+$small-font-size: 12px;
+
+// 중간 디바이스 (태블릿 등)용 폰트 크기
+$medium-font-size: 18px;
+
+// 큰 디바이스 (데스크톱 등)용 폰트 크기
+$large-font-size: 20px;
+
+// 미디어 쿼리를 사용하여 디바이스 크기에 따른 폰트 크기 조정
+@media screen and (max-width: 768px) {
+  html {
+    font-size: $small-font-size;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  html {
+    font-size: $medium-font-size;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  html {
+    font-size: $large-font-size;
+  }
+}
