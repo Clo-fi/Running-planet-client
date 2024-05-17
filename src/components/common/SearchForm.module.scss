@@ -1,0 +1,38 @@
+.form__container{
+  width: inherit;
+  height: 5%;
+  margin-top: 20px;
+  background: inherit;
+  display: flex;
+  flex-wrap: nowrap;
+  
+  justify-content: space-around;
+  align-items: center;
+}
+
+.form__form{
+  width: 85%;
+  height: 95%;
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 25px;
+}
+
+.form__search_icon{
+  margin-left: 10px;
+}
+
+.form_input{
+  width: inherit;
+  margin-left: 10px;
+  height: inherit;
+  border: none;
+  background: inherit;
+  outline: none;
+  font-size: 15px;
+}
+
+.form__option_icon{
+  width: 25px;
+}
