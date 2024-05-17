@@ -111,7 +111,7 @@ const CrewList = () => {
                 <span className={styles.list__crew_crewleader}>{crew.crewLeader}</span>
               </div>
               <div className={styles.list__crew_introduction_container}>
-                <img className={styles.list__crew_img} src="/src/assets/Earth.png" alt="crewTerraforming" />
+                <img className={styles.list__crew_img} src="/src/assets/icons/earth.png" alt="crewTerraforming" />
                 <div className={styles.list__crew_introduction}>
                   <p className={styles.list__crew_introduction_detail}>{crew.crewIntroduction}</p>
                   <div className={styles.list__crew_introduction_category}>

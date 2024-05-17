@@ -16,7 +16,7 @@ function App() {
         <Route path="/home" element={<Home />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path='/crew-search' element={<CrewSearchPage />} />
-        <Route path='/crew/:id' element={<CrewHome />} />
+        <Route path='/' element={<CrewHome />} />
       </Route>
       <Route path="/running" element={<RunningPage />} />
       <Route path="/running-complete" element={<RunningCompletePage />} />
