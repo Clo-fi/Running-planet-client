@@ -10,4 +10,17 @@
   border: 1px solid black;
   font-size: 13px;
   font-weight: bold;
+  position: relative;
+
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.description {
+  font-size: 0.7rem;
+  color: rgb(185, 185, 185);
+  position: absolute;
+  top: 13px;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
