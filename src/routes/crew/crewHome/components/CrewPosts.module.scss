@@ -5,12 +5,12 @@
   width: 100%;
   height: 100dvh;
   background: black;
+
 }
 
 .posts__sheet_background {
   position: absolute;
   top: 0;
-
   left: 0;
   width: 100%;
   height: 100lvh;
@@ -23,6 +23,7 @@
 
 .posts__bottom_header{
   height: 50px;
+  margin-bottom: -20px;
   cursor: grab;
   user-select: none;
 }
@@ -36,10 +37,15 @@
 
 .posts__sheet_content_wrapper{
   width: 100%;
-  color: black;
+  margin-top: -20px;
   padding: 24px;
 }
 
 .posts__sheet_content{
   width: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
 }

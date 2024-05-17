@@ -23,8 +23,10 @@ const CrewPosts = ({ viewport = '100dvh' }: { viewport: string }) => {
     setIsAnimating(true);
   };
 
+
   const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     setIsAnimating(false);
+    if (isOpened) return;
 
     const offsetThreshold = expandedHeight * 0.9;
     const deltaThreshold = 5;
@@ -69,8 +71,8 @@ const CrewPosts = ({ viewport = '100dvh' }: { viewport: string }) => {
         drag='y'
         dragConstraints={{ top: 0, bottom: 0 }}
         dragElastic={0.2}
-        onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
+        onDragStart={handleDragStart}
         onAnimationStart={() => setIsAnimating(true)}
         onAnimationComplete={() => setIsAnimating(false)}
       >
@@ -78,7 +80,7 @@ const CrewPosts = ({ viewport = '100dvh' }: { viewport: string }) => {
           <div className={styles.posts__handle_bar} style={{ borderRadius: 100 }}></div>
 
           <div className={styles.posts__sheet_content_wrapper}
-            style={{ height: 600 }}
+            style={{ height: 550 }}
             ref={contentRef}
           >
             <div className={styles.posts__sheet_content}>
@@ -92,3 +94,4 @@ const CrewPosts = ({ viewport = '100dvh' }: { viewport: string }) => {
 }
 
 export default CrewPosts;
+
