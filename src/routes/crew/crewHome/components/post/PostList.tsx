@@ -62,6 +62,8 @@ const dummyPosts = [{
 ]
 
 const PostList = ({ isOpened }: { isOpened: boolean }) => {
+  // isOpened 가 true일 때 axios 통신 + 리액트 쿼리로 로딩창 표현
+  console.log(isOpened)
   const formatDate = (dateString: string) => {
     const year = dateString.slice(0, 4);
     const month = dateString.slice(4, 6);
@@ -71,7 +73,7 @@ const PostList = ({ isOpened }: { isOpened: boolean }) => {
 
   return (
     <>
-      {isOpened ? <p className={styles.list__comment}>현재 우리 크루는?</p> : null}
+
       <SearchForm img={'Filter'} />
       <div className={styles.list__announcement}>
         <img src="/src/assets/icons/Bell_pin.png" alt="bellImg" />
@@ -100,7 +102,7 @@ const PostList = ({ isOpened }: { isOpened: boolean }) => {
           </div>
         ))}
         <p>여기에다가 게시판 페이지네이션 추가</p>
-        <div style={{ height: '400px' }}></div>
+        <div style={{ height: '200px' }}></div>
       </div>
     </>
   )
