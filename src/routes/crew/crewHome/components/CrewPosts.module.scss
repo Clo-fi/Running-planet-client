@@ -5,12 +5,12 @@
   width: 100%;
   height: 100dvh;
   background: black;
+
 }
 
 .posts__sheet_background {
   position: absolute;
   top: 0;
-
   left: 0;
   width: 100%;
   height: 100lvh;
@@ -23,6 +23,7 @@
 
 .posts__bottom_header{
   height: 50px;
+  margin-bottom: -20px;
   cursor: grab;
   user-select: none;
 }
@@ -34,12 +35,124 @@
   margin: 0 auto;
 }
 
+.posts_sheet_state{
+  width: 90%;
+  margin-top: 20px; 
+
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+
+  img{
+    width: 25px;
+    margin-right: 60px;
+  }
+  p{
+    font-size: 20px;
+    font-weight: 700;
+  }
+}
+
 .posts__sheet_content_wrapper{
+  position: relative;
   width: 100%;
-  color: black;
+  margin-top: -20px;
   padding: 24px;
 }
 
 .posts__sheet_content{
   width: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.list__action_toggle{
+  position: absolute;
+  top: 100%;
+  right: 4%;
+  z-index: 100;
+  width: 35px;
+  height: 35px;
+  background: black;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+  img{
+    width: 50%;
+    height: 50%;
+  }
+}
+
+.list__action_toggle.clicked{
+  background: gray;
+  transform: rotate(45deg); 
+}
+
+.list__write_toggle{
+  position: absolute;
+  top: 90%;
+  right: 4%;
+  z-index: 50;
+  width: 35px;
+  height: 35px;
+  background: black;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: all 0.3s ease-in-out;
+  img{
+    width: 60%;
+    height: 60%;
+  }
+}
+
+.list__chat_toggle{
+  position: absolute;
+  top: 80%;
+  right: 4%;
+  // z-index: 100;
+  width: 35px;
+  height: 35px;
+  background: black;
+  border-radius: 100px;
+  padding-top: 2px;
+  padding-right: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+  img{
+    width: 70%;
+    height: 70%;
+  }
+}
+@keyframes editMove {
+  0% {
+    top: 100%;
+  }
+  100% {
+    top: 90%;
+  }
+}
+.list__edit_move {
+  animation: editMove 0.3s ease-in-out;
+}
+@keyframes sendMove {
+  0% {
+    top: 90%;
+  }
+  100% {
+    top: 80%;
+  }
+}
+
+.list__send_move {
+  animation: sendMove 0.3s ease-in-out;
 }
