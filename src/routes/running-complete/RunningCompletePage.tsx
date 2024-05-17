@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./RunningCompletePage.module.scss";
 import Button from "../../components/common/Button";
+import { useNavigate } from "react-router-dom";
 
 declare global {
   interface Window {
@@ -16,6 +17,7 @@ const path: {
 }[] = [{ latitude: 33.452344169439975, longitude: 126.56878163224233 }];
 
 const RunningCompletePage = () => {
+  const navigate = useNavigate();
   const mapRef = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState(null);
 
@@ -71,7 +73,11 @@ const RunningCompletePage = () => {
         </section>
         <div className={styles.time}>20 : 3 : 3</div>
       </section>
-      <Button value="확인" onClick={() => {}} className={styles.btn} />
+      <Button
+        value="확인"
+        onClick={() => navigate("/home")}
+        className={styles.btn}
+      />
     </main>
   );
 };
