@@ -1,3 +1,4 @@
+import React from "react";
 import styles from "./Button.module.scss";
 
 interface Props
@@ -9,7 +10,7 @@ interface Props
   description?: string;
   className?: React.HTMLAttributes<HTMLButtonElement>["className"];
   style?: React.HTMLAttributes<HTMLDivElement>["style"];
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const Button = ({
@@ -27,7 +28,7 @@ const Button = ({
       onClick={onClick}
       {...props}
     >
-      <div>{description}</div>
+      <div className={styles.description}>{description}</div>
       <div>{value}</div>
     </button>
   );
