@@ -7,6 +7,7 @@ import CrewSearchPage from './routes/crew/crewSearch/CrewSearchPage';
 import RunningPage from "./routes/running/RunningPage";
 import RunningCompletePage from "./routes/running-complete/RunningCompletePage";
 import CrewHome from './routes/crew/crewHome/CrewHome';
+import CrewPosting from './routes/crew/crewPosting/CrewPosting';
 
 function App() {
   return (
@@ -16,8 +17,9 @@ function App() {
         <Route path="/home" element={<Home />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path='/crew-search' element={<CrewSearchPage />} />
-        <Route path='/' element={<CrewHome />} />
+        <Route path='/crew/:id' element={<CrewHome />} />
       </Route>
+      <Route path='/crew/:id/posting' element={<CrewPosting />} />
       <Route path="/running" element={<RunningPage />} />
       <Route path="/running-complete" element={<RunningCompletePage />} />
     </Routes>
