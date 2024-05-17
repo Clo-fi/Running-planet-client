@@ -24,6 +24,13 @@
 .button {
   height: 5rem;
   width: 8rem;
+  transition: all 1s;
+}
+
+.active {
+  height: 5rem;
+  width: 8rem;
+  background-color: rgb(80, 93, 176);
 }
 
 .right_btn {
