@@ -1,11 +1,11 @@
 import React from 'react'
 
-import styles from './CrewHome.module.scss';
+import styles from './CrewHomePage.module.scss';
 import CrewIntroduction from './components/CrewIntroduction';
 import useMeasure from "react-use-measure";
 // import CrewPosts from './components/CrewPosts';
 import CrewPosts from './components/CrewPosts'
-const CrewHome = () => {
+const CrewHomePage = () => {
   const [viewportRef, { height: viewportHeight }] = useMeasure();
 
   return (
@@ -18,4 +18,4 @@ const CrewHome = () => {
   )
 }
 
-export default CrewHome
+export default CrewHomePage
