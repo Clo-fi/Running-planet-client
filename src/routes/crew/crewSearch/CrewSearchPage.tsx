@@ -5,9 +5,11 @@ import CrewList from './components/CrewList';
 
 const CrewSearchPage = () => {
   return (
-    <div className={styles.search__main_container}>
-      <SearchForm />
-      <CrewList />
+    <div style={{ display: 'flex', alignContent: 'center', justifyContent: 'center' }}>
+      <div className={styles.search__main_container}>
+        <SearchForm />
+        <CrewList />
+      </div>
     </div>
   )
 }
