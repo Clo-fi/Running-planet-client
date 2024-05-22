@@ -1,16 +1,19 @@
 import { Route, Routes } from "react-router-dom";
 import LayoutWithFooter from "./components/layout/LayoutWithFooter";
-import Home from "./routes/Home";
-import Profile from "./routes/Profile";
-import Login from "./routes/Login";
+import Home from "./routes/home/Home";
+import Profile from "./routes/profile/Profile";
+import Login from "./routes/login/Login";
 import CrewSearchPage from './routes/crew/crewSearch/CrewSearchPage';
 import RunningPage from "./routes/running/RunningPage";
 import RunningCompletePage from "./routes/running-complete/RunningCompletePage";
 import CrewHomePage from './routes/crew/crewHome/CrewHomePage';
 import CrewPostingPage from './routes/crew/crewPosting/CrewPostingPage';
 import PostDetailPage from './routes/crew/postDetail/PostDetailPage';
+import Setting from "./routes/setting/Setting";
+
 
 function App() {
+
   return (
     <Routes>
       <Route path="/login" element={<Login />}></Route>
@@ -24,6 +27,7 @@ function App() {
       </Route>
       <Route path="/running" element={<RunningPage />} />
       <Route path="/running-complete" element={<RunningCompletePage />} />
+      <Route path="/setting" element={<Setting />} />
     </Routes>
 
   )

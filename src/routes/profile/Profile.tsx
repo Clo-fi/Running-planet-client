@@ -1,7 +1,14 @@
 import styles from "./Profile.module.scss";
-import Calendar from "../components/common/calendar/Calendar";
+import UserCalendar from "../../components/common/calendar/UserCalendar";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
+
+  const nav = useNavigate();
+
+  const handleSettting = () => {
+    nav('/setting');
+  }
 
   return (
     <div className={styles.profile}>
@@ -10,7 +17,7 @@ const Profile = () => {
           <img className={styles.profile_img} src="src/assets/icons/ellipse 151.png"></img>
         </div>
         <div className={styles.edit_btn_section}>
-          <img className={styles.edit_btn} src="src/assets/icons/Setting_line.png"></img>
+          <img className={styles.edit_btn} onClick={handleSettting} src="src/assets/icons/Setting_line.png"></img>
           <img className={styles.edit_btn} src="src/assets/icons/Edit.png"></img>
         </div>
       </div>
@@ -47,7 +54,27 @@ const Profile = () => {
         </div>
       </div>
       <div className={styles.calendar_container}>
-        <Calendar />
+        <UserCalendar />
+        <div className={styles.mission_container}>
+          <div className={styles.section_name}>
+            오늘의 미션
+          </div>
+          <div className={styles.mission}>
+            <p className={styles.mission_num}>미션 1</p>
+            <p className={styles.mission_title}>200kcal 소모하기</p>
+            <img className={styles.mission_check} src="/src/assets/icons/Check_ring.png"></img>
+          </div>
+          <div className={styles.mission}>
+            <p className={styles.mission_num}>미션 2</p>
+            <p className={styles.mission_title}>3km 뛰기</p>
+            <img className={styles.mission_check} src="/src/assets/icons/Check_ring.png"></img>
+          </div>
+          <div className={styles.mission}>
+            <p className={styles.mission_num}>미션 3</p>
+            <p className={styles.mission_title}>게시글 하나 작성하기</p>
+            <img className={styles.mission_check} src="/src/assets/icons/Checked_ring.png"></img>
+          </div>
+        </div>
       </div>
     </div>
   )

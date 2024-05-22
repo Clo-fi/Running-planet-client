@@ -61,7 +61,8 @@
   margin: 2vw;
 }
 
-.progressbar, .right {
+.progressbar,
+.right {
   margin: 2vw;
   width: 30vw;
   display: flex;
@@ -76,4 +77,59 @@
 
 .calendar_container {
   margin-top: 2vh;
+  height: 60vh;
+  width: 88vw;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 5vh;
+  background-color: white;
+}
+
+.mission_container {
+  position: absolute;
+  border: 1px solid black;
+  border-radius: 1vh;
+  width: 83vw;
+  height: 12vh;
+  padding: 2vw;
+  margin-top: 38.5vh;
+}
+
+.section_name {
+  font-size: 2vh;
+  font-weight: 600;
+  margin-bottom: 1.5vh;
+}
+
+.mission {
+  font-size: 1.5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.mission_num {
+  height: 2vh;
+  width: 10vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.mission_title {
+  align-items: center;
+  width: 50vw;
+  height: 2vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.mission_check{
+  height: 2vh;
+  margin-left: 15vw;
 }
