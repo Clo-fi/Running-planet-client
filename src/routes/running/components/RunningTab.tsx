@@ -6,11 +6,15 @@ import ArrowRightIcon from "../../../assets/icons/expandRight.svg?react";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLongPress } from "use-long-press";
+import { getKcal, haversineDistance } from "../../../utils/runningUtils";
+import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
+import { runningKeys } from "../../../libs/tanstack/queryKeys";
 import {
-  Position,
-  getKcal,
-  haversineDistance,
-} from "../../../utils/runningUtils";
+  getCurrentRunningRecord,
+  postRunningRecord,
+} from "../../../apis/running";
+import { PostRunningRecordRequest } from "../../../apis/running/dto";
+import { CustomAlert } from "../../../libs/sweetAlert/alert";
 
 const RunningTab = () => {
   const [positions, setPositions] = useState<PositionType[]>([
@@ -19,77 +23,119 @@ const RunningTab = () => {
     "CENTER",
   ]);
   const navigate = useNavigate();
-  const [path, setPath] = useState<Position[]>([]);
-  const [runningInfo, setRunningInfo] = useState<{
-    distance: number;
-    kcal: number;
-    pace: number;
-    avgSpeed: number;
-  }>({
-    distance: 0,
-    kcal: 0,
-    pace: 0,
-    avgSpeed: 0,
-  });
   const [longClick, setLongClick] = useState<boolean>(false);
   const [isRunningMode, setIsRunningMode] = useState<boolean>(false);
   const [time, setTime] = useState<number>(0);
-  const [prevTime, setPrevTime] = useState<number>(0);
-  const addCurPosition = useCallback(() => {
-    navigator.geolocation.getCurrentPosition(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ({ coords: { latitude, longitude } }: any) => {
-        const curPosition = { latitude, longitude };
-        setPath((prev) => [...prev, curPosition]);
+  const { data: currentRecord } = useQuery({
+    queryKey: runningKeys.current(),
+    queryFn: () => getCurrentRunningRecord(),
+  });
+  const queryClient = new QueryClient();
 
-        const distance = haversineDistance(path[path.length - 1], curPosition);
-        if (path.length <= 0 || distance === 0) return;
+  const { data: postRunningRecordRes, mutate: postRunningRecordMutate } =
+    useMutation({
+      mutationFn: (runningStatus: PostRunningRecordRequest) =>
+        postRunningRecord(runningStatus),
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: runningKeys.current() });
+      },
+    });
 
-        const kcal = getKcal(
-          70,
-          distance / (time - prevTime) / 3600,
-          time - prevTime
-        );
-        setRunningInfo((prev) => ({
-          distance: prev.distance + distance,
-          kcal: prev.kcal + kcal,
-          avgSpeed:
-            (prev.avgSpeed * (path.length - 1) + distance / (time - prevTime)) /
-            path.length,
-          pace:
-            (prev.pace * (path.length - 1) +
-              1 / distance / ((time - prevTime) / 3600)) /
-            path.length,
-        }));
-        setPrevTime(time);
-        haversineDistance(path[0], curPosition);
-      }
+  useEffect(() => {
+    if (!currentRecord) return;
+    setTime(
+      currentRecord.runTime.hour * 3600 +
+        currentRecord.runTime.min * 60 +
+        currentRecord.runTime.sec
     );
-  }, [path, prevTime]);
+  }, [currentRecord]);
+
+  const saveCurrentRecord = useCallback(
+    async (isEnd: boolean) => {
+      return navigator.geolocation.getCurrentPosition(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ({ coords: { latitude, longitude } }: any) => {
+          if (!currentRecord) {
+            postRunningRecordMutate({
+              latitude,
+              longitude,
+              runTime: time,
+              runDistance: 0,
+              calories: 0,
+              avgPace: {
+                min: 0,
+                sec: 0,
+              },
+              isEnd: isEnd,
+            });
+            return;
+          } //처음시작 로직
+
+          const distance = haversineDistance(
+            {
+              latitude: currentRecord?.latitude,
+              longitude: currentRecord?.longitude,
+            },
+            { latitude, longitude }
+          );
+
+          if (distance === 0) return;
+
+          postRunningRecordMutate({
+            latitude,
+            longitude,
+            runTime: time,
+            runDistance: currentRecord?.runDistance + distance,
+            calories: getKcal(
+              70,
+              (currentRecord?.runDistance + distance) / time / 3600,
+              time
+            ), // TODO 몸무게 값 조정
+            avgPace: {
+              min: 0,
+              sec: 0,
+            },
+            isEnd: isEnd,
+          });
+        }
+      );
+    },
+    [currentRecord, postRunningRecordMutate]
+  );
 
   useEffect(() => {
     const timer = setInterval(() => {
-      addCurPosition();
+      if (!isRunningMode) return;
+      saveCurrentRecord(false);
     }, 5000);
 
     return () => {
       clearInterval(timer);
     };
-  }, [addCurPosition]);
+  }, [isRunningMode, saveCurrentRecord]);
 
   useEffect(() => {
     const timer = setInterval(() => {
+      if (!isRunningMode) return;
       setTime((prev) => prev + 1);
     }, 1000);
 
     return () => {
       clearInterval(timer);
     };
-  }, []);
+  }, [isRunningMode]);
 
   const bind = useLongPress(
     () => {
-      navigate("/running-complete");
+      if (!currentRecord) {
+        CustomAlert.fire({ title: "운동 기록이 없습니다." });
+        return;
+      }
+      saveCurrentRecord(true).then(() => {
+        navigate("/running-complete", {
+          state: { recordId: postRunningRecordRes?.id },
+        });
+      });
     },
     {
       onStart: () => setLongClick(true),
@@ -98,23 +144,24 @@ const RunningTab = () => {
       threshold: 1000,
     }
   );
+
   return (
     <>
       <section className={styles.status_section}>
         <Circle
-          content={`${Math.round(runningInfo.pace) / 60}'${
-            Math.round(runningInfo.pace) % 60
+          content={`${currentRecord?.avgPace.min ?? 0}'${
+            currentRecord?.avgPace.sec ?? 0
           }''/KM`}
           position={positions[0]}
           description="평균페이스"
         />
         <Circle
-          content={`${runningInfo.kcal.toFixed(0)}kcal`}
+          content={`${currentRecord?.calories.toFixed(0) ?? 0}kcal`}
           position={positions[1]}
           description="칼로리"
         />
         <Circle
-          content={`${runningInfo.distance.toFixed(2)}km`}
+          content={`${currentRecord?.runDistance.toFixed(2) ?? 0}km`}
           position={positions[2]}
           description="이동한 거리"
         />
