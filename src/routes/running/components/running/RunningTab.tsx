@@ -1,20 +1,20 @@
-import Button from "../../../components/common/Button";
+import Button from "../../../../components/common/Button";
 import Circle, { PositionType } from "./Circle";
 import styles from "./RunningTab.module.scss";
-import ArrowLeftIcon from "../../../assets/icons/expandLeft.svg?react";
-import ArrowRightIcon from "../../../assets/icons/expandRight.svg?react";
+import ArrowLeftIcon from "../../../../assets/icons/expandLeft.svg?react";
+import ArrowRightIcon from "../../../../assets/icons/expandRight.svg?react";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLongPress } from "use-long-press";
-import { getKcal, haversineDistance } from "../../../utils/runningUtils";
+import { getKcal, haversineDistance } from "../../../../utils/runningUtils";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
-import { runningKeys } from "../../../libs/tanstack/queryKeys";
+import { runningKeys } from "../../../../libs/tanstack/queryKeys";
 import {
   getCurrentRunningRecord,
   postRunningRecord,
-} from "../../../apis/running";
-import { PostRunningRecordRequest } from "../../../apis/running/dto";
-import { CustomAlert } from "../../../libs/sweetAlert/alert";
+} from "../../../../apis/running";
+import { PostRunningRecordRequest } from "../../../../apis/running/dto";
+import { CustomAlert } from "../../../../libs/sweetAlert/alert";
 
 const RunningTab = () => {
   const [positions, setPositions] = useState<PositionType[]>([
