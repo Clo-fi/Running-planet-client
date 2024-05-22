@@ -1,0 +1,105 @@
+.create__container{
+  width: 100dvw;
+  max-width: 768px;
+  height: 100dvh;
+  background: white;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // justify-content: space-between;
+}
+
+.create__top{
+  position: relative;
+  width: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  p{
+    font-size: 20px;
+    font-weight: 700;
+  }
+}
+.create__backspace{
+  position: absolute;
+  left: 5%;
+  width: 25px;
+  cursor: pointer;
+}
+
+.create__form{
+  margin-top: 10px;
+  width: 90%;
+  min-height: 130px;
+  display: flex;
+
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  span{
+    width:90%;
+    font-size: 10px;
+    color: gray;
+  }
+}
+
+.create__title{
+  width: inherit;
+  font-size: 22px;
+  font-weight: 700;
+}
+.create__textarea{
+  margin-top: 50px;
+  width: inherit;
+  min-height: 150px;
+  padding: 10px;
+	resize: none;
+}
+.create__input{
+  width: inherit;
+  height: 40px;
+  border-radius: 10px;
+}
+.create__radio{
+  width: inherit;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-around;
+
+  label{
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+     input{
+      margin-right: 10px;
+    }
+  }
+}
+.create__rule_container{
+  margin-top: 40px;
+  width: 80%;
+  min-height: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.create__rule_distance{
+  width: 50%;
+}
+
+.create__btn{
+  margin-top: 30px;
+  width: 80%;
+  height: 45px;
+  background: lightgray;
+  color: black;
+  border-radius: 100px;
+  cursor: pointer;
+}
+.create__btn:active{
+  background-color: rgb(161, 161, 161);
+}

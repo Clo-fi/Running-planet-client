@@ -71,11 +71,11 @@
 
 .list__action_toggle{
   position: absolute;
-  top: 100%;
-  right: 4%;
+  top: 80%;
+  right: 6%;
   z-index: 100;
-  width: 35px;
-  height: 35px;
+  width: 45px;
+  height: 45px;
   background: black;
   border-radius: 100px;
   display: flex;
@@ -95,11 +95,11 @@
 
 .list__write_toggle{
   position: absolute;
-  top: 90%;
-  right: 4%;
+  top: 70%;
+  right: 6%;
   z-index: 50;
-  width: 35px;
-  height: 35px;
+  width: 45px;
+  height: 45px;
   background: black;
   border-radius: 100px;
   display: flex;
@@ -115,11 +115,11 @@
 
 .list__chat_toggle{
   position: absolute;
-  top: 80%;
-  right: 4%;
+  top: 60%;
+  right: 6%;
   // z-index: 100;
-  width: 35px;
-  height: 35px;
+  width: 45px;
+  height: 45px;
   background: black;
   border-radius: 100px;
   padding-top: 2px;
@@ -135,10 +135,10 @@
 }
 @keyframes editMove {
   0% {
-    top: 100%;
+    top: 80%;
   }
   100% {
-    top: 90%;
+    top: 70%;
   }
 }
 .list__edit_move {
@@ -146,10 +146,10 @@
 }
 @keyframes sendMove {
   0% {
-    top: 90%;
+    top: 70%;
   }
   100% {
-    top: 80%;
+    top: 60%;
   }
 }
 

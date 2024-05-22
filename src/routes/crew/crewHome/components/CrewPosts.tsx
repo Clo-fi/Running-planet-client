@@ -5,8 +5,11 @@ import useMeasure from 'react-use-measure';
 
 import styles from './CrewPosts.module.scss';
 import PostList from './post/PostList';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const CrewPosts = ({ viewport = '100dvh' }: { viewport: string }) => {
+  const { crewId } = useParams();
+  const navigate = useNavigate();
   const [isOpened, setIsOpened] = useState<boolean>(false);
   // 위에는 바텀시트 | 밑에는 토글 애니메이션
   const [isToggleClicked, setIsToggleClicked] = useState<boolean>(false);
@@ -96,7 +99,7 @@ const CrewPosts = ({ viewport = '100dvh' }: { viewport: string }) => {
               </div>
               {isToggleClicked && (
                 <div className={`${styles.list__write_toggle} ${styles.list__edit_move}`}>
-                  <img src="/src/assets/icons/Edit_white.png" alt="plusIcons" />
+                  <img src="/src/assets/icons/Edit_white.png" alt="plusIcons" onClick={() => navigate(`/crew/${crewId}/board/write`)} />
                 </div>
               )}
               {toggleEvent && (
