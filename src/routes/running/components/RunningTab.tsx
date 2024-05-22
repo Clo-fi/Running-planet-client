@@ -14,6 +14,7 @@ import {
   postRunningRecord,
 } from "../../../apis/running";
 import { PostRunningRecordRequest } from "../../../apis/running/dto";
+import { CustomAlert } from "../../../libs/sweetAlert/alert";
 
 const RunningTab = () => {
   const [positions, setPositions] = useState<PositionType[]>([
@@ -126,6 +127,10 @@ const RunningTab = () => {
 
   const bind = useLongPress(
     () => {
+      if (!currentRecord) {
+        CustomAlert.fire({ title: "운동 기록이 없습니다." });
+        return;
+      }
       saveCurrentRecord(true).then(() => {
         navigate("/running-complete", {
           state: { recordId: postRunningRecordRes?.id },
