@@ -3,10 +3,26 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 0.3rem;
 }
 
 .profile {
   width: 100%;
   aspect-ratio: 1;
   background-color: ghostwhite;
+}
+
+.info {
+  display: flex;
+  height: 1.2rem;
+  align-items: center;
+  gap: 1rem;
+}
+
+.status {
+  height: 100%;
+  background-color: rgb(101, 237, 164);
+  border-radius: 50%;
+  align-self: stretch;
+  aspect-ratio: 1 / 1;
 }

@@ -4,7 +4,12 @@ const Member = () => {
   return (
     <div className={styles.box}>
       <div className={styles.profile}></div>
-      <div className={styles.nickname}>1h 03m</div>
+      <div className={styles.info}>
+        <div className={styles.status} /> 1h 03m
+      </div>
+      {
+        //TODO 닉네임 등
+      }
     </div>
   );
 };
