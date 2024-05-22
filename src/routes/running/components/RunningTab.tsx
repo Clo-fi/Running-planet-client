@@ -99,18 +99,19 @@ const RunningTab = () => {
         }
       );
     },
-    [currentRecord, postRunningRecordMutate, time]
+    [currentRecord, postRunningRecordMutate]
   );
 
   useEffect(() => {
     const timer = setInterval(() => {
+      if (!isRunningMode) return;
       saveCurrentRecord(false);
     }, 5000);
 
     return () => {
       clearInterval(timer);
     };
-  }, [saveCurrentRecord]);
+  }, [isRunningMode, saveCurrentRecord]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -126,8 +127,9 @@ const RunningTab = () => {
   const bind = useLongPress(
     () => {
       saveCurrentRecord(true).then(() => {
-        console.log(postRunningRecordRes?.id); //TODO recordId 넘기기
-        navigate("/running-complete");
+        navigate("/running-complete", {
+          state: { recordId: postRunningRecordRes?.id },
+        });
       });
     },
     {
@@ -142,17 +144,19 @@ const RunningTab = () => {
     <>
       <section className={styles.status_section}>
         <Circle
-          content={`${currentRecord?.avgPace.min}'${currentRecord?.avgPace.sec}''/KM`}
+          content={`${currentRecord?.avgPace.min ?? 0}'${
+            currentRecord?.avgPace.sec ?? 0
+          }''/KM`}
           position={positions[0]}
           description="평균페이스"
         />
         <Circle
-          content={`${currentRecord?.calories.toFixed(0)}kcal`}
+          content={`${currentRecord?.calories.toFixed(0) ?? 0}kcal`}
           position={positions[1]}
           description="칼로리"
         />
         <Circle
-          content={`${currentRecord?.runDistance.toFixed(2)}km`}
+          content={`${currentRecord?.runDistance.toFixed(2) ?? 0}km`}
           position={positions[2]}
           description="이동한 거리"
         />
