@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './ExpectedPost.module.scss';
+import styles from '../../postDetail/components/Detail.module.scss';
 
 interface Props {
   title: string;
@@ -10,27 +10,38 @@ interface Props {
 }
 
 const ExpectedPost: React.FC<Props> = ({ imgList, handleRemoveImage, title, content }) => {
-  return (
+  // 제목이 비어 있는 경우 대체 텍스트 설정
+  const displayTitle = title.trim() !== '' ? title : '예시 제목';
+  // 콘텐츠가 비어 있는 경우 대체 텍스트 설정
+  const displayContent = content.trim() !== '' ? content : '예시 콘텐츠';
 
-    <div className={styles.container}>
-      {title}
-      {content}
-      {imgList.map((file, index) => (
-        <div key={index} className={styles.image_container}>
-          <img
-            src={URL.createObjectURL(file)}
-            alt={`preview ${index}`}
-            style={{ width: '100px', height: '100px' }}
-          />
-          <button
-            type="button"
-            onClick={() => handleRemoveImage(index)}
-            className={styles.remove_button}
-          >
-            취소
-          </button>
-        </div>
-      ))}
+  return (
+    <div className={styles.detail__container}>
+      <div className={styles.detail__backspace}>
+        <img src='/src/assets/icons/Expand_left.png' alt='backSpaceImg' />
+      </div>
+      <div className={styles.detail__content_container}>
+        <p className={styles.detail__title}>{displayTitle} <span>유저 닉네임</span></p>
+        {imgList.map((file, index) => (
+          <div key={index} className={styles.image_container}>
+            <img
+              src={URL.createObjectURL(file)}
+              alt={`preview ${index}`}
+              style={{ width: '100px', height: '100px' }}
+            />
+            <button
+              type="button"
+              onClick={() => handleRemoveImage(index)}
+              className={styles.remove_button}
+            >
+              취소
+            </button>
+          </div>
+        ))}
+        <span>
+          {displayContent}
+        </span>
+      </div>
     </div>
   );
 }

@@ -18,12 +18,16 @@ const CrewSearchPage = () => {
     queryFn: fetchCrewList
   });
 
-  const [searchKeyword, setSearchKeyword] = useState<string>('');
+  const [selectedState, setSelectedState] = useState('ALL');
+  const [searchCrewName, setSearchCrewName] = useState('');
 
-  const handleSearch = (keyword: string) => {
-    setSearchKeyword(keyword);
-  }
+  const handleSearch = (searchCrewName: string) => {
+    setSearchCrewName(searchCrewName);
+  };
 
+  const handleStateChange = (state: string) => {
+    setSelectedState(state);
+  };
   if (error) {
     return <div>Error occurred: {error.message}</div>;
   }
@@ -31,8 +35,20 @@ const CrewSearchPage = () => {
   return (
     <div style={{ display: 'flex', alignContent: 'center', justifyContent: 'center' }}>
       <div className={styles.search__main_container}>
-        <SearchForm handleSearch={handleSearch} />
-        <CrewList data={data} searchKeyword={searchKeyword} isLoading={isLoading} isError={isError} errorMessage={error?.message} />
+        <SearchForm
+          selectedState={selectedState}
+          onStateChange={handleStateChange}
+          onSearch={handleSearch}
+        />
+        <CrewList
+          selectedState={selectedState}
+          searchedCrewName={searchCrewName}
+          data={data}
+          isLoading={isLoading}
+          isError={isError}
+          errorMessage={error?.message}
+          onSearch={handleSearch}
+        />
       </div>
 
     </div>

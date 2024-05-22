@@ -7,129 +7,92 @@
   justify-content: center;
 }
 
-
-.list__crew_selected_crew {
-  padding: 10px;
-  background-color: lightgray;
-  border: 1px solid black;
-  border-radius: 15px;
-  margin-bottom: 20px;
-}
-
 .list__container {
   overflow: auto;
   width: 100%;
 }
 
 .list__crew_container {
-  width: 100%;
-  height: 160px;
+  width: inherit;
+  height: 130px;
   margin-bottom: 20px;
   border: 1px solid black;
   border-radius: 15px;
 
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  flex-wrap: nowrap;
+  // justify-content: space-around;
   align-items: center;
   cursor: pointer;
 }
 
 .list__crew_title{
-  width: 90%;
+  width: inherit;
   margin-top: 10px;
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+
+  span{
+    width: 40px;
+    margin-left: 10px;
+    border-radius: 8px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+.list__crew_level{
+  background: lightgray;
+  font-size: 12px;
+  font-weight: 400;
+}
+.list__crew_category{
+  border: 1px solid black;
 }
 .list__crew_crewname{
   font-size: 20px;
   font-weight: bold;
 }
-.list__crew_crewleader{
-  font-size: 16px;
-}
-
-.list__crew_introduction_container{
-  width: inherit;
-  height: 80%;
-  
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
 
 .list__crew_img{
-  width: 25%;
-  max-width: 90px;
-  margin-left: 20px;
+  width: 30%;
+  max-width: 120px;
+  margin-left: 10px;
 }
-
+.list__skeleton{
+  width: 150px;
+  height: 100px;
+  margin-left: 10px;
+  background: lightgray;
+  border-radius: 100px;
+}
 .list__crew_introduction{
   height: 100%;
-  width: 70%;
-
+  width: 90%;
+  margin-left: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
-.list__crew_introduction_detail{
+
+.list__crew_content{
   font-size: 12px;
-  width: inherit;
-  margin-left: 20px;
-  
+  font-weight: 200;
 }
 
-.list__crew_introduction_category{
+.list__crew_introduction_bottom{
   width: inherit;
-  font-size: 10px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  margin-left: 20px;
+  font-size: 16px;
+  font-weight: 400;
 
-}
-.list__crew_category{
-  padding: 2px;
-  background-color: lightgray;
-  border: 1px solid black;
-  border-radius: 3px;
 }
 .list__crew_tag{
-  padding: 3px;
-  border: 1px solid black;
-  border-radius: 3px;
-
-}
-
-
-.additional_details {
-  max-height: 0;
-  height: 130px;
-  width: inherit;
-  overflow: hidden;
-  transition: all 0.5s;
-  
-  background: inherit;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.additional_details_none {
-  max-height: 800px;
-
-}
-.crew__additional_button{
-  width: 100%;
-  height: 40%;
-  background: white;
-  color: black;
-  border: 1px solid black;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  
-  font-size: 14px;
-  cursor: pointer;
+  font-size: 10px;
+  font-weight: 200;
+  margin-right: 5px;
 }
