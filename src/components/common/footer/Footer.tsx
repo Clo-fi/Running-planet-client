@@ -10,7 +10,7 @@ const Footer = () => {
   };
 
   const handleCrewbtn = () => {
-    navigate('/crew-search');
+    navigate('/crew');
   };
 
   const handleTerrabtn = () => {

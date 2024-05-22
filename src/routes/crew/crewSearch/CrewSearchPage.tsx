@@ -34,6 +34,7 @@ const CrewSearchPage = () => {
         <SearchForm handleSearch={handleSearch} />
         <CrewList data={data} searchKeyword={searchKeyword} isLoading={isLoading} isError={isError} errorMessage={error?.message} />
       </div>
+
     </div>
   )
 }
