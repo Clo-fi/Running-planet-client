@@ -1,36 +1,63 @@
+// SearchForm.tsx
 import React, { useState } from 'react'
 import styles from './SearchForm.module.scss'
+import { useNavigate } from 'react-router-dom';
+interface SearchFormProps {
+  selectedState: string;
+  onStateChange: (state: string) => void;
+  onSearch: (searchCrewName: string) => void;
+}
 
-const SearchForm = () => {
-  const [isFocused, setIsFocused] = useState<boolean>(false);
+const SearchForm: React.FC<SearchFormProps> = ({ selectedState, onStateChange, onSearch }) => {
+  const navigate = useNavigate();
+  const [searchCrewName, setSearchCrewName] = useState<string>('');
 
-  const dummyTag = [
-    { tag: '#태그1' },
-    { tag: '#태그2' },
-    { tag: '#태그3' },
-    { tag: '#태그4' },
-    { tag: '#태그5' },
-  ];
+  const handleButtonClick = (state: string) => {
+    onStateChange(state === selectedState ? 'ALL' : state);
+  };
+  const handleSearchButtonClick = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onSearch(searchCrewName);
+  };
   return (
     <div className={styles.search__container}>
-      <form className={styles.search__form}>
-        <img className={styles.search__search_icon} src="/src/assets/icons/Search.png" alt="searchIcon" />
-        <input className={styles.search__search_input}
-          type='text'
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-        />
-      </form>
-      <img src="/src/assets/icons/Filter.png" style={{ width: '25px' }} alt="filterIcon" />
-      <div className={`${styles.search__focused_container} ${isFocused ? '' : styles.search__focused_container_none}`}>
-        <p className={styles.search__recommend_text}>추천 태그</p>
-        <div className={styles.search__reacommend_tag_box}>
-          {dummyTag.map((tag, index) => (
-            <span className={styles.search__recommend_tag} key={index}>
-              {tag.tag}
-            </span>
-          ))}
+      <div className={styles.search__top}>
+        <img className={styles.search__backspace} onClick={() => navigate(-1)} src="/src/assets/icons/Expand_left.png" alt="returnBtn" />
+        <p>크루 가입</p>
+      </div>
+      <div className={styles.search__middle_container}>
+        <form className={styles.search__form} onSubmit={handleSearchButtonClick}>
+          <img className={styles.search__search_icon} src="/src/assets/icons/Search.png" alt="searchIcon" />
+          <input className={styles.search__search_input}
+            type='text'
+            placeholder='검색어를 입력해주세요.'
+            value={searchCrewName}
+            onChange={(e) => setSearchCrewName(e.target.value)}
+          />
+        </form>
+      </div>
+      <div className={styles.search__tag_container}>
+        <div className={styles.search__tag_box}>
+          <button
+            onClick={() => handleButtonClick('RUN')}
+            className={`${styles.search__tag_button} ${selectedState === 'RUN' ? styles.active : ''}`}
+          >
+            러닝
+          </button>
+          <button
+            onClick={() => handleButtonClick('DIET')}
+            className={`${styles.search__tag_button} ${selectedState === 'DIET' ? styles.active : ''}`}
+          >
+            다이어트
+          </button>
+          <button
+            onClick={() => handleButtonClick('WALK')}
+            className={`${styles.search__tag_button} ${selectedState === 'WALK' ? styles.active : ''}`}
+          >
+            산책
+          </button>
         </div>
+        <img src="/src/assets/icons/Filter.png" alt="filterImg" />
       </div>
     </div>
   )
