@@ -1,6 +1,7 @@
 import axios from "axios";
 import {
   GetCurrentRunningRecordResponse,
+  GetRecordDetailResponse,
   PostRunningRecordRequest,
 } from "./dto";
 
@@ -18,3 +19,10 @@ export const getCurrentRunningRecord =
     const { data } = await axios.get(baseurl + "record/current");
     return data;
   };
+
+export const getRecordDetail = async (
+  recordId: number
+): Promise<GetRecordDetailResponse> => {
+  const { data } = await axios.get(baseurl + `record/${recordId}`);
+  return data;
+};
