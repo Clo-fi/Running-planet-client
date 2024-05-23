@@ -3,10 +3,10 @@ os: linux
 # 폴더경로는 원하는 곳에 하시면 됩니다. 꼭  /usr/share/nginx/html/안에 들어가지 않아도 됩니다.
 files:
   - source: /
-    destination: /usr/share/nginx/html/app
+    destination: /usr/share/test
     overwrite: yes
 permissions:
-  - object: /usr/share/nginx/html/app
+  - object: /usr/share/test
     owner: root
     group: root
     mode: 755
