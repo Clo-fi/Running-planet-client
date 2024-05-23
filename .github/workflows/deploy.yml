@@ -39,4 +39,4 @@ jobs:
           --application-name Runple
           --deployment-config-name CodeDeployDefault.AllAtOnce
           --deployment-group-name runple
-          --s3-location bucket= ${{ secrets.AWS_S3_BUCKET_NAME }},key=build-fe.zip,bundleType=zip
+          --s3-location bucket=${{ secrets.AWS_S3_BUCKET_NAME }},key=build-fe.zip,bundleType=zip
