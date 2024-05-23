@@ -38,8 +38,8 @@ jobs:
         run: aws s3 cp --region ap-northeast-2 $GITHUB_SHA.zip s3://${{ secrets.AWS_S3_BUCKET_NAME }}/production/$GITHUB_SHA.zip
 
       - name: 🚀 Deploy to EC2 with CodeDeploy
-        run: aws deploy create-deployment \
-          --application-name Runple \
-          --deployment-config-name CodeDeployDefault.AllAtOnce \
-          --deployment-group-name runple \
+        run: aws deploy create-deployment
+          --application-name Runple
+          --deployment-config-name CodeDeployDefault.AllAtOnce
+          --deployment-group-name runple
           --s3-location bucket=${{ secrets.AWS_S3_BUCKET_NAME }},bundleType=zip,key=production/$GITHUB_SHA.zip
