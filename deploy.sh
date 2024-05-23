@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+#test
 echo "> FE 배포"
 
 # AWS CLI를 사용하여 S3에 업로드된 파일을 EC2로 복사합니다.
