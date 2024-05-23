@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from './Detail.module.scss';
 
 const dummyPost = {

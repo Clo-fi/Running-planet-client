@@ -35,7 +35,7 @@ const CrewPosts = ({ viewport = '100dvh' }: { viewport: string }) => {
     () => Math.min(contentBounds.height + 50, window.innerHeight - 50),
     [contentBounds.height]
   );
-  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+  const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     // if (isOpened) return;
 
     const offsetThreshold = expandedHeight;

@@ -1,5 +1,4 @@
-// CrewSearchPage.tsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styles from './CrewSearchPage.module.scss';
 import SearchForm from './components/SearchForm';
 import CrewList from './components/CrewList';
@@ -46,7 +45,7 @@ const CrewSearchPage = () => {
           data={data}
           isLoading={isLoading}
           isError={isError}
-          errorMessage={error?.message}
+          errorMessage={error}
           onSearch={handleSearch}
         />
       </div>

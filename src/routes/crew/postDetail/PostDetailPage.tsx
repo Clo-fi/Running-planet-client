@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from './PostDetailPage.module.scss';
 import Detail from './components/Detail';
 import Comment from './components/Comment';
