@@ -1,4 +1,3 @@
-import React from 'react'
 import SearchForm from '../../../../../components/common/SearchForm'
 
 import styles from './PostList.module.scss';

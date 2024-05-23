@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import styles from './CrewCreatePage.module.scss';
 import { CreateCrew, Rule } from '../../../types/crew';
 import instance from '../../../libs/api/axios';

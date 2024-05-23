@@ -1,4 +1,3 @@
-import React from 'react'
 
 import styles from './CrewHomePage.module.scss';
 import CrewIntroduction from './components/CrewIntroduction';

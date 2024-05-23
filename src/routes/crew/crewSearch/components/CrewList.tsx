@@ -7,7 +7,8 @@ interface CrewListProps {
   data?: CrewListType[] | null;
   isLoading: boolean;
   isError: boolean;
-  errorMessage?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  errorMessage: any;
   selectedState: string;
   searchedCrewName: string;
   onSearch: (searchCrewName: string) => void;
@@ -157,7 +158,7 @@ const dummyData: CrewListType[] = [
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const CrewList: React.FC<CrewListProps> = ({ data, isLoading, isError, errorMessage, selectedState, searchedCrewName, onSearch }) => {
   const [filteredCrewList, setFilteredCrewList] = useState<CrewListType[]>([]);
-
+  console.log(data, onSearch)
   useEffect(() => {
     const filteredList = dummyData.filter(crew =>
       (selectedState === 'ALL' || crew.category === selectedState) &&
@@ -178,7 +179,7 @@ const CrewList: React.FC<CrewListProps> = ({ data, isLoading, isError, errorMess
   // 추가로 크루 가입 신청을 위한 crew PK 이용하기
 
   if (isError) {
-    return <div>Error occurred: {errorMessage}</div>;
+    return <div>Error occurred: {errorMessage.message}</div>;
   }
 
   return (

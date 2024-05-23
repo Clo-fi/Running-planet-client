@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import Form from './components/Form';
 import ExpectedPost from './components/ExpectedPost';
 import { Scrollbar } from 'swiper/modules';
