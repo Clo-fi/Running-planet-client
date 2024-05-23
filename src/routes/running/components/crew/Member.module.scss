@@ -21,6 +21,14 @@
 
 .status {
   height: 100%;
+  background-color: rgb(199, 199, 199);
+  border-radius: 50%;
+  align-self: stretch;
+  aspect-ratio: 1 / 1;
+}
+
+.status_online {
+  height: 100%;
   background-color: rgb(101, 237, 164);
   border-radius: 50%;
   align-self: stretch;
