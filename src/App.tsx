@@ -17,13 +17,19 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/login" element={<Login />}></Route>
+      <Route
+        path="/login"
+        element={<Login />}
+      />
       <Route element={<LayoutWithFooter />}>
         <Route path="/home" element={<Home />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path='/crew' element={<CrewTabPage />} />
         <Route path='/crew/search' element={<CrewSearchPage />} />
         <Route path='/crew/create' element={<CrewCreatePage />} />
+        <Route path="/" element={<Home />}/>
+        <Route path="/profile" element={<Profile />} />
+        <Route path='/crew-search' element={<CrewSearchPage />} />
         <Route path='/crew/:crewId' element={<CrewHomePage />} />
         <Route path='/crew/:crewId/board/write' element={<CrewPostingPage />} />
         <Route path='/crew/:crewId/board/:boardId' element={<PostDetailPage />} />
@@ -32,8 +38,7 @@ function App() {
       <Route path="/running-complete" element={<RunningCompletePage />} />
       <Route path="/setting" element={<Setting />} />
     </Routes>
-
-  )
+  );
 }
 
 export default App;

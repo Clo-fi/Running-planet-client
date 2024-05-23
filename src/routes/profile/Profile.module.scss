@@ -7,6 +7,9 @@
 
 .profile_img {
   height: 15vh;
+  width: 15vh;
+  border: 1px solid black;
+  border-radius: 50%;
 }
 
 .edit_container {
@@ -40,7 +43,7 @@
   justify-content: space-around;
   align-items: center;
   height: 18.5vh;
-  padding: 1vh;
+  padding: 1vh 0 1vh 0;
 }
 
 .info_line {
@@ -92,10 +95,10 @@
   position: absolute;
   border: 1px solid black;
   border-radius: 1vh;
-  width: 83vw;
-  height: 12vh;
+  width: 80vw;
+  height: 10vh;
   padding: 2vw;
-  margin-top: 38.5vh;
+  margin-top: 40.5vh;
 }
 
 .section_name {

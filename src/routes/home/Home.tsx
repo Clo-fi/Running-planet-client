@@ -7,7 +7,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const handleExercise = () => {
-    navigate("/running"                                                                                                                                                                                              );
+    navigate("/running");
   }
 
   const handleProfile = () => {

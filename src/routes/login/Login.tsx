@@ -47,36 +47,8 @@ const Login: React.FC = () => {
   }, []);
 
   const handleKakaoLogin = () => {
-    if (!window.Kakao) {
-      console.error('Kakao SDK is not initialized.');
-      return;
-    }
-
-    window.Kakao.Auth.login({
-      success: function (authObj: any) {
-        console.log('Kakao login success:', authObj);
-
-        // 응답 객체의 access_token을 추출
-        const accessToken = authObj.access_token;
-        console.log('Access Token:', accessToken);
-
-        // 사용자 정보 요청
-        window.Kakao.API.request({
-          url: '/v2/user/me',
-          success: function (response: any) {
-            console.log('User info:', response);
-            // 사용자 정보 저장 또는 로그인 상태 변경
-            nav('/home'); // 로그인 성공 후 이동할 페이지
-          },
-          fail: function (error: any) {
-            console.error('Failed to get user info:', error);
-          },
-        });
-      },
-      fail: function (err: any) {
-        console.error('Kakao login failed:', err);
-      },
-    });
+    // 사용자를 카카오 OAuth 인증 페이지로 리디렉션
+    window.location.href = 'https://hlmg.me/oauth2/authorization/kakao';
   };
 
   const handleNaverLogin = () => {

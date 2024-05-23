@@ -49,7 +49,7 @@ export const StyleCalendar = styled(Calendar)`
     background-color: white;
     border-radius: 2vh;
     border: 1px solid black;
-    height: 46.25vh;
+    height: 48vh;
   }
 
   .react-calendar__month-view > div > div {
@@ -62,10 +62,11 @@ export const StyleCalendar = styled(Calendar)`
   .react-calendar__month-view__weekdays {
     text-align: center;
     font-weight: 250;
-    font-size: 1.7vh;
+    font-size: 1.5vh;
     display: flex;
     justify-content: space-evenly;
     text-transform : none;
+    margin-bottom: 1vh;
   }
 
   .react-calendar__month-view__weekdays__weekday {
@@ -102,8 +103,8 @@ export const StyleCalendar = styled(Calendar)`
     border-radius: 50%;
     border: none;
     background-color: lightgrey;
-    width: 7vw;
-    height: 7vw;
+    width: 6.5vw;
+    height: 6.5vw;
     display: flex;
     flex-direction: column;
     justify-content: center;

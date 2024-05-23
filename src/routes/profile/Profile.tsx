@@ -14,7 +14,7 @@ const Profile = () => {
     <div className={styles.profile}>
       <div className={styles.edit_container}>
         <div className={styles.profile_img_container}>
-          <img className={styles.profile_img} src="src/assets/icons/ellipse 151.png"></img>
+          <div className={styles.profile_img}></div>
         </div>
         <div className={styles.edit_btn_section}>
           <img className={styles.edit_btn} onClick={handleSettting} src="src/assets/icons/Setting_line.png"></img>
