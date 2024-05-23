@@ -1,6 +1,6 @@
 import styles from "./RunningPage.module.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
-import RunningTab from "./components/RunningTab";
+import RunningTab from "./components/running/RunningTab";
 import CrewTab from "./components/crew/CrewTab";
 import "swiper/css/pagination";
 import "swiper/css";

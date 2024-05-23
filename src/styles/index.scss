@@ -1,6 +1,20 @@
 /*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
 @import "./theme.scss";
 @import "./variable.scss"; // Blocks
+
+* {
+  -webkit-tap-highlight-color: transparent;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari, Chrome, Opera, Samsung */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Edge, IE */
+  user-select: none; /* Modern browsers */
+
+  box-sizing: border-box;
+}
+
 html,
 body,
 p,
@@ -28,6 +42,7 @@ h6 {
   padding: 0;
 }
 body {
+  margin-bottom: env(safe-area-inset-bottom);
 }
 
 // Headings
@@ -52,11 +67,15 @@ button,
 input,
 select {
   margin: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  color: black;
 }
 
 // Box sizing
 html {
-  box-sizing: border-box;
+  overscroll-behavior: none;
 }
 
 *,

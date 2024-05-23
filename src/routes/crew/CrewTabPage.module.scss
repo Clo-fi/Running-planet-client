@@ -1,0 +1,77 @@
+.crew__container{
+    width: 100dvw;
+    max-width: 768px;
+    height: 80dvh;
+    background: white;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.crew__title{
+  margin-top: 50px;
+  width: 90%;
+  font-weight: 700;
+  font-size: 24px;
+}
+.crew__select{
+  width: inherit;
+  height: 40%;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-between;
+}
+
+.crew__select_container{
+  width: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.crew__select_box{
+  width: 160px;
+  height: 160px;
+  border-radius: 10px;
+  border: 1px solid lightgray;
+  color: lightgray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  font-size: 24px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.crew__selected{
+background: lightgray;
+color: black;
+}
+.crew__summary_box{
+  width: 90%;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+.crew__summary{
+  width: 90%;
+  font-size: 16px;
+}
+
+.crew__btn{
+  width: 90%;
+  height: 50px;
+  border: 1px solid black;
+  border-radius: 100px;
+  color:black;
+  font-size: 16px
+}
+.crew__btn:active{
+  border: none;
+  transition: all 0.2s ease-in-out;
+  background: lightgray;
+}
