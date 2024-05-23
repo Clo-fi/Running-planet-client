@@ -34,3 +34,9 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           SOURCE_DIR: "dist"
+      - name: Deploy # Deploy to EC2
+        run: aws deploy create-deployment
+          --application-name Runple
+          --deployment-config-name CodeDeployDefault.AllAtOnce
+          --deployment-group-name runple
+          --s3-location bucket=runple.site,key=build-fe.zip,bundleType=zip
