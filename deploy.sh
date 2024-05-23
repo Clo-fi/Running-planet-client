@@ -11,3 +11,9 @@ sudo unzip -o /tmp/$GITHUB_SHA.zip -d /var/www/html
 
 # EC2 인스턴스에 배포된 파일의 권한을 조정합니다. (예: 웹 서버가 엑세스할 수 있도록)
 sudo chown -R www-data:www-data /var/www/html
+
+# 엔진엑스 설정 파일 수정
+sudo sed -i 's#root /usr/share/nginx/html;#root /var/www/html;#' /etc/nginx/nginx.conf
+
+# 엔진엑스 재시작
+sudo systemctl restart nginx
