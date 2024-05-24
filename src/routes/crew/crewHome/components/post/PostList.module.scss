@@ -23,18 +23,19 @@
 }
 
 .list__post_container{
-  width: inherit ;
+  width: inherit;
   height: 70%;
   overflow: auto;
-  
+  // overflow-x: hidden; 
 }
 
 .list__post{
-  width: inherit;
+  width: 98%;
   height: 120px;
   border: 1px solid black;
   border-radius: 10px;
   margin-bottom: 20px;
+  margin-left: 2px;
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-around;

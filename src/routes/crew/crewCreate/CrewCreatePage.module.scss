@@ -54,7 +54,7 @@
 .create__textarea{
   margin-top: 50px;
   width: inherit;
-  min-height: 150px;
+  min-height: 120px;
   padding: 10px;
 	resize: none;
 }
@@ -86,9 +86,12 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  align-items: center;
 }
 .create__rule_distance{
   width: 50%;
+  border: 1px solid;
+  border-radius: 10px;
 }
 
 .create__btn{
