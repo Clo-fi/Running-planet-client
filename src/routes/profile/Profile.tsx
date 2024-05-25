@@ -10,6 +10,10 @@ const Profile = () => {
     nav('/setting');
   }
 
+  const handleEdit = () => {
+    nav('/edit-profile');
+  }
+
   return (
     <div className={styles.profile}>
       <div className={styles.edit_container}>
@@ -18,7 +22,7 @@ const Profile = () => {
         </div>
         <div className={styles.edit_btn_section}>
           <img className={styles.edit_btn} onClick={handleSettting} src="src/assets/icons/Setting_line.png"></img>
-          <img className={styles.edit_btn} src="src/assets/icons/Edit.png"></img>
+          <img className={styles.edit_btn} onClick={handleEdit} src="src/assets/icons/Edit.png"></img>
         </div>
       </div>
       <div className={styles.info_container}>

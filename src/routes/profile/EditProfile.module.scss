@@ -1,0 +1,110 @@
+.edit_img_container {
+  margin-top: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile_img {
+  width: 30vw;
+  height: 30vw;
+  border: 1px solid black;
+  border-radius: 50%;
+}
+
+.img_btn {
+  width: 5vw;
+  height: 5vw;
+  border: 2px solid black;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 20vh;
+  left: 60vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.img_btn img {
+  width: 4vw;
+  height: 4vw;
+}
+
+.info_edit_container {
+  margin-top: 5vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 60vh;
+}
+
+.info_edit {
+  height: 8vh;
+  margin-bottom: 2vh;
+}
+
+.info_title {
+  font-size: 2vh;
+}
+
+.info_input_con {
+  height: 5vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 90vw;
+  margin-top: 0.5vh;
+}
+
+.info_input {
+  border: 1px solid black;
+  border-radius: 8px;
+  width: 90vw;
+  height: 5vh;
+  padding-left: 2vw;
+  padding-right: 2vw;
+  box-sizing: border-box;
+}
+
+.btn_group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90vw;
+  margin-top: 0.5vh;
+  border: 1px solid black;
+  height: 5vh;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.gender_input {
+  display: none;
+}
+
+.btn_check:checked + .gender_btn {
+  background-color: lightgray;
+  color: white;
+  border-color: #007bff;
+}
+
+.gender_btn {
+  z-index: 1;
+  height: 5vh;
+  border: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 45vw;
+  box-sizing: border-box;
+  font-size: 1.8vh;
+}

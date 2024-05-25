@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import LayoutWithFooter from "./components/layout/LayoutWithFooter";
 import Home from "./routes/home/Home";
 import Profile from "./routes/profile/Profile";
+import EditProfile from "./routes/profile/EditProfile";
 import Login from "./routes/login/Login";
 import CrewSearchPage from './routes/crew/crewSearch/CrewSearchPage';
 import RunningPage from "./routes/running/RunningPage";
@@ -12,6 +13,8 @@ import PostDetailPage from './routes/crew/postDetail/PostDetailPage';
 import Setting from "./routes/setting/Setting";
 import CrewTabPage from './routes/crew/CrewTabPage';
 import CrewCreatePage from './routes/crew/crewCreate/CrewCreatePage';
+
+
 
 function App() {
 
@@ -24,6 +27,7 @@ function App() {
       <Route element={<LayoutWithFooter />}>
         <Route path="/home" element={<Home />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
+        <Route path="/edit-profile" element={<EditProfile />}></Route>
         <Route path='/crew' element={<CrewTabPage />} />
         <Route path='/crew/search' element={<CrewSearchPage />} />
         <Route path='/crew/create' element={<CrewCreatePage />} />
