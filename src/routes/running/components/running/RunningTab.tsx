@@ -79,6 +79,21 @@ const RunningTab = () => {
             { latitude, longitude }
           );
 
+          if (
+            distance /
+              (currentRecord.runTime.hour * 3600 +
+                currentRecord.runTime.min * 60 +
+                currentRecord.runTime.sec) >
+            100
+          ) {
+            //TODO 속도 빠르다고 표시, 속도제한 어느정도로 할지
+            CustomAlert.fire({
+              title: "속도가 너무 빨라요!",
+              text: "교통수단을 이용하고 있으신가요? 직접 달리지 않으면 기록이 취소돼요.",
+            });
+            setIsRunningMode(false);
+          }
+
           if (distance === 0) return;
 
           postRunningRecordMutate({
@@ -92,8 +107,10 @@ const RunningTab = () => {
               time
             ), // TODO 몸무게 값 조정
             avgPace: {
-              min: 0,
-              sec: 0,
+              min: Math.floor(
+                time / currentRecord?.runDistance + distance / 60
+              ),
+              sec: (time / currentRecord?.runDistance + distance) % 60,
             },
             isEnd: isEnd,
           });
@@ -103,6 +120,7 @@ const RunningTab = () => {
     [currentRecord, postRunningRecordMutate]
   );
 
+  /* 주기적으로 운동 상태 저장 */
   useEffect(() => {
     const timer = setInterval(() => {
       if (!isRunningMode) return;
@@ -114,6 +132,7 @@ const RunningTab = () => {
     };
   }, [isRunningMode, saveCurrentRecord]);
 
+  /* 운동 시간 */
   useEffect(() => {
     const timer = setInterval(() => {
       if (!isRunningMode) return;
