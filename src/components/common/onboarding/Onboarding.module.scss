@@ -1,0 +1,35 @@
+.onboarding_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.onboarding_section {
+  margin-top: 3vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 7vh;
+}
+
+.back_btn {
+  position: absolute;
+  left: 5vw;
+}
+
+.back_btn_img {
+  height: 3vh;
+  width: 3vh;
+}
+
+.onboarding_title {
+  font-size: 2vh;
+}
+
+.divider {
+  width: 95vw;
+  height: 1px;
+  color: rgb(238, 238, 238);
+}

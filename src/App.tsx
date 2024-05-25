@@ -13,7 +13,7 @@ import PostDetailPage from './routes/crew/postDetail/PostDetailPage';
 import Setting from "./routes/setting/Setting";
 import CrewTabPage from './routes/crew/CrewTabPage';
 import CrewCreatePage from './routes/crew/crewCreate/CrewCreatePage';
-
+import Onboarding from "./components/common/onboarding/Onboarding";
 
 
 function App() {
@@ -25,13 +25,13 @@ function App() {
         element={<Login />}
       />
       <Route element={<LayoutWithFooter />}>
-        <Route path="/home" element={<Home />}></Route>
+        <Route path="/onboarding" element={<Onboarding />} />
+        <Route path="/" element={<Home />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/edit-profile" element={<EditProfile />}></Route>
         <Route path='/crew' element={<CrewTabPage />} />
         <Route path='/crew/search' element={<CrewSearchPage />} />
         <Route path='/crew/create' element={<CrewCreatePage />} />
-        <Route path="/" element={<Home />}/>
         <Route path="/profile" element={<Profile />} />
         <Route path='/crew-search' element={<CrewSearchPage />} />
         <Route path='/crew/:crewId' element={<CrewHomePage />} />
