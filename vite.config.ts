@@ -2,21 +2,12 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import svgr from "vite-plugin-svgr";
 import { VitePWA } from 'vite-plugin-pwa';
-import { createHtmlPlugin } from "vite-plugin-html";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
     svgr(),
-    createHtmlPlugin({
-      minify: true,
-      inject: {
-        data: {
-          kakaoApiKey: process.env.VITE_KAKAO_KEY,
-        },
-      },
-    }),
     VitePWA({
       registerType: 'autoUpdate',
       devOptions: {
@@ -36,5 +27,8 @@ export default defineConfig({
         background_color: '#ffffff',
       }
     })
-  ]
+  ],
+  optimizeDeps: {
+    include: ['styled-components']
+  }
 })

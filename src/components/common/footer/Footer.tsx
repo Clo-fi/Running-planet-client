@@ -6,7 +6,7 @@ const Footer = () => {
   const navigate = useNavigate();
 
   const handleHomebtn = () => {
-    navigate('/home');
+    navigate('/');
   };
 
   const handleCrewbtn = () => {
