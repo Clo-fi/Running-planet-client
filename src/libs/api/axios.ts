@@ -1,8 +1,7 @@
 import axios from 'axios';
-import { Cookies } from 'react-cookie';
 
 const instance = axios.create({
-  baseURL: `${import.meta.env.VITE_DEVELOP_SERVER_URL}/api`,
+  baseURL: `${import.meta.env.VITE_BASE_URL}/api`,
   headers: {
     "Content-Type": "application/json",
   },
@@ -14,13 +13,6 @@ instance.interceptors.request.use(
     config.headers['Access-Control-Allow-Origin'] = '*';
     config.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS';
     config.headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization';
-
-    const cookies = new Cookies(['accessToken']);
-    const accessToken = cookies.get('accessToken');
-
-    if (accessToken) {
-      config.headers["Authorization"] = `Bearer ${accessToken}`;
-    }
 
     return config;
   },
