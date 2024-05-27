@@ -57,14 +57,13 @@ const UserCalendar: React.FC = () => {
   const tileContent: CalendarProps['tileContent'] = ({ date, view }) => {
     if (view === 'month') {
       const distance = distances.find(d => d.day === date.getDate());
-      return distance ? <div style={{marginBottom : '0.5vh', display : "flex", flexDirection : "column", justifyContent : "center", alignContent : "center"}}>{distance.distance} km</div> : <div style={{marginBottom : '0.5vh', display : "flex", flexDirection : "column", justifyContent : "center", alignContent : "center"}}></div>;
+      return distance ? <div style={{ marginBottom: '0.5vh', display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center" }}>{distance.distance} km</div> : <div style={{ marginBottom: '0.5vh', display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center" }}></div>;
     }
     return null;
   };
 
   // if (isLoading) return <div>Loading...</div>;
   // if (error) return <div>Error: {error.message}</div>;
-
   return (
     <S.CalendarBox>
       <S.StyleCalendar
@@ -74,7 +73,7 @@ const UserCalendar: React.FC = () => {
         prev2Label={null}
         tileClassName="circle-tile"
         // eslint-disable-next-line
-        formatDay={(locale, date) => date.getDate().toString()}
+        formatDay={(_locale, date) => date.getDate().toString()}
         formatShortWeekday={formatShortWeekday}
         tileContent={tileContent}
       />
