@@ -17,7 +17,7 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,ico,png,svg}']
       },
       manifest: {
-        name: 'Running_Planet',
+        name: 'Running-Planet',
         short_name: 'RunPle',
         start_url: '/',
         scope: ".",
