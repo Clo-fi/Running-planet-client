@@ -29,7 +29,6 @@ function App() {
         <Route path="/" element={<Home />}></Route>
         <Route path="/profile" element={<Profile />} />
         <Route path="/edit-profile" element={<EditProfile />}></Route>
-
         <Route path='/crew' element={<CrewTabPage />} />
         <Route path='/crew/search' element={<CrewSearchPage />} />
         <Route path='/crew/create' element={<CrewCreatePage />} />
