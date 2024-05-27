@@ -64,7 +64,10 @@ const CrewCreatePage = () => {
       alert('입력을 완료해주세요.');
     }
   };
-  const prevStep = () => setStep(step - 1);
+  const prevStep = () => {
+    if (step === 1) return;
+    setStep(step - 1);
+  }
 
   const renderStep = () => {
     switch (step) {
