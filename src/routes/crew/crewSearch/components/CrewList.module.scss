@@ -8,8 +8,9 @@
 }
 
 .list__container {
-  overflow: auto;
-  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 99%;
 }
 
 .list__crew_container {
