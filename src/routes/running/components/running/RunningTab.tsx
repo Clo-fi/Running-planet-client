@@ -1,8 +1,8 @@
 import Button from "../../../../components/common/Button";
 import Circle, { PositionType } from "./Circle";
 import styles from "./RunningTab.module.scss";
-import ArrowLeftIcon from "../../../../assets/icons/expandLeft.svg?react";
-import ArrowRightIcon from "../../../../assets/icons/expandRight.svg?react";
+import ArrowLeftIcon from "/public/icons/expandLeft.svg?react";
+import ArrowRightIcon from "/public/icons/expandRight.svg?react";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLongPress } from "use-long-press";
@@ -45,8 +45,8 @@ const RunningTab = () => {
     if (!currentRecord) return;
     setTime(
       currentRecord.runTime.hour * 3600 +
-        currentRecord.runTime.min * 60 +
-        currentRecord.runTime.sec
+      currentRecord.runTime.min * 60 +
+      currentRecord.runTime.sec
     );
   }, [currentRecord]);
 
@@ -81,9 +81,9 @@ const RunningTab = () => {
 
           if (
             distance /
-              (currentRecord.runTime.hour * 3600 +
-                currentRecord.runTime.min * 60 +
-                currentRecord.runTime.sec) >
+            (currentRecord.runTime.hour * 3600 +
+              currentRecord.runTime.min * 60 +
+              currentRecord.runTime.sec) >
             100
           ) {
             //TODO 속도 빠르다고 표시, 속도제한 어느정도로 할지
@@ -168,9 +168,8 @@ const RunningTab = () => {
     <>
       <section className={styles.status_section}>
         <Circle
-          content={`${currentRecord?.avgPace.min ?? 0}'${
-            currentRecord?.avgPace.sec ?? 0
-          }''/KM`}
+          content={`${currentRecord?.avgPace.min ?? 0}'${currentRecord?.avgPace.sec ?? 0
+            }''/KM`}
           position={positions[0]}
           description="평균페이스"
         />
