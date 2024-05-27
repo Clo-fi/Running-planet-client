@@ -202,7 +202,7 @@ const CrewList: React.FC<CrewListProps> = ({ data, isLoading, isError, errorMess
             {filteredCrewList.length > 0 ? (
               filteredCrewList.map((crew, index) => (
                 <div key={index} className={styles.list__crew_container}>
-                  <img className={styles.list__crew_img} src="/src/assets/icons/earth.png" alt="" />
+                  <img className={styles.list__crew_img} src="/icons/earth.png" alt="" />
                   <div className={styles.list__crew_introduction}>
                     <div className={styles.list__crew_title}>
                       <p className={styles.list__crew_crewname}>{crew.crewName}</p>

@@ -89,22 +89,22 @@ const CrewPosts = ({ viewport = '100dvh' }: { viewport: string }) => {
           <div className={styles.posts__sheet_content_wrapper} style={{ height: '100dvh' }} ref={contentRef}>
             <div className={styles.posts__sheet_content}>
               <div className={styles.posts_sheet_state}>
-                <img src="/src/assets/icons/circle_right.png" alt="return" onClick={() => setIsOpened(false)} />
+                <img src="/icons/circle_right.png" alt="return" onClick={() => setIsOpened(false)} />
                 <p>현재 우리 크루는?</p>
               </div>
               <PostList isOpened={isOpened} />
               {/*  이 밑에는 토글 애니메이션 */}
               <div className={`${styles.list__action_toggle} ${isToggleClicked ? styles.clicked : ''}`} onClick={onToggleClick}>
-                <img src="/src/assets/icons/Add_round.png" alt="plusIcons" />
+                <img src="/icons/Add_round.png" alt="plusIcons" />
               </div>
               {isToggleClicked && (
                 <div className={`${styles.list__write_toggle} ${styles.list__edit_move}`}>
-                  <img src="/src/assets/icons/Edit_white.png" alt="plusIcons" onClick={() => navigate(`/crew/${crewId}/board/write`)} />
+                  <img src="/icons/Edit_white.png" alt="plusIcons" onClick={() => navigate(`/crew/${crewId}/board/write`)} />
                 </div>
               )}
               {toggleEvent && (
                 <div className={`${styles.list__chat_toggle} ${styles.list__send_move}`}>
-                  <img src="/src/assets/icons/Send.png" alt="plusIcons" />
+                  <img src="/icons/Send.png" alt="plusIcons" />
                 </div>
               )}
             </div>

@@ -36,7 +36,7 @@ const Form = ({
     <>
       <div className={styles.posting__main_container}>
         <div className={styles.posting__backspace}>
-          <img src="/src/assets/icons/Expand_left.png" alt="returnBtn"
+          <img src="/icons/Expand_left.png" alt="returnBtn"
             onClick={() => navigate(-1)}
           />
         </div>
@@ -55,7 +55,7 @@ const Form = ({
             className={styles.posting__img_btn}
             onClick={handleImageAdd}
           >
-            <img src="/src/assets/icons/Img_box.png" alt="upload icon" />
+            <img src="/icons/Img_box.png" alt="upload icon" />
           </button>
           <button className={styles.posting__btn} type='submit'>등록하기</button>
         </form>

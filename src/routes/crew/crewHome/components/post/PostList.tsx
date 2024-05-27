@@ -93,7 +93,7 @@ const PostList = ({ isOpened }: { isOpened: boolean }) => {
     <>
       <SearchForm img={'Filter'} />
       <div className={styles.list__announcement}>
-        <img src="/src/assets/icons/Bell_pin.png" alt="bellImg" />
+        <img src="/icons/Bell_pin.png" alt="bellImg" />
         <p>공지사항</p>
       </div>
       <div className={styles.list__post_container}>
@@ -107,11 +107,11 @@ const PostList = ({ isOpened }: { isOpened: boolean }) => {
                   <span>Loading...</span>
                   <div className={styles.list__reaction}>
                     <div>
-                      <img src="/src/assets/icons/Favorite.png" alt="" />
+                      <img src="/icons/Favorite.png" alt="" />
                       <span>0</span>
                     </div>
                     <div>
-                      <img src="/src/assets/icons/Bookmark.png" alt="" />
+                      <img src="/icons/Bookmark.png" alt="" />
                       <span>0</span>
                     </div>
                   </div>
@@ -129,11 +129,11 @@ const PostList = ({ isOpened }: { isOpened: boolean }) => {
                   <span>{post.author}</span>
                   <div className={styles.list__reaction}>
                     <div>
-                      <img src="/src/assets/icons/Favorite.png" alt="" />
+                      <img src="/icons/Favorite.png" alt="" />
                       <span>{post.likeCnt}</span>
                     </div>
                     <div>
-                      <img src="/src/assets/icons/Bookmark.png" alt="" />
+                      <img src="/icons/Bookmark.png" alt="" />
                       <span>{post.commentCnt}</span>
                     </div>
                   </div>
