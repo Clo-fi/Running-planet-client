@@ -66,17 +66,17 @@ const Profile = () => {
           <div className={styles.mission}>
             <p className={styles.mission_num}>미션 1</p>
             <p className={styles.mission_title}>200kcal 소모하기</p>
-            <img className={styles.mission_check} src="/src/assets/icons/Check_ring.png"></img>
+            <img className={styles.mission_check} src="/icons/Check_ring.png"></img>
           </div>
           <div className={styles.mission}>
             <p className={styles.mission_num}>미션 2</p>
             <p className={styles.mission_title}>3km 뛰기</p>
-            <img className={styles.mission_check} src="/src/assets/icons/Check_ring.png"></img>
+            <img className={styles.mission_check} src="/icons/Check_ring.png"></img>
           </div>
           <div className={styles.mission}>
             <p className={styles.mission_num}>미션 3</p>
             <p className={styles.mission_title}>게시글 하나 작성하기</p>
-            <img className={styles.mission_check} src="/src/assets/icons/Checked_ring.png"></img>
+            <img className={styles.mission_check} src="/icons/Checked_ring.png"></img>
           </div>
         </div>
       </div>

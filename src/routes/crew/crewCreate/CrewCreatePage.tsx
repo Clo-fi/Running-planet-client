@@ -239,7 +239,7 @@ const CrewCreatePage = () => {
     <div style={{ display: 'flex', justifyContent: 'center', alignContent: 'center' }}>
       <div className={styles.create__container}>
         <div className={styles.create__top}>
-          <img className={styles.create__backspace} onClick={prevStep} src="/src/assets/icons/Expand_left.png" alt="returnBtn" />
+          <img className={styles.create__backspace} onClick={prevStep} src="/icons/Expand_left.png" alt="returnBtn" />
           <p>크루 생성</p>
         </div>
         <div style={{ width: '80%', backgroundColor: '#D9D9D9' }}>

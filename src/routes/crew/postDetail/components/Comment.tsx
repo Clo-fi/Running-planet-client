@@ -40,7 +40,7 @@ const Comment = () => {
         dummyPost.comments.map((comment, index) => (
           <div className={styles.comment__comment_box} key={index}>
             {/* <img src={comment.authorImg} alt="authorImg" /> */}
-            <img src='/src/assets/icons/earth.png' alt="authorImg" />
+            <img src='/icons/earth.png' alt="authorImg" />
             <div className={styles.comment__comment}>
               <p className={styles.comment__author}>{comment.author}<span>{comment.createdDate}</span></p>
               <span className={styles.comment_content}>

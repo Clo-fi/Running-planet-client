@@ -22,12 +22,12 @@ const SearchForm: React.FC<SearchFormProps> = ({ selectedState, onStateChange, o
   return (
     <div className={styles.search__container}>
       <div className={styles.search__top}>
-        <img className={styles.search__backspace} onClick={() => navigate(-1)} src="/src/assets/icons/Expand_left.png" alt="returnBtn" />
+        <img className={styles.search__backspace} onClick={() => navigate(-1)} src="/icons/Expand_left.png" alt="returnBtn" />
         <p>크루 가입</p>
       </div>
       <div className={styles.search__middle_container}>
         <form className={styles.search__form} onSubmit={handleSearchButtonClick}>
-          <img className={styles.search__search_icon} src="/src/assets/icons/Search.png" alt="searchIcon" />
+          <img className={styles.search__search_icon} src="/icons/Search.png" alt="searchIcon" />
           <input className={styles.search__search_input}
             type='text'
             placeholder='검색어를 입력해주세요.'
@@ -57,7 +57,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ selectedState, onStateChange, o
             산책
           </button>
         </div>
-        <img src="/src/assets/icons/Filter.png" alt="filterImg" />
+        <img src="/icons/Filter.png" alt="filterImg" />
       </div>
     </div>
   )

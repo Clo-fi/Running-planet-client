@@ -34,7 +34,7 @@ const Detail = () => {
   return (
     <div className={styles.detail__container}>
       <div className={styles.detail__backspace}>
-        <img src='/src/assets/icons/Expand_left.png' alt='backSpaceImg' />
+        <img src='/icons/Expand_left.png' alt='backSpaceImg' />
       </div>
       <div className={styles.detail__content_container}>
         <p className={styles.detail__title}>{dummyPost.title} <span className={styles.detail__author}>{dummyPost.author}</span></p>
@@ -55,11 +55,11 @@ const Detail = () => {
         </span>
         <div className={styles.detail__info_like_comment}>
           <>
-            <img src="/src/assets/icons/Favorite.png" alt="" />
+            <img src="/icons/Favorite.png" alt="" />
             <span>{dummyPost.likeCnt}</span>
           </>
           <>
-            <img src="/src/assets/icons/Bookmark.png" alt="" />
+            <img src="/icons/Bookmark.png" alt="" />
             <span>{dummyPost.comments.length}</span>
           </>
         </div>
