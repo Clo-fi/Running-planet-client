@@ -8,6 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const fetchCrewList = async (): Promise<CrewListType[]> => {
   const response = await instance.get('/crew');
+  console.log(response);
   return response.data;
 }
 
@@ -16,7 +17,6 @@ const CrewSearchPage = () => {
     queryKey: ['crewList'],
     queryFn: fetchCrewList
   });
-
   const [selectedState, setSelectedState] = useState('ALL');
   const [searchCrewName, setSearchCrewName] = useState('');
 

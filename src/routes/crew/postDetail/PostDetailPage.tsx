@@ -23,9 +23,9 @@ const PostDetailPage = () => {
   // 아래 린트에러 떄문에 생성
   console.log(data, isError)
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
   if (error) {
     return <div>Error occurred: {error.message} <br /> 통신에러! 다시 시도해주세요.</div>
@@ -34,8 +34,8 @@ const PostDetailPage = () => {
   return (
     <div style={{ display: 'flex', alignContent: 'center', justifyContent: 'center' }}>
       <div className={styles.detail__container}>
-        <Detail />
-        <Comment />
+        <Detail isLoading={isLoading} data={data} />
+        <Comment isLoading={isLoading} data={data} />
       </div>
     </div>
   )

@@ -43,7 +43,7 @@ const CrewPostingPage = () => {
           <Form
             title={title} content={content}
             setTitle={setTitle} setContent={setContent}
-            fileInputRef={fileInputRef}
+            fileInputRef={fileInputRef} imgList={imgList}
             handleImageAdd={handleImageAdd} handleFileChange={handleFileChange}
           />
         </SwiperSlide>

@@ -46,10 +46,11 @@ export interface ImgItem {
 export interface CrewPost {
   title: string;
   author: string;
-  // authorId: number;
+  authorId: number;
   content: string;
   likeCnt: number;
-  writtenData: string;
+  commentCnt: number;
+  writtenDate: string;
   imgList: Image[];
   comments: Comments[];
 }
@@ -64,6 +65,6 @@ export interface Comments {
   author: string;
   content: string;
   createdDate: string;
-  isModified: boolean;
   authorImg: string;
+  // isModified: boolean;
 }
