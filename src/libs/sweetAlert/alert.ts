@@ -1,4 +1,5 @@
 import Swal, { SweetAlertOptions } from "sweetalert2";
+import './alert.scss'
 
 export const CustomAlert = {
   fire: ({ ...options }: SweetAlertOptions) => {
