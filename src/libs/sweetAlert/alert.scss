@@ -1,5 +1,5 @@
 .swal-popup {
-  border-radius: 40px;
+  border-radius: 20px;
 }
 
 .swal-title {
@@ -10,12 +10,14 @@
   padding: 10px;
   border-radius: 10px;
   min-width: 60px;
+  background: lightgray;
 }
 
 .swal2-confirm {
   padding: 10px;
   border-radius: 10px;
   min-width: 60px;
+  background: lightcoral;
 }
 
 .swal2-error {
@@ -25,5 +27,5 @@
 }
 
 .swal2-actions {
-  gap: 10px;
+  gap: 30px;
 }

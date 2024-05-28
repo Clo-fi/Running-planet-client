@@ -13,7 +13,7 @@ interface runningRecord {
 }
 
 const fetchUserInfo = async (): Promise<UserType> => {
-  const response = await instance.get('/profile/adsads')
+  const response = await instance.get('/profile')
   console.log(response);
   return response.data;
 }
