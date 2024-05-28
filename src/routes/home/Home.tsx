@@ -2,6 +2,9 @@ import { useNavigate } from "react-router-dom"
 import styles from "./Home.module.scss"
 import KakaoMap from "../../components/common/kakaomap/KakaoMap";
 import instance from "../../libs/api/axios";
+import { UserType } from '../../types/user';
+import { useQuery } from '@tanstack/react-query';
+import { useUserStore } from '../../stores/userStore';
 
 interface runningRecord {
   id: number;
@@ -9,27 +12,41 @@ interface runningRecord {
   day: number;
 }
 
+const fetchUserInfo = async (): Promise<UserType> => {
+  const response = await instance.get('/profile/adsads')
+  console.log(response);
+  return response.data;
+}
+
 const Home = () => {
+  const setUser = useUserStore((state) => state.setUser)
+  const { data, isError, error, isLoading } = useQuery<UserType, Error>({
+    queryKey: ['userInfo'],
+    queryFn: fetchUserInfo
+  })
 
-
+  if (data) {
+    setUser(data);
+  }
+  if (isLoading) {
+    <p>기달기달</p>
+  }
+  if (isError) {
+    <p>error: {error.message}</p>
+  }
   const navigate = useNavigate();
-
   const handleExercise = () => {
     navigate('/running');
   }
-
   const handleProfile = async () => {
     const response = await instance.get<runningRecord[]>('/record');
     console.log(response);
   }
-
-
-
   return (
     <div className={styles.home}>
       <div className={styles.copyWrite_container}>
         <p className={styles.copyWrite}>운동하기</p>
-        <img className={styles.profile_image} onClick={handleProfile} src="src/assets/icons/Ellipse 151.png" />
+        <img className={styles.profile_image} onClick={handleProfile} src="/icons/Ellipse 151.png" />
       </div>
       <div className={styles.missions_container}>
         <div className={styles.mission}>
