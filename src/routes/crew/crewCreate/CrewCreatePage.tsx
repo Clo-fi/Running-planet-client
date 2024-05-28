@@ -8,10 +8,10 @@ import Swal from "sweetalert2";
 const CrewCreatePage = () => {
   const [crewInfo, setCrewInfo] = useState<CreateCrew>({
     crewName: "",
-    limitMemberCnt: 0,
+    limitMemberCnt: 10,
     limitRunScore: 0,
     category: "",
-    tag: [],
+    tags: [],
     approvalType: "",
     introduction: "",
     rule: {
@@ -45,7 +45,7 @@ const CrewCreatePage = () => {
       case 2:
         return crewInfo.category !== '';
       case 3:
-        return crewInfo.tag.length > 0;
+        return crewInfo.tags.length > 0;
       case 4:
         return crewInfo.introduction.trim() !== '';
       case 5:
@@ -94,9 +94,9 @@ const CrewCreatePage = () => {
                   type="radio"
                   id="run"
                   name="activity"
-                  value="RUN"
+                  value="RUNNING"
                   onChange={(e) => updateCrewInfo('category', e.target.value)}
-                  checked={crewInfo.category === "RUN"}
+                  checked={crewInfo.category === "RUNNING"}
                 />
                 러닝
               </label>
@@ -118,9 +118,9 @@ const CrewCreatePage = () => {
                   type="radio"
                   id="walk"
                   name="activity"
-                  value="WALK"
+                  value="WALKING"
                   onChange={(e) => updateCrewInfo('category', e.target.value)}
-                  checked={crewInfo.category === "WALK"}
+                  checked={crewInfo.category === "WALKING"}
                 />
                 산책
               </label>
@@ -134,11 +134,11 @@ const CrewCreatePage = () => {
             <span>(#없이 띄어쓰기로 구분해주세요.)</span>
             <input
               type='text'
-              value={crewInfo.tag.join(' ').replace(/#/g, '')}
+              value={crewInfo.tags.join(' ').replace(/#/g, '')}
               className={styles.create__input}
               onChange={(e) => {
                 const tags = e.target.value.split(' ').map(tag => `#${tag}`);
-                updateCrewInfo('tag', tags);
+                updateCrewInfo('tags', tags);
               }}
               placeholder='쉬엄쉬엄 열심히 친목'
             />
@@ -216,10 +216,10 @@ const CrewCreatePage = () => {
 
   const submitHandler = async () => {
     try {
-      const updatedTag = crewInfo.tag.filter(tag => tag !== '#');
+      const updatedTag = crewInfo.tags.filter(tag => tag !== '#');
       const updatedCrewInfo = {
         ...crewInfo,
-        tag: updatedTag
+        tags: updatedTag
       };
 
       console.log(updatedCrewInfo);
