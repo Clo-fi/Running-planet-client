@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './styles/index.scss';
 import TanstackProvider from './libs/tanstack/TanstackProvider';
 import { BrowserRouter } from 'react-router-dom';
 import RootErrorBoundary from './components/RootErrorBoundary';
-
+import { CookiesProvider } from 'react-cookie';
 const Main = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
@@ -34,7 +34,8 @@ const Main = () => {
   };
 
   return (
-    <React.StrictMode>
+    // <React.StrictMode>
+    <CookiesProvider>
       <BrowserRouter>
         <RootErrorBoundary>
           <TanstackProvider>
@@ -47,7 +48,8 @@ const Main = () => {
           </TanstackProvider>
         </RootErrorBoundary>
       </BrowserRouter>
-    </React.StrictMode>
+    </CookiesProvider>
+    // </React.StrictMode>
   );
 };
 
