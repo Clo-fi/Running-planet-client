@@ -14,19 +14,22 @@ import Setting from "./routes/setting/Setting";
 import CrewTabPage from './routes/crew/CrewTabPage';
 import CrewCreatePage from './routes/crew/crewCreate/CrewCreatePage';
 import Onboarding from "./components/common/onboarding/Onboarding";
+import OauthCallback from './routes/login/OauthCallback';
+
+import useAuthStore from './stores/useAuthStore';
 
 
 function App() {
+  const { isLogined } = useAuthStore((state) => ({ isLogined: state.isLogined }));
 
   return (
     <Routes>
-      <Route
-        path="/login"
-        element={<Login />}
-      />
+      <Route path="/" element={<Login />} />
       <Route element={<LayoutWithFooter />}>
         <Route path="/onboarding" element={<Onboarding />} />
-        <Route path="/" element={<Home />}></Route>
+
+        <Route path="/home" element={isLogined ? <Home /> : <Login />} />
+        <Route path="/callback" element={<OauthCallback />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/edit-profile" element={<EditProfile />}></Route>
         <Route path='/crew' element={<CrewTabPage />} />

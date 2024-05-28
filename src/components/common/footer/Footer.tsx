@@ -1,24 +1,27 @@
+import { useUserStore } from '../../../stores/userStore';
 import styles from "./Footer.module.scss"
 import { useLocation, useNavigate } from "react-router-dom"
 
 const Footer = () => {
-
+  const user = useUserStore((state) => state.user);
   const location = useLocation();
   const navigate = useNavigate();
   const { pathname } = location;
 
   const handleHomebtn = () => {
-    navigate('/');
+    navigate('/home');
   };
 
   const handleCrewbtn = () => {
-    navigate('/crew');
+    if (user && user.myCrewId !== null) {
+      navigate(`/crew/${user.myCrewId}`)
+    } else {
+      navigate('/crew');
+    }
   };
-
   const handleTerrabtn = () => {
     navigate('/terra');
   };
-
 
   const handleRankbtn = () => {
     navigate('/rank');

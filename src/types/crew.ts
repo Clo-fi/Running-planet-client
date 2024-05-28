@@ -3,7 +3,7 @@ export interface CreateCrew {
   limitMemberCnt: number;
   limitRunScore: number;
   category: string;
-  tag: string[];
+  tags: string[];
   approvalType: string
   introduction: string;
   rule: Rule

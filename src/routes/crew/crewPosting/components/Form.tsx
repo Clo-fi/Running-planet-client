@@ -35,7 +35,7 @@ const Form = ({
 
       formData.append('createBoard', JSON.stringify(createBoard));
 
-      const response = await instance.post(`crew/${crewId}/board`, formData);
+      const response = await instance.post(`/crew/${crewId}/board`, formData);
       console.log(response);
     } catch (error) {
       console.error(error);
