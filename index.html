@@ -12,6 +12,7 @@
       name="apple-mobile-web-app-status-bar-style"
       content="black-translucent"
     />
+    <meta name="theme-color" content="#ffffff" />
     <link rel="manifest" href="/manifest.json" />
     <title>Vite + React + TS</title>
   </head>
@@ -24,5 +25,21 @@
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=%VITE_KAKAO_KEY%"
       &libraries="services"
     ></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        // Register a service worker hosted at the root of the
+        // site using the default scope.
+        navigator.serviceWorker
+          .register('/sw.js')
+          .then((registration) => {
+            console.log('Service worker registration succeeded:', registration);
+          })
+          .catch((err) => {
+            console.log('Service worker registration failed:', error);
+          });
+      } else {
+        console.log('Service workers are not supported.');
+      }
+    </script>
   </body>
 </html>
