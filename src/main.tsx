@@ -6,6 +6,7 @@ import TanstackProvider from './libs/tanstack/TanstackProvider';
 import { BrowserRouter } from 'react-router-dom';
 import RootErrorBoundary from './components/RootErrorBoundary';
 import { CookiesProvider } from 'react-cookie';
+// import PwaInductionPage from './PwaInductionPage';
 const Main = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
@@ -41,6 +42,8 @@ const Main = () => {
           <TanstackProvider>
             <App />
             {deferredPrompt && (
+              // TODO: PWA 다운안했을 시 다운 페이지 렌더링
+              // <PwaInductionPage /> 
               <button onClick={handleInstallClick}>
                 Install PWA
               </button>
