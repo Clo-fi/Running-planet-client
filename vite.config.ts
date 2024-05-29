@@ -22,7 +22,7 @@ export default defineConfig({
         start_url: '/',
         scope: ".",
         lang: 'ko-KR',
-        display: 'fullscreen',
+        display: 'standalone',
         theme_color: '#ffffff',
         background_color: '#ffffff',
         description: 'Running Planet with PWA!',
