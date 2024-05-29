@@ -17,6 +17,7 @@ import Onboarding from "./components/common/onboarding/Onboarding";
 import OauthCallback from './routes/login/OauthCallback';
 
 import useAuthStore from './stores/useAuthStore';
+import { WebSocketProvider } from './libs/stomp/SocketProvider';
 
 
 function App() {
@@ -39,8 +40,10 @@ function App() {
         <Route path='/crew/:crewId/board/write' element={<CrewPostingPage />} />
         <Route path='/crew/:crewId/board/:boardId' element={<PostDetailPage />} />
       </Route>
-      <Route path="/running" element={<RunningPage />} />
-      <Route path="/running-complete" element={<RunningCompletePage />} />
+      <Route element={<WebSocketProvider />}>
+        <Route path="/running" element={<RunningPage />} />
+        <Route path="/running-complete" element={<RunningCompletePage />} />
+      </Route>
       <Route path="/setting" element={<Setting />} />
     </Routes>
   );
