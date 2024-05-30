@@ -27,13 +27,14 @@ export interface Rule {
 // ----------------------------------------------------------------
 
 export interface CrewPostList {
+  id: number;
   title: string;
   author: string;
   writtenDate: string;
   commentCnt: number;
   likeCnt: number;
   content: string;
-  imgList: ImgItem[];
+  imageList: ImgItem[];
 }
 
 export interface ImgItem {
@@ -44,15 +45,19 @@ export interface ImgItem {
 // ----------------------------------------------------------------
 
 export interface CrewPost {
+  boardResponse: Post;
+  comments: Comments[];
+}
+
+export interface Post {
   title: string;
   author: string;
-  authorId: number;
+  id: number;
   content: string;
   likeCnt: number;
   commentCnt: number;
   writtenDate: string;
-  imgList: Image[];
-  comments: Comments[];
+  imageList: Image[];
 }
 
 export interface Image {
