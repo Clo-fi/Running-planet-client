@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import LayoutWithFooter from "./components/layout/LayoutWithFooter";
 import Home from "./routes/home/Home";
 import Profile from "./routes/profile/Profile";
@@ -29,7 +29,7 @@ function App() {
       <Route element={<LayoutWithFooter />}>
         <Route path="/onboarding" element={<Onboarding />} />
 
-        <Route path="/home" element={isLogined ? <Home /> : <Login />} />
+        <Route path="/home" element={isLogined ? <Home /> : <Navigate to='/' replace />} />
         <Route path="/callback" element={<OauthCallback />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/edit-profile" element={<EditProfile />}></Route>
