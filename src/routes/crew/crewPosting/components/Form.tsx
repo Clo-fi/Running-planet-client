@@ -23,24 +23,35 @@ const Form = ({
 }: Props) => {
   const { crewId } = useParams();
   const navigate = useNavigate();
+
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const createBoard = { title, content };
       const formData = new FormData();
 
-      imgList.forEach((file, index) => {
-        formData.append(`imgFile[${index}]`, file);
+      const createBoardBlob = new Blob([JSON.stringify({ title, content })], {
+        type: 'application/json',
+      });
+      formData.append('createBoard', createBoardBlob);
+
+      // 각 파일을 imgFile[]로 추가
+      imgList.forEach((img) => {
+        console.log('Image File:', img); // 이미지 파일이 정상적으로 추가되었는지 확인
+        formData.append('imgFile', img);
       });
 
-      formData.append('createBoard', JSON.stringify(createBoard));
-
-      const response = await instance.post(`/crew/${crewId}/board`, formData);
+      const response = await instance.post(`/crew/${crewId}/board`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       console.log(response);
+
+      navigate(`/crew/${crewId}`);
     } catch (error) {
       console.error(error);
     }
-  }
+  };
   return (
     <>
       <div className={styles.posting__main_container}>

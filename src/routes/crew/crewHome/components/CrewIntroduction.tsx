@@ -2,15 +2,18 @@ import styles from './CrewIntroduction.module.scss'
 import { CustomAlert } from '../../../../libs/sweetAlert/alert'
 import instance from '../../../../libs/api/axios'
 import { useNavigate } from 'react-router-dom';
+import { CrewDetail } from '../../../../types/crew';
 
 interface CrewProps {
-  crewId: number | null;
+  data: CrewDetail | null // null일 수 있도록 수정
 }
 
-const CrewIntroduction: React.FC<CrewProps> = ({ crewId }) => {
+const CrewIntroduction: React.FC<CrewProps> = ({ data }) => {
   const navigate = useNavigate();
-  if (crewId === null && undefined) {
+
+  if (!data || !data.crewId) {
     navigate('/home', { replace: true });
+    return null;
   }
 
   const exitCrewHandler = () => {
@@ -29,36 +32,34 @@ const CrewIntroduction: React.FC<CrewProps> = ({ crewId }) => {
           cancelButtonText: '취소'
         }).then((result) => {
           if (result.isConfirmed) {
-            instance.delete(`/crew/${crewId}`)
+            instance.delete(`/crew/${data.crewId}`)
             navigate('/home', { replace: true });
           }
         })
       }
     })
   }
+
+  // 데이터가 있을 때만 컴포넌트를 렌더링
   return (
     <div className={styles.home__main_container}>
       <div className={styles.home__title}>
-        <div className={styles.home__level}>30</div>
-        <span className={styles.home__crewname}>크루명dsadass!</span>
+        <div className={styles.home__level}>{data.crewLevel}</div>
+        <span className={styles.home__crewname}>{data.crewName}</span>
       </div>
       <div className={styles.home__introduction_container}>
         <p className={styles.home__paragraph}>크루 소개</p>
         <div className={styles.home__introduction}>
-          소개글 내용
+          {data.introduction}
           <div className={styles.home__introduction__category}>
             <span className={styles.home__category}>
-              카테고리
+              {data.category}
             </span>
-            <span className={styles.home__tag}>
-              #태그
-            </span>
-            <span className={styles.home__tag}>
-              #태그
-            </span>
-            <span className={styles.home__tag}>
-              #태그
-            </span>
+            {data.tags.map((tag, index) => (
+              <span key={index} className={styles.home_tag}>
+                {tag}
+              </span>
+            ))}
           </div>
         </div>
       </div>
@@ -79,4 +80,4 @@ const CrewIntroduction: React.FC<CrewProps> = ({ crewId }) => {
   )
 }
 
-export default CrewIntroduction
+export default CrewIntroduction;

@@ -5,6 +5,7 @@ import instance from "../../libs/api/axios";
 import { UserType } from '../../types/user';
 import { useQuery } from '@tanstack/react-query';
 import { useUserStore } from '../../stores/userStore';
+import { useEffect } from 'react';
 
 interface runningRecord {
   id: number;
@@ -19,22 +20,32 @@ const fetchUserInfo = async (): Promise<UserType> => {
 }
 
 const Home = () => {
+  const navigate = useNavigate();
+  const user = useUserStore((state) => state.user)
   const setUser = useUserStore((state) => state.setUser)
   const { data, isError, error, isLoading } = useQuery<UserType, Error>({
     queryKey: ['userInfo'],
     queryFn: fetchUserInfo
   })
 
-  if (data) {
-    setUser(data);
-  }
+  useEffect(() => {
+    if (data) {
+      setUser(data);
+      console.log(user);
+      if (!data?.gender || !data?.age || !data?.weight) {
+        console.log('test')
+        // navigate('/onboarding') 유저의 성별, 나이, 몸무게가 없을 때
+        // 온보딩 페이지로 리다이렉트 -> 여기서 상대방이 조회 할 수 없다고 안심하라는 문구랑 같이! 
+      }
+    }
+  }, [data, setUser])
+
   if (isLoading) {
-    <p>기달기달</p>
+    return <p>기달기달</p>
   }
   if (isError) {
-    <p>error: {error.message}</p>
+    return <p>error: {error.message}</p>
   }
-  const navigate = useNavigate();
   const handleExercise = () => {
     navigate('/running');
   }
@@ -42,11 +53,17 @@ const Home = () => {
     const response = await instance.get<runningRecord[]>('/record');
     console.log(response);
   }
+
+  // 유저가 null이면 로딩 상태를 표시합니다.
+  if (!user) {
+    return <p>로딩 중...</p>
+  }
+  console.log('여긴 홈까지옴')
   return (
     <div className={styles.home}>
       <div className={styles.copyWrite_container}>
         <p className={styles.copyWrite}>운동하기</p>
-        <img className={styles.profile_image} onClick={handleProfile} src="/icons/Ellipse 151.png" />
+        <img className={styles.profile_image} onClick={handleProfile} src={user.profileImg === null ? '/icons/Ellipse 151.png' : user.profileImg} alt='userImg' />
       </div>
       <div className={styles.missions_container}>
         <div className={styles.mission}>

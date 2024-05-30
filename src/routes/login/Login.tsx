@@ -48,7 +48,8 @@ const Login: React.FC = () => {
 
   const handleKakaoLogin = () => {
     // 사용자를 카카오 OAuth 인증 페이지로 리디렉션
-    window.location.href = 'https://hlmg.me/oauth2/authorization/kakao';
+    window.location.href = `${import.meta.env.VITE_BASE_URL}/oauth2/authorization/kakao`;
+    // window.location.href = `https://kd76o61o77v3jisiz98ftbca554941.krampoline.com/oauth2/authorization/kakao`;
   };
 
   const handleNaverLogin = () => {
