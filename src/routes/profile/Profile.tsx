@@ -11,7 +11,7 @@ const Profile = () => {
   }
 
   const handleEdit = () => {
-    nav('/edit-profile');
+    nav('/profile/edit');
   }
 
   return (
