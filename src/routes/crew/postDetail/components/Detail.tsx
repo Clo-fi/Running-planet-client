@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Detail.module.scss';
-import { CrewPost } from '../../../../types/crewList';
+import { Post } from '../../../../types/crewList';
+import { useNavigate } from 'react-router-dom';
 
 // const dummyPost = {
 //   "title": "글 제목입니다.",
@@ -33,52 +34,60 @@ import { CrewPost } from '../../../../types/crewList';
 //   ]
 // }
 interface DetailProps {
-  data: CrewPost | undefined;
+  data: Post | undefined;
   isLoading: boolean
 }
+
 const Detail: React.FC<DetailProps> = ({ data, isLoading }) => {
+
+  const navigate = useNavigate();
   if (isLoading) {
     return <div className={styles.detail__container}>Loading...</div>;
   }
+
+  if (!data) {
+    return <div className={styles.detail__container}>No data available.</div>;
+  }
+
   return (
     <div className={styles.detail__container}>
-      {data && (
-        <>
-          <div className={styles.detail__backspace}>
-            <img src='/icons/Expand_left.png' alt='backSpaceImg' />
-          </div>
-          <div className={styles.detail__content_container}>
-            <p className={styles.detail__title}>{data.title} <span className={styles.detail__author}>{data.author}</span></p>
-            {data.imgList && data.imgList.length > 0 && (
-              <>
-                {data.imgList.map((image, index) => (
-                  <img key={index} src={image.img} alt={`img_${index}`} />
-                ))}
-              </>
-            )}
-            <span>
-              {data.content}
-            </span>
-          </div>
-          <div className={styles.detail__info}>
-            <span>
-              {data.writtenDate}
-            </span>
-            <div className={styles.detail__info_like_comment}>
-              <>
-                <img src="/icons/Favorite.png" alt="" />
-                <span>{data.likeCnt}</span>
-              </>
-              <>
-                <img src="/icons/Bookmark.png" alt="" />
-                <span>{data.commentCnt}</span>
-              </>
-            </div>
-          </div>
-        </>
-      )}
+      <div className={styles.detail__backspace}>
+        <img src='/icons/Expand_left.png' alt='backSpaceImg' onClick={() => navigate(-1)} />
+      </div>
+      <div className={styles.detail__content_container}>
+        <p className={styles.detail__title}>{data.title} <span className={styles.detail__author}>{data.author}</span></p>
+        {data.imageList && data.imageList.length > 0 ? (
+          <>
+            {data.imageList.map((image) => (
+              <img
+                key={image.id}
+                src={`https://running-planet-s3.s3.ap-northeast-2.amazonaws.com/${image.img}`}
+                alt={`img_${image.id}`} />
+            ))}
+          </>
+        ) : (
+          <div style={{ height: '400px' }} />
+        )}
+        <span>
+          {data.content}
+        </span>
+      </div>
+      <div className={styles.detail__info}>
+        <span>
+          {data.writtenDate}
+        </span>
+        <div className={styles.detail__info_like_comment}>
+          <>
+            <img src="/icons/Favorite.png" alt="" />
+            <span>{data.likeCnt}</span>
+          </>
+          <>
+            <img src="/icons/Bookmark.png" alt="" />
+            <span>{data.commentCnt}</span>
+          </>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
-
 export default Detail

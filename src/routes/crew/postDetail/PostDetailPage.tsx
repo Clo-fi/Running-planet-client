@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { CrewPost } from '../../../types/crewList';
 import instance from '../../../libs/api/axios';
 import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 
 const PostDetailPage = () => {
   const { crewId, boardId } = useParams();
@@ -14,27 +15,26 @@ const PostDetailPage = () => {
     return response.data;
   }
 
-  console.log(crewId, boardId)
   const { data, isError, error, isLoading } = useQuery<CrewPost, Error>({
     queryKey: ['postDetail', crewId, boardId],
     queryFn: fetchPostDetail,
     enabled: !!crewId && !!boardId,
   });
-  // 아래 린트에러 떄문에 생성
-  console.log(data, isError)
 
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
+  useEffect(() => { console.log(data); }, [data])
 
-  if (error) {
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
     return <div>Error occurred: {error.message} <br /> 통신에러! 다시 시도해주세요.</div>
   }
 
   return (
     <div style={{ display: 'flex', alignContent: 'center', justifyContent: 'center' }}>
       <div className={styles.detail__container}>
-        <Detail isLoading={isLoading} data={data} />
+        <Detail isLoading={isLoading} data={data?.boardResponse} />
         <Comment isLoading={isLoading} data={data} />
       </div>
     </div>
