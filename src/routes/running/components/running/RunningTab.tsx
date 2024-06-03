@@ -108,16 +108,16 @@ const RunningTab = () => {
             ), // TODO 몸무게 값 조정
             avgPace: {
               min: Math.floor(
-                time / currentRecord?.runDistance + distance / 60
+                time / (currentRecord?.runDistance + distance) / 60
               ),
-              sec: (time / currentRecord?.runDistance + distance) % 60,
+              sec: (time / (currentRecord?.runDistance + distance)) % 60,
             },
             isEnd: isEnd,
           });
         }
       );
     },
-    [currentRecord, postRunningRecordMutate]
+    [currentRecord, postRunningRecordMutate, time]
   );
 
   /* 주기적으로 운동 상태 저장 */
@@ -146,10 +146,10 @@ const RunningTab = () => {
 
   const bind = useLongPress(
     () => {
-      if (!currentRecord) {
-        CustomAlert.fire({ title: "운동 기록이 없습니다." });
-        return;
-      }
+      // if (!currentRecord) {
+      //   CustomAlert.fire({ title: "운동 기록이 없습니다." });
+      //   return;
+      // }
       saveCurrentRecord(true).then(() => {
         navigate("/running-complete", {
           state: { recordId: postRunningRecordRes?.id },
@@ -168,18 +168,18 @@ const RunningTab = () => {
     <>
       <section className={styles.status_section}>
         <Circle
-          content={`${currentRecord?.avgPace.min ?? 0}'${currentRecord?.avgPace.sec ?? 0
+          content={`${currentRecord?.avgPace?.min ?? 0}'${currentRecord?.avgPace?.sec ?? 0
             }''/KM`}
           position={positions[0]}
           description="평균페이스"
         />
         <Circle
-          content={`${currentRecord?.calories.toFixed(0) ?? 0}kcal`}
+          content={`${currentRecord?.calories?.toFixed(0) ?? 0}kcal`}
           position={positions[1]}
           description="칼로리"
         />
         <Circle
-          content={`${currentRecord?.runDistance.toFixed(2) ?? 0}km`}
+          content={`${currentRecord?.runDistance?.toFixed(2) ?? 0}km`}
           position={positions[2]}
           description="이동한 거리"
         />
@@ -195,7 +195,7 @@ const RunningTab = () => {
         />
       </section>
       <section className={styles.time_section}>
-        {Math.floor(time / 3600)} : {Math.floor(time / 60)} : {time % 60}
+        {Math.floor(time / 3600)} : {Math.floor(time / 60) % 60} : {time % 60}
       </section>
       <section className={styles.control_section}>
         <Button
