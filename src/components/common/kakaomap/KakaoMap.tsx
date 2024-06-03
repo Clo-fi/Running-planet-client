@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from './KakaoMap.module.scss'
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import useGetLocation from '../../../libs/hooks/useGetLocation';
