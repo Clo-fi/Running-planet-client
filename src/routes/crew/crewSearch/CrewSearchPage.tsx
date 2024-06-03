@@ -46,7 +46,6 @@ const CrewSearchPage = () => {
           isLoading={isLoading}
           isError={isError}
           errorMessage={error}
-          onSearch={handleSearch}
         />
       </div>
 

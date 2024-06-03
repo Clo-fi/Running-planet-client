@@ -6,10 +6,10 @@ export interface CrewListType {
   limitMemberCnt: number;
   approvalType: string;
   limitRunScore: number;
-  tag: string[];
+  tags: string[];
   category: string;
   rule: Rule;
-  Introduction: string;
+  introduction: string;
   crewLeader: CrewLeaderType;
 }
 
