@@ -47,7 +47,7 @@ const Login: React.FC = () => {
   }, []);
 
   const handleKakaoLogin = () => {
-    window.location.href = `${import.meta.env.VITE_BASE_URL}/oauth2/authorization/kakao`;
+    window.location.href = `${import.meta.env.VITE_DEVELOP_SERVER_URL}oauth2/authorization/kakao`;
   };
 
   const handleNaverLogin = () => {
