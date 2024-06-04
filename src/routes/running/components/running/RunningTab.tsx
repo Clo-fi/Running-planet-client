@@ -15,8 +15,10 @@ import {
 } from "../../../../apis/running";
 import { PostRunningRecordRequest } from "../../../../apis/running/dto";
 import { CustomAlert } from "../../../../libs/sweetAlert/alert";
+import { useUserStore } from '../../../../stores/userStore';
 
 const RunningTab = () => {
+  const weight = useUserStore((state) => state.user?.weight) as number;
   const [positions, setPositions] = useState<PositionType[]>([
     "LEFT",
     "RIGHT",
@@ -55,6 +57,7 @@ const RunningTab = () => {
       return navigator.geolocation.getCurrentPosition(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ({ coords: { latitude, longitude } }: any) => {
+          console.log(`${latitude} ${longitude}`)
           if (!currentRecord) {
             postRunningRecordMutate({
               latitude,
@@ -94,7 +97,7 @@ const RunningTab = () => {
             setIsRunningMode(false);
           }
 
-          if (distance === 0) return;
+          // if (distance === 0) return;
 
           postRunningRecordMutate({
             latitude,
@@ -102,10 +105,10 @@ const RunningTab = () => {
             runTime: time,
             runDistance: currentRecord?.runDistance + distance,
             calories: getKcal(
-              70,
+              weight,
               (currentRecord?.runDistance + distance) / time / 3600,
               time
-            ), // TODO 몸무게 값 조정
+            ),
             avgPace: {
               min: Math.floor(
                 time / (currentRecord?.runDistance + distance) / 60
@@ -120,17 +123,24 @@ const RunningTab = () => {
     [currentRecord, postRunningRecordMutate, time]
   );
 
+  /* isRunningMode Check*/
+  useEffect(() => {
+    console.log('isRunningMode is ', isRunningMode);
+  }, [isRunningMode])
   /* 주기적으로 운동 상태 저장 */
   useEffect(() => {
+
     const timer = setInterval(() => {
       if (!isRunningMode) return;
+      console.log('saveCurrentRecord')
       saveCurrentRecord(false);
+      console.log(currentRecord);
     }, 5000);
 
     return () => {
       clearInterval(timer);
     };
-  }, [isRunningMode, saveCurrentRecord]);
+  }, [isRunningMode]);
 
   /* 운동 시간 */
   useEffect(() => {

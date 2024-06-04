@@ -42,7 +42,7 @@ export interface GetRecordDetailResponse {
     sec: number;
   };
   runDistance: number;
-  coordinates: Position[];
+  coordinateResponses: Position[];
   calories: number;
   startTime: string;
   endTime: string;
