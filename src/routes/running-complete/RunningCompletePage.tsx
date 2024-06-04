@@ -35,11 +35,11 @@ const RunningCompletePage = () => {
       const container = mapRef.current;
       const options = {
         center: new window.kakao.maps.LatLng(
-          recordDetail?.coordinates[
-            Math.floor(recordDetail.coordinates.length / 2)
+          recordDetail?.coordinateResponses[
+            Math.floor(recordDetail.coordinateResponses.length / 2)
           ].latitude,
-          recordDetail?.coordinates[
-            Math.floor(recordDetail.coordinates.length / 2)
+          recordDetail?.coordinateResponses[
+            Math.floor(recordDetail.coordinateResponses.length / 2)
           ].longitude
         ),
         level: 5,
@@ -49,10 +49,10 @@ const RunningCompletePage = () => {
       const kakaoMap = new window.kakao.maps.Map(container, options);
       setMap(kakaoMap);
     });
-  }, [recordDetail?.coordinates]);
+  }, [recordDetail?.coordinateResponses]);
 
   useEffect(() => {
-    const polyPath = recordDetail?.coordinates.map(
+    const polyPath = recordDetail?.coordinateResponses.map(
       ({ latitude, longitude }) => {
         return new window.kakao.maps.LatLng(latitude, longitude);
       }
@@ -66,7 +66,7 @@ const RunningCompletePage = () => {
       strokeStyle: "solid",
     });
     polyline.setMap(map);
-  }, [map, recordDetail?.coordinates]);
+  }, [map, recordDetail?.coordinateResponses]);
 
   return (
     <main className={styles.main}>
@@ -93,17 +93,87 @@ const RunningCompletePage = () => {
           </div>
         </section>
         <div className={styles.time}>
-          {recordDetail?.runTime.hour} : {recordDetail?.runTime.min} :
+          {recordDetail?.runTime.hour} : {recordDetail?.runTime.min} :&nbsp;
           {recordDetail?.runTime.sec}
         </div>
+        <Button value="확인" onClick={() => navigate("/home")} className={styles.btn} />
       </section>
-      <Button
+      {/* <Button
         value="확인"
         onClick={() => navigate("/home")}
         className={styles.btn}
-      />
+      /> */}
     </main>
   );
 };
 
 export default RunningCompletePage;
+
+
+// import { useEffect, useRef, useState } from "react";
+// import styles from "./RunningCompletePage.module.scss";
+// import Button from "../../components/common/Button";
+// import { useLocation, useNavigate } from "react-router-dom";
+// import { useQuery } from "@tanstack/react-query";
+// import { runningKeys } from "../../libs/tanstack/queryKeys";
+// import { getRecordDetail } from "../../apis/running";
+// import { Map } from "react-kakao-maps-sdk";
+
+// const RunningCompletePage = () => {
+//   const navigate = useNavigate();
+//   const mapRef = useRef(null);
+//   const [map, setMap] = useState<React.ReactNode>(null);
+//   const location = useLocation();
+//   const { recordId } = location.state;
+//   const { data: recordDetail } = useQuery({
+//     queryFn: () => getRecordDetail(recordId),
+//     queryKey: runningKeys.recordById(recordId),
+//   });
+
+//   useEffect(() => {
+//     if (!recordDetail || !mapRef.current) return;
+
+//     const center = {
+//       lat: recordDetail.coordinateResponses[Math.floor(recordDetail.coordinateResponses.length / 2)].latitude,
+//       lng: recordDetail.coordinateResponses[Math.floor(recordDetail.coordinateResponses.length / 2)].longitude
+//     };
+
+//     setMap(<Map center={center} style={{ width: '100%', height: '100%' }} level={5} draggable={false}></Map>);
+//   }, [recordDetail]);
+
+//   return (
+//     <main className={styles.main}>
+//       <section className={styles.wrapper}>
+//         <div id="map" ref={mapRef} className={styles.map}>
+//           {map}
+//         </div>
+//         <section className={styles.status}>
+//           <div>
+//             <div className={styles.status_content}>
+//               {recordDetail?.avgPace.min}'{recordDetail?.avgPace.sec}''km
+//             </div>
+//             <div className={styles.status_title}>평균 페이스</div>
+//           </div>
+//           <div>
+//             <div className={styles.status_content}>
+//               {recordDetail?.runDistance}
+//             </div>
+//             <div className={styles.status_title}>이동거리</div>
+//           </div>
+//           <div>
+//             <div className={styles.status_content}>
+//               {recordDetail?.calories}
+//             </div>
+//             <div className={styles.status_title}>소비 칼로리</div>
+//           </div>
+//         </section>
+//         <div className={styles.time}>
+//           {recordDetail?.runTime.hour} : {recordDetail?.runTime.min} : {recordDetail?.runTime.sec}
+//         </div>
+//         <Button value="확인" onClick={() => navigate("/home")} className={styles.btn} />
+//       </section>
+//     </main>
+//   );
+// };
+
+// export default RunningCompletePage;

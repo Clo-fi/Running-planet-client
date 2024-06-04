@@ -14,7 +14,6 @@ export const postRunningRecord = async (
 
 export const getCurrentRunningRecord =
   async (): Promise<GetCurrentRunningRecordResponse> => {
-    // const { data } = await axios.get(baseurl + "record/current");
     const { data } = await instance.get('/record/current')
     return data;
   };
@@ -22,7 +21,6 @@ export const getCurrentRunningRecord =
 export const getRecordDetail = async (
   recordId: number
 ): Promise<GetRecordDetailResponse> => {
-  // const { data } = await axios.get(baseurl + `record/${recordId}`);
   const { data } = await instance.get(`/record/${recordId}`)
   return data;
 };
