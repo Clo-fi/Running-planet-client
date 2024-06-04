@@ -104,7 +104,7 @@ const CrewPosts = ({ viewport = '100dvh' }: { viewport: string }) => {
               )}
               {toggleEvent && (
                 <div className={`${styles.list__chat_toggle} ${styles.list__send_move}`}>
-                  <img src="/icons/Send.png" alt="plusIcons" />
+                  <img src="/icons/Send.png" alt="plusIcons" onClick={() => navigate(`/crew/${crewId}/chat`)} />
                 </div>
               )}
             </div>
