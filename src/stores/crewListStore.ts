@@ -1,4 +1,4 @@
-import { CrewListType } from './../types/crewList';
+import { CrewListType } from '../types/crew/crewList';
 import { create } from 'zustand';
 
 

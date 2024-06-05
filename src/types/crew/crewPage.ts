@@ -1,22 +1,4 @@
-export interface CreateCrew {
-  crewName: string;
-  limitMemberCnt: number;
-  limitRunScore: number;
-  category: string;
-  tags: string[];
-  approvalType: string
-  introduction: string;
-  rule: Rule
-}
-
-export interface Rule {
-  weeklyRun: number;
-  distance: number;
-}
-
-// ----------------------------------------------------------------
-
-export interface CrewDetail {
+export interface CrewPage {
   crewId: number;
   crewLevel: number;
   crewName: string;
@@ -24,7 +6,7 @@ export interface CrewDetail {
   memberCnt: number;
   limitMemberCnt: number;
   approvalType: string;
-  limitRunScore: number;
+  imgFile: string;
   introduction: string;
   tags: string[];
   category: string;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './CrewList.module.scss';
-import { CrewListType } from '../../../../types/crewList';
+import { CrewListType } from '../../../../types/crew/crewList';
+import { useNavigate } from 'react-router-dom';
 
 interface CrewListProps {
   data?: CrewListType[] | null;
@@ -20,8 +21,13 @@ const CrewList: React.FC<CrewListProps> = ({
   selectedState,
   searchedCrewName,
 }) => {
+  const navigate = useNavigate();
   const [filteredCrewList, setFilteredCrewList] = useState<CrewListType[]>([]);
   const crewList = Array.isArray(data) ? data : [];
+
+  const clickHandler = (crewId: number) => {
+    navigate(`/crew/request/${crewId}`)
+  }
 
   useEffect(() => {
     const filteredList = crewList.filter(crew =>
@@ -61,7 +67,7 @@ const CrewList: React.FC<CrewListProps> = ({
       <div className={styles.list__container}>
         {filteredCrewList.length > 0 ? (
           filteredCrewList.map((crew, index) => (
-            <div key={index} className={styles.list__crew_container}>
+            <div onClick={() => clickHandler(crew.crewId)} key={index} className={styles.list__crew_container}>
               <img className={styles.list__crew_img} src="/icons/earth.png" alt="" />
               <div className={styles.list__crew_introduction}>
                 <div className={styles.list__crew_title}>

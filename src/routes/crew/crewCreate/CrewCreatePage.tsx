@@ -1,15 +1,16 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import styles from './CrewCreatePage.module.scss';
-import { CreateCrew, Rule } from '../../../types/crew';
+import { CreateCrew, Rule } from '../../../types/crew/crewCreate'
 import instance from '../../../libs/api/axios';
 import Swal from "sweetalert2";
+import { useNavigate } from 'react-router-dom';
 
 
 const CrewCreatePage = () => {
+  const imgInputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
   const [crewInfo, setCrewInfo] = useState<CreateCrew>({
     crewName: "",
-    limitMemberCnt: 10,
-    limitRunScore: 0,
     category: "",
     tags: [],
     approvalType: "",
@@ -17,8 +18,20 @@ const CrewCreatePage = () => {
     rule: {
       weeklyRun: 0,
       distance: 1,
-    },
+    }
   });
+  const [crewImg, setCrewImg] = useState<File | null>(null);
+  const handleImageAdd = () => {
+    if (imgInputRef.current) {
+      imgInputRef.current.click();
+    }
+  }
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setCrewImg(file);
+    }
+  };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const updateCrewInfo = (key: keyof CreateCrew, value: any) => {
     setCrewInfo(prevState => ({
@@ -208,11 +221,36 @@ const CrewCreatePage = () => {
             </div>
           </>
         );
+      case 7:
+        return (
+          <>
+            <p className={styles.create__title}>우리 크루의 대표 이미지는<br /> 어떤걸로 할까요?</p>
+            <input
+              type="file"
+              accept="image/*"
+              ref={imgInputRef}
+              style={{ display: 'none' }}
+              onChange={handleImageChange}
+            />
+            <div
+              className={styles.create__img}
+              onClick={handleImageAdd}
+            >
+              {crewImg && (
+                <img
+                  src={URL.createObjectURL(crewImg)}
+                  alt="crew"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '100px' }}
+                />
+              )}
+            </div>
+          </>
+        )
       default:
         return null;
     }
   };
-  const progressPercentage = (step / 6) * 100;
+  const progressPercentage = (step / 7) * 100;
 
   const submitHandler = async () => {
     try {
@@ -221,14 +259,29 @@ const CrewCreatePage = () => {
         ...crewInfo,
         tags: updatedTag
       };
+      const formData = new FormData();
 
+      const createCrewBlob = new Blob([JSON.stringify(updatedCrewInfo)], {
+        type: 'application/json'
+      });
+      formData.append('crewInfo', createCrewBlob);
+      if (crewImg) {
+        formData.append('imgFile', crewImg);
+      }
+      const response = await instance.post('/crew', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
+      });
       console.log(updatedCrewInfo);
-      await instance.post('/crew', updatedCrewInfo);
+      console.log(response);
+
       await Swal.fire({
         icon: 'success',
         title: '크루 생성 완료!',
         text: '크루가 성공적으로 생성되었습니다.',
       });
+      navigate('/home');
     } catch (error) {
       Swal.fire({
         icon: 'error',
@@ -251,8 +304,8 @@ const CrewCreatePage = () => {
         <div className={styles.create__form}>
           {renderStep()}
         </div>
-        {step !== 6 && <button className={styles.create__btn} onClick={nextStep}>다음</button>}
-        {step === 6 && <button className={styles.create__btn} onClick={submitHandler}>크루 생성</button>}
+        {step !== 7 && <button className={styles.create__btn} onClick={nextStep}>다음</button>}
+        {step === 7 && <button className={styles.create__btn} onClick={submitHandler}>크루 생성</button>}
       </div>
     </div>
 

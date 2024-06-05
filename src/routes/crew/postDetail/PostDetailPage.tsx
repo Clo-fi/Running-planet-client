@@ -2,7 +2,7 @@ import styles from './PostDetailPage.module.scss';
 import Detail from './components/Detail';
 import Comment from './components/Comment';
 import { useParams } from 'react-router-dom';
-import { CrewPost } from '../../../types/crewList';
+import { CrewPost } from '../../../types/crew/crewPost';
 import instance from '../../../libs/api/axios';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
