@@ -1,7 +1,7 @@
 import SearchForm from '../../../../../components/common/SearchForm'
 import styles from './PostList.module.scss';
 import { useNavigate, useParams } from 'react-router-dom';
-import { CrewPostList } from '../../../../../types/crewList';
+import { CrewPostList } from '../../../../../types/crew/crewPost';
 import instance from '../../../../../libs/api/axios';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
