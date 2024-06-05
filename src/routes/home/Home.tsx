@@ -7,11 +7,12 @@ import { useQuery } from '@tanstack/react-query';
 import { useUserStore } from '../../stores/userStore';
 import { useEffect } from 'react';
 
-interface runningRecord {
-  id: number;
-  runDistance: number;
-  day: number;
-}
+
+// interface runningRecord {
+//   id: number;
+//   runDistance: number;
+//   day: number;
+// }
 
 const fetchUserInfo = async (): Promise<UserType> => {
   const response = await instance.get('/profile')
@@ -50,8 +51,7 @@ const Home = () => {
     navigate('/running');
   }
   const handleProfile = async () => {
-    const response = await instance.get<runningRecord[]>('/record');
-    console.log(response);
+    navigate('/profile');
   }
 
   // 유저가 null이면 로딩 상태를 표시합니다.
