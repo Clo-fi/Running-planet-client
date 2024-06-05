@@ -1,6 +1,7 @@
 /*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
 @import "./theme.scss";
 @import "./variable.scss"; // Blocks
+@import '/public/font/Pretendard/pretendard.css';
 
 * {
   -webkit-tap-highlight-color: transparent;
@@ -43,6 +44,7 @@ h6 {
 }
 body {
   margin-bottom: env(safe-area-inset-bottom);
+  font-family: 'Pretendard', sans-serif; 
 }
 
 // Headings
