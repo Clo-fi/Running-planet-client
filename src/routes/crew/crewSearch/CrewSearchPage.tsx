@@ -3,7 +3,7 @@ import styles from './CrewSearchPage.module.scss';
 import SearchForm from './components/SearchForm';
 import CrewList from './components/CrewList';
 import instance from '../../../libs/api/axios';
-import { CrewListType } from '../../../types/crewList';
+import { CrewListType } from '../../../types/crew/crewList';
 import { useQuery } from '@tanstack/react-query';
 
 const fetchCrewList = async (): Promise<CrewListType[]> => {

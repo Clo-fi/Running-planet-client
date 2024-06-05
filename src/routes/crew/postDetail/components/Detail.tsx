@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Detail.module.scss';
-import { Post } from '../../../../types/crewList';
+import { Post } from '../../../../types/crew/crewPost';
 import { useNavigate } from 'react-router-dom';
 
 // const dummyPost = {
