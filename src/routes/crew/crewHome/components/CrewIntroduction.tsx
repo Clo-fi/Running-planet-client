@@ -3,8 +3,9 @@ import styles from './CrewIntroduction.module.scss'
 // import instance from '../../../../libs/api/axios'
 import { useNavigate } from 'react-router-dom';
 import { CrewDetail } from '../../../../types/crew/crewDetail';
-import { ResponsiveContainer, BarChart, Bar, XAxis, LabelList } from 'recharts';
 import { MissionList } from '../../../../types/user/mission';
+import parse from 'html-react-parser';
+// import MissionChart from './MissionChart';
 
 interface CrewProps {
   data: CrewDetail | null;
@@ -12,12 +13,6 @@ interface CrewProps {
 }
 const CrewIntroduction: React.FC<CrewProps> = ({ data, missions }) => {
   const navigate = useNavigate();
-
-  const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  const progressData = data?.missionProgress.map((value, index) => ({
-    name: daysOfWeek[index],
-    progress: value
-  }));
 
   if (!data || !data.crewId) {
     navigate('/home', { replace: true });
@@ -47,11 +42,15 @@ const CrewIntroduction: React.FC<CrewProps> = ({ data, missions }) => {
   //   })
   // }
 
+  const modifyNavigate = (data: CrewDetail) => {
+    navigate(`/crew/${data.crewId}/modify`);
+  }
+
   return (
     <div className={styles.home__main_container}>
       <div className={styles.home__top}>
         <img className={styles.home__top_backspace} src='/icons/Expand_left.png' alt='backSpaceImg' onClick={() => navigate(-1)} />
-        <p>{data.crewName}</p>
+        <p onClick={() => modifyNavigate(data)}>{data.crewName}</p>
       </div>
       <div className={styles.home__middle}>
         <div className={styles.home__crew_state}>
@@ -67,7 +66,8 @@ const CrewIntroduction: React.FC<CrewProps> = ({ data, missions }) => {
           </div>
         </div>
         <div className={styles.home__crew_introduction}>
-          <span>"{data.introduction}"</span>
+          <p>크루 소개글</p>
+          <span>{parse(data.introduction.replace(/\n/g, '<br>'))}</span>
         </div>
         <div className={styles.home__crew_category}>
           <p>{data.category} Crew</p>
@@ -84,14 +84,7 @@ const CrewIntroduction: React.FC<CrewProps> = ({ data, missions }) => {
       <div className={styles.home__bottom}>
         <div className={styles.home__mission_progress}>
           <p className={styles.home__mission_progress_summary}>크루 미션 진행률</p>
-          <ResponsiveContainer width='90%' height={200}>
-            <BarChart data={progressData} margin={{ top: 20 }}>
-              <XAxis dataKey="name" />
-              <Bar dataKey="progress" fill='#ffffff' barSize={30} >
-                <LabelList dataKey={'progress'} position={'top'} formatter={(value: number) => `${value}%`} />
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
+          {/* <MissionChart data={data.missionProgress} /> */}
           <div className={styles.home__mission_state}>
 
             {missions.missions.map((mission, index) => (
@@ -130,37 +123,3 @@ const CrewIntroduction: React.FC<CrewProps> = ({ data, missions }) => {
 }
 
 export default CrewIntroduction;
-
-{/* <div className={styles.home__title}>
-  <div className={styles.home__level}>{data.crewLevel}</div>
-  <span className={styles.home__crewname}>{data.crewName}</span>
-</div>
-<div className={styles.home__introduction_container}>
-  <p className={styles.home__paragraph}>크루 소개</p>
-  <div className={styles.home__introduction}>
-    {data.introduction}
-    <div className={styles.home__introduction__category}>
-      <span className={styles.home__category}>
-        {data.category}
-      </span>
-      {data.tags.map((tag, index) => (
-        <span key={index} className={styles.home_tag}>
-          {tag}
-        </span>
-      ))}
-    </div>
-  </div>
-</div>
-<div className={styles.home__introduction_container}>
-  <p className={styles.home__paragraph}>미션 달성률 ( 미션 or 룰 ) <span>5월 2주차 </span></p>
-  <div className={styles.home__paragraph}>
-    <div className={styles.home__introduction}>
-      그래프
-    </div>
-  </div>
-</div>
-<div>
-  <button className={styles.home__exit_crew} onClick={exitCrewHandler}>
-    크루 나가기
-  </button>
-</div> */}
