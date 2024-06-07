@@ -26,6 +26,7 @@
   margin-bottom: -20px;
   cursor: grab;
   user-select: none;
+  z-index: 110px;
 }
 
 .posts__handle_bar{
@@ -33,6 +34,7 @@
   height: 8px;
   background: #dfdfdf;
   margin: 0 auto;
+  z-index: 110px;
 }
 
 .posts_sheet_state{

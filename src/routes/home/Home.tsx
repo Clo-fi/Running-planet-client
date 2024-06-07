@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom"
 import styles from "./Home.module.scss"
 import KakaoMap from "../../components/common/kakaomap/KakaoMap";
 import instance from "../../libs/api/axios";
-import { UserType } from '../../types/user';
+import { UserType } from '../../types/user/user';
 import { useQuery } from '@tanstack/react-query';
 import { useUserStore } from '../../stores/userStore';
 import { useEffect } from 'react';

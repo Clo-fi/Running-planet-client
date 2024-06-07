@@ -20,6 +20,7 @@ import useAuthStore from './stores/useAuthStore';
 import { WebSocketProvider } from './libs/stomp/SocketProvider';
 import { useKakaoLoader } from 'react-kakao-maps-sdk';
 import CrewChatPage from './routes/crew/crewChatRoom/CrewChatPage';
+import CrewRequestPage from './routes/crew/crewRequest/CrewRequestPage';
 
 function App() {
   const { isLogined } = useAuthStore((state) => ({ isLogined: state.isLogined }));
@@ -41,6 +42,7 @@ function App() {
         <Route path='/crew' element={<CrewTabPage />} />
         <Route path='/crew/search' element={<CrewSearchPage />} />
         <Route path='/crew/create' element={<CrewCreatePage />} />
+        <Route path='/crew/request/:crewId' element={<CrewRequestPage />} />
         <Route path='/crew/:crewId' element={<CrewHomePage />} />
         <Route path='/crew/:crewId/board/write' element={<CrewPostingPage />} />
         <Route path='/crew/:crewId/board/:boardId' element={<PostDetailPage />} />

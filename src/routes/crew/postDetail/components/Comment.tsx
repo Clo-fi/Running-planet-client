@@ -1,4 +1,4 @@
-import { CrewPost } from '../../../../types/crewList';
+import { CrewPost } from '../../../../types/crew/crewPost';
 import styles from './Comment.module.scss';
 
 // const dummyPost = {
