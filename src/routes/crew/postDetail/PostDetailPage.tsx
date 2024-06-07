@@ -35,7 +35,7 @@ const PostDetailPage = () => {
     <div style={{ display: 'flex', alignContent: 'center', justifyContent: 'center' }}>
       <div className={styles.detail__container}>
         <Detail isLoading={isLoading} data={data?.boardResponse} />
-        <Comment isLoading={isLoading} data={data} />
+        <Comment isLoading={isLoading} data={data?.comments} />
       </div>
     </div>
   )
