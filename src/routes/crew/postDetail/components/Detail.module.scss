@@ -1,81 +1,98 @@
 .detail__container{
   width: inherit ;
-  min-height: 70dvh;
-  // background: lightcoral;
-
+  min-height: 65dvh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid black;
 }
 
-.detail__backspace{
+.detail__top{
   position: fixed;
-  background-color: white;
   width: inherit;
-  padding-top: 20px;
-  cursor: pointer;
-  img{
-    margin-left: 20px;
-    margin-bottom: 10px;
-    width: 25px;
+  height: 6dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  border-bottom: 1px solid lightgray;
+  p{
+    font-size: 20px;
+    font-weight: 700;
   }
-  border-bottom: 2px solid black;
+}
+.detail__backspace{
+  position: absolute;
+  left: 5%;
+  width: 25px;
+  cursor: pointer;
+}
+
+.detail__title{
+  font-size: 24px;
+  font-weight: bold;
+}
+.detail__edit{
+  position: absolute;
+  right: 5%;
+  width: 25px;
+  cursor: pointer;
 }
 
 .detail__content_container{
-  margin-top: 60px;
   width: 90%;
-  height: 80%;
+  margin-top: 60px;
   display: flex;
-
   flex-direction: column;
   justify-content: space-evenly;
   align-content: center;
 
-  img{
-    margin-top: 20px;
-    max-width: 90%;
-  }
   span{
     margin-top: 20px;
     font-size: 16px;
   }
 }
-
-.detail__title{
+.img{
+  width: 100%;
+  object-fit: auto;
+  
   margin-top: 20px;
-  margin-bottom: 20px;
-  font-size: 24px;
-  font-weight: bold;
+}
 
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-.detail__author{
-  font-size: 16px;
-  font-weight: 400;
-}
 .detail__info{
-  width: 90%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
+  align-items: center;  
   margin-bottom: 20px;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 700;
 }
 
 .detail__info_like_comment{
-  width: 18%;
+  width: 15%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-
   img{
-    width: 18px;
+    width: 25px;
   }
-  font-size: 12px;
+  span{
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+}
+.detail__content{
+  width: inherit;
+
+  font-size: 18px;
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
+.detail__author{
+  width: 90%;
+  height: 3dvh;
+  text-align: right;
+  font-size: 20px;
+  font-weight: 700;
+  border-bottom: 1px solid lightgray;
 }

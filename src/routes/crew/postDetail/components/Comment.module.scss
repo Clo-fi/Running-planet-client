@@ -1,21 +1,36 @@
 .comment__container{
-  width: 90%;
-  min-height: 10dvh;
+  width: 100dvw;
   
   margin: 20px;
 
   display: flex;
   flex-direction: column;
-  align-content: space-around;
-  justify-content: center;
+  align-items: center;  
+  justify-content: space-around;
 
 
 }
-
+.comment__form{
+  width: inherit;
+  display: flex;
+  justify-content: center;
+}
+.commnet__input{
+  width: 90%;
+  min-height: 50px;
+  border: 1px dashed #888888;
+  outline: none;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+.commnet__input::placeholder{
+  color:#888888;
+  padding-left: 40%;
+}
 .comment__comment_box{
   width: 90%;
   min-height: 50px;
-  margin: 10px;
+  margin-bottom: 10px;
   border: 1px solid black ;
   border-radius: 10px;
 

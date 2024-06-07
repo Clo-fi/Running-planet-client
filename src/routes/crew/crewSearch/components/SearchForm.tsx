@@ -3,22 +3,25 @@ import React, { useState } from 'react'
 import styles from './SearchForm.module.scss'
 import { useNavigate } from 'react-router-dom';
 interface SearchFormProps {
-  selectedState: string;
-  onStateChange: (state: string) => void;
+  selectedCategory: string;
+  onCategoryChange: (category: string) => void;
   onSearch: (searchCrewName: string) => void;
 }
 
-const SearchForm: React.FC<SearchFormProps> = ({ selectedState, onStateChange, onSearch }) => {
+const SearchForm: React.FC<SearchFormProps> = ({ selectedCategory, onCategoryChange, onSearch }) => {
   const navigate = useNavigate();
   const [searchCrewName, setSearchCrewName] = useState<string>('');
 
-  const handleButtonClick = (state: string) => {
-    onStateChange(state === selectedState ? 'ALL' : state);
+  const handleButtonClick = (category: string) => {
+    const newCategory = selectedCategory === category ? '' : category;
+    onCategoryChange(newCategory);
   };
+
   const handleSearchButtonClick = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSearch(searchCrewName);
   };
+
   return (
     <div className={styles.search__container}>
       <div className={styles.search__top}>
@@ -28,7 +31,8 @@ const SearchForm: React.FC<SearchFormProps> = ({ selectedState, onStateChange, o
       <div className={styles.search__middle_container}>
         <form className={styles.search__form} onSubmit={handleSearchButtonClick}>
           <img className={styles.search__search_icon} src="/icons/Search.png" alt="searchIcon" />
-          <input className={styles.search__search_input}
+          <input
+            className={styles.search__search_input}
             type='text'
             placeholder='검색어를 입력해주세요.'
             value={searchCrewName}
@@ -40,19 +44,19 @@ const SearchForm: React.FC<SearchFormProps> = ({ selectedState, onStateChange, o
         <div className={styles.search__tag_box}>
           <button
             onClick={() => handleButtonClick('RUN')}
-            className={`${styles.search__tag_button} ${selectedState === 'RUN' ? styles.active : ''}`}
+            className={`${styles.search__tag_button} ${selectedCategory === 'RUN' ? styles.active : ''}`}
           >
             러닝
           </button>
           <button
             onClick={() => handleButtonClick('DIET')}
-            className={`${styles.search__tag_button} ${selectedState === 'DIET' ? styles.active : ''}`}
+            className={`${styles.search__tag_button} ${selectedCategory === 'DIET' ? styles.active : ''}`}
           >
             다이어트
           </button>
           <button
             onClick={() => handleButtonClick('WALK')}
-            className={`${styles.search__tag_button} ${selectedState === 'WALK' ? styles.active : ''}`}
+            className={`${styles.search__tag_button} ${selectedCategory === 'WALK' ? styles.active : ''}`}
           >
             산책
           </button>
@@ -60,7 +64,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ selectedState, onStateChange, o
         <img src="/icons/Filter.png" alt="filterImg" />
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default SearchForm

@@ -1,43 +1,44 @@
-import { CrewPost } from '../../../../types/crew/crewPost';
+import { useState } from 'react';
+import { Comments } from '../../../../types/crew/crewPost';
 import styles from './Comment.module.scss';
+import instance from '../../../../libs/api/axios';
+import { useParams } from 'react-router-dom';
 
-// const dummyPost = {
-//   "title": "글 제목입니다.",
-//   "author": "몌린",
-//   "authorId": 1,
-//   "content": "글 내용입니다.",
-//   "likeCnt": 3,
-//   "writtenDate": "2024-05-08",
-//   "imgList": [
-//     {
-//       "id": 1,
-//       "img": "imgURL"
-//     },
-//     {
-//       "id": 2,
-//       "img": "imgURL"
-//     }
-//   ],
-//   "comments": [
-//     {
-//       "author": "한우혁",
-//       "authorImg": "https://sksksksk",
-//       "content": "댓글입니다",
-//       "createdDate": "2024-04-04 23:15:27"
-//     },
-//     {
-//       "author": "김용빈",
-//       "authorImg": "https://sksksksk",
-//       "content": "댓글입니다2댓글입니다2댓글입니다2댓글입니다2댓글입니다2댓글입니다2댓글입니다2댓글입니다2댓글입니다2댓글입니다2댓글입니다2댓글입니다2댓글입니다2댓글입니다2댓글입니다2댓글입니다2댓글입니다2댓글입니다2댓글입니다2",
-//       "createdDate": "2024-04-04 23:15:27"
-//     },
-//   ]
-// }
 interface CommnetProps {
-  data: CrewPost | undefined;
+  data: Comments[] | undefined;
   isLoading: boolean;
 }
 const Comment: React.FC<CommnetProps> = ({ data, isLoading }) => {
+  const { crewId, boardId } = useParams();
+  const [comment, setComment] = useState<string>('');
+
+  const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    date.setHours(date.getHours() + 9); // 9시간 추가하여 한국 시간으로 변환
+    const options: Intl.DateTimeFormatOptions = {
+      timeZone: 'Asia/Seoul',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    };
+    return date.toLocaleString('ko-KR', options);
+  };
+
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const response = await instance.post(`/crew/${crewId}/board/${boardId}/comment`, { content: comment });
+      setComment('');
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+
+  }
   if (isLoading) {
     <div className={styles.comment__container} >
       Loading...
@@ -45,14 +46,18 @@ const Comment: React.FC<CommnetProps> = ({ data, isLoading }) => {
   }
   return (
     <div className={styles.comment__container}>
+      <form className={styles.comment__form} onSubmit={handleSubmit} >
+        <input className={styles.commnet__input} placeholder='댓글 작성하기' value={comment} onChange={(e) => setComment(e.target.value)} />
+      </form>
       {data && (
-        data.comments && data.comments.length > 0 &&
-        data.comments.map((comment, index) => (
+        data && data.length > 0 &&
+        data.map((comment, index) => (
           <div className={styles.comment__comment_box} key={index}>
             {/* <img src={comment.authorImg} alt="authorImg" /> */}
-            <img src='/icons/earth.png' alt="authorImg" />
+            <img src={comment.authorImg} alt="authorImg" />
             <div className={styles.comment__comment}>
-              <p className={styles.comment__author}>{comment.author}<span>{comment.createdDate}</span></p>
+              <p className={styles.comment__author}>{comment.author}
+                <span>{formatDate(comment.createdDate)}</span></p>
               <span className={styles.comment_content}>
                 {comment.content}
               </span>
