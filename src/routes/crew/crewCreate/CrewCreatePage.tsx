@@ -144,10 +144,10 @@ const CrewCreatePage = () => {
         return (
           <>
             <p className={styles.create__title}>크루의 첫인상을<br /> 보여줄 수 있는 태그를 붙여주세요.</p>
-            <span>(#없이 띄어쓰기로 구분해주세요.)</span>
+            <span>태그는 최대 3개 까지 등록이 가능합니다. (#없이 띄어쓰기로 구분해주세요.)</span>
             <input
               type='text'
-              value={crewInfo.tags.join(' ').replace(/#/g, '')}
+              value={crewInfo.tags.slice(0, 3).join(' ').replace(/#/g, '')}
               className={styles.create__input}
               onChange={(e) => {
                 const tags = e.target.value.split(' ').map(tag => `#${tag}`);
@@ -213,7 +213,7 @@ const CrewCreatePage = () => {
                 id="weekly"
                 name="weekly"
                 onChange={(e) => updateRule('weeklyRun', Number(e.target.value))}
-                value={crewInfo.rule.weeklyRun}
+                value={crewInfo.rule.weeklyRun.toString()}
                 min="1"
                 max="7"
               />
