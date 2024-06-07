@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styles from './CrewList.module.scss';
 import { CrewListType } from '../../../../types/crew/crewList';
 import { useNavigate } from 'react-router-dom';
@@ -9,38 +9,24 @@ interface CrewListProps {
   isError: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   errorMessage: any;
-  selectedState: string;
-  searchedCrewName: string;
 }
-
 const CrewList: React.FC<CrewListProps> = ({
   data,
   isLoading,
   isError,
   errorMessage,
-  selectedState,
-  searchedCrewName,
 }) => {
   const navigate = useNavigate();
-  const [filteredCrewList, setFilteredCrewList] = useState<CrewListType[]>([]);
   const crewList = Array.isArray(data) ? data : [];
 
   const clickHandler = (crewId: number) => {
-    navigate(`/crew/request/${crewId}`)
-  }
-
-  useEffect(() => {
-    const filteredList = crewList.filter(crew =>
-      (selectedState === 'ALL' || crew.category === selectedState) &&
-      (!searchedCrewName || crew.crewName.includes(searchedCrewName))
-    );
-    setFilteredCrewList(filteredList);
-    console.log(filteredList);
-  }, [selectedState, searchedCrewName, crewList]);
+    navigate(`/crew/request/${crewId}`);
+  };
 
   if (isError) {
     return <div>Error occurred: {errorMessage.message}</div>;
   }
+
 
   if (isLoading) {
     return (
@@ -63,35 +49,60 @@ const CrewList: React.FC<CrewListProps> = ({
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.list__container}>
-        {filteredCrewList.length > 0 ? (
-          filteredCrewList.map((crew, index) => (
-            <div onClick={() => clickHandler(crew.crewId)} key={index} className={styles.list__crew_container}>
-              <img className={styles.list__crew_img} src="/icons/earth.png" alt="" />
-              <div className={styles.list__crew_introduction}>
-                <div className={styles.list__crew_title}>
-                  <p className={styles.list__crew_crewname}>{crew.crewName}</p>
-                  <span className={styles.list__crew_level}>Lv.{crew.crewLevel}</span>
-                  <span className={styles.list__crew_category}>{crew.category}</span>
+    <div className={styles.main_container}>
+      {
+        crewList.length > 0 ? (
+          crewList.map((crew, index) => (
+            <div className={styles.crew_container} key={index} onClick={() => clickHandler(crew.crewId)}>
+              <div className={styles.crew_top}>
+                <div className={styles.crew_title}>
+                  <p>{crew.crewLevel}</p>
+                  <p>{crew.crewName}</p>
                 </div>
-                <div className={styles.list__crew_content}>{crew.introduction}</div>
-                <div className={styles.list__crew_introduction_bottom}>
-                  <div>
-                    {crew.tags.slice(0, 3).map((tag, index) => (
-                      <span className={styles.list__crew_tag} key={index}>{tag} </span>
-                    ))}
-                  </div>
-                  {crew.crewLeader.nickname}
+                <div className={styles.crew_member}>
+                  <img src="/icons/CrewUser.png" alt="userImg" />
+                  <span>{crew.memberCnt}/{crew.limitMemberCnt}</span>
+                </div>
+              </div>
+              <div className={styles.crew_introduction}>
+                <img src={crew.imgFile} alt="" />
+                <div>
+
                 </div>
               </div>
             </div>
           ))
-        ) : (
-          <div>No data available.</div>
-        )}
-      </div>
+        ) :
+          (
+            <div>
+              No data available.
+            </div>
+          )}
     </div>
+    // <div className={styles.container}>
+    //   <div className={styles.list__container}>
+    //     {crewList.length > 0 ? (
+    //       crewList.map((crew, index) => (
+    //         <div onClick={() => clickHandler(crew.crewId)} key={index} className={styles.list__crew_container}>
+    //           <div className={styles.list__crew_top}>
+    //             <div>
+    //               <p>{crew.crewLevel}</p>
+    //               <p>{crew.crewName}</p>
+    //             </div>
+    //             <div className={styles.home__crew_member}>
+    //               <img src="/icons/CrewUser.png" alt="userImg" />
+    //               <span>{crew.memberCnt}/{crew.limitMemberCnt}</span>
+    //             </div>
+
+    //           </div>
+
+    //         </div>
+    //       ))
+    //     ) : (
+    //       <div>No data available.</div>
+    //     )}
+    //   </div>
+    // </div>
   );
 };
 
