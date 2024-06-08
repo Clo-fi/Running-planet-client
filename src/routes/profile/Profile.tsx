@@ -1,15 +1,16 @@
 import styles from "./Profile.module.scss";
 import UserCalendar from "../../components/common/calendar/UserCalendar";
 import { useNavigate } from "react-router-dom";
-import instance from "../../libs/api/axios";
-import { useQuery } from '@tanstack/react-query';
 import { useUserStore } from '../../stores/userStore';
 import { useEffect } from 'react';
-import { MissionsResponse } from "../../types/crew/crewMission";
+import { useMissionList } from "../crew/crewHome/components/hooks/useMissionList";
 
 const Profile = () => {
   const nav = useNavigate();
   const user = useUserStore((state) => state.user);
+
+  const { data: missionList, isError: isMissionError, isLoading: isMissionLoading } = useMissionList(user?.myCrewId as number);
+
   const handleSettting = () => {
     nav('/setting');
   }
@@ -18,18 +19,6 @@ const Profile = () => {
     nav('/profile/edit');
   }
 
-  // mission 데이터 가져오는 함수
-  const fetchMission = async (): Promise<MissionsResponse> => {
-    const response = await instance.get(`/crew/${user!.myCrewId}/mission`);
-    return response.data;
-  }
-
-  // mission 받아오는 쿼리
-  const { data, isError, error, isLoading } = useQuery<MissionsResponse, Error>({
-    queryKey: ['missionList'],
-    queryFn: fetchMission
-  });
-
   // 유저 정보 로딩 안 되어 있으면 홈으로 돌아가서 다시 받아오도록
   useEffect(() => {
     if (!user) {
@@ -37,19 +26,19 @@ const Profile = () => {
     }
   }, [user, nav]);
 
+  // 유저 정보가 없을 때
+  if (!user) {
+    return null; // 유저 정보가 없으면 아무것도 렌더링하지 않음
+  }
+
   // 로딩 중일 때
-  if (isLoading) {
+  if (isMissionLoading) {
     return <div>Loading...</div>;
   }
 
   // 에러가 발생했을 때
-  if (isError) {
-    return <div>Error: {error.message}</div>;
-  }
-
-  // 유저 정보가 없을 때
-  if (!user || !data) {
-    return null; // 유저 정보가 없으면 아무것도 렌더링하지 않음
+  if (isMissionError) {
+    return <div>Error: 미션 데이터를 불러오는 중 오류가 발생했습니다.</div>;
   }
 
   // 데이터가 성공적으로 로드되었을 때
@@ -88,7 +77,14 @@ const Profile = () => {
         </div>
         <div className={styles.info_missions}>
           <div className={styles.info_type}>나의 운동</div>
-          <div className={styles.info_mission}></div>
+          <div className={styles.info_mission}>
+            {missionList?.missions.map((mission) => (
+              <div key={mission.missionId}>
+                <div>미션 내용: {mission.missionConent}</div>
+                <div>진행 상황: {mission.missonProgress}%</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
