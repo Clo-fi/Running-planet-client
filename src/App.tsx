@@ -38,7 +38,6 @@ function App() {
         <Route path="/home" element={isLogined ? <Home /> : <Navigate to='/' replace />} />
         <Route path="/callback" element={<OauthCallback />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/profile/edit" element={<EditProfile />}></Route>
         <Route path='/crew' element={<CrewTabPage />} />
         <Route path='/crew/search' element={<CrewSearchPage />} />
         <Route path='/crew/create' element={<CrewCreatePage />} />
@@ -53,6 +52,7 @@ function App() {
         <Route path="/running-complete" element={<RunningCompletePage />} />
       </Route>
       <Route path="/setting" element={<Setting />} />
+      <Route path="/profile/edit" element={<EditProfile />}></Route>
     </Routes>
   );
 }
