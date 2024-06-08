@@ -49,7 +49,7 @@ export const StyleCalendar = styled(Calendar)`
     background-color: white;
     border-radius: 2vh;
     border: 1px solid black;
-    height: 48vh;
+    height: 35vh;
   }
 
   .react-calendar__month-view > div > div {
