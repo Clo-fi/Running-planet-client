@@ -22,3 +22,21 @@ export interface Leader {
   memberId: number;
   nickname: string;
 }
+
+// ----------------------------------------------------------------
+
+export interface CrewModify {
+  crewId: number;
+  crewLevel: number;
+  crewName: string;
+  crewLeader: Leader;
+  memberCnt: number;
+  limitMemberCnt: number;
+  approvalType: string;
+  imgFile: string | null;
+  introduction: string;
+  tags: string[];
+  category: string;
+  rule: Rule;
+  crewTotalDistance: number;
+}

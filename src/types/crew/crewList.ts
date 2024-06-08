@@ -11,6 +11,7 @@ export interface CrewListType {
   rule: Rule;
   introduction: string;
   crewLeader: CrewLeader;
+  imgFile: string;
 }
 
 export interface CrewLeader {

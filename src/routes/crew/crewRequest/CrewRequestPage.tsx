@@ -59,15 +59,27 @@ const CrewRequestPage = () => {
 
   const requestHandler = async () => {
     try {
-      const response = await instance.get(`/api/crew/${crewId}`);
-      console.log(response);
+      if (data.isRequest) {
+        const response = await instance.get(`/crew/${crewId}`);
+        console.log(response);
 
-      CustomAlert.fire({
-        title: `${data.crewName}크루에 가입 신청 했어요!!`,
-        icon: "success",
-        showConfirmButton: false,
-        timer: 1500
-      })
+        CustomAlert.fire({
+          title: `${data.crewName} 크루에 가입 신청 했어요!!`,
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500
+        })
+      } else {
+        const response = await instance.delete(`/crew/${crewId}/request`)
+        console.log(response);
+
+        CustomAlert.fire({
+          title: `${data.crewName} 크루에 신청 취소 했어요!!`,
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
     } catch (err) {
       console.error(err);
     }

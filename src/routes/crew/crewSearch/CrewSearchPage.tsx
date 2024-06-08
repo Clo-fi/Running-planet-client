@@ -6,26 +6,33 @@ import instance from '../../../libs/api/axios';
 import { CrewListType } from '../../../types/crew/crewList';
 import { useQuery } from '@tanstack/react-query';
 
-const fetchCrewList = async (): Promise<CrewListType[]> => {
-  const response = await instance.get('/crew');
+const fetchCrewList = async (crewName: string, category: string): Promise<CrewListType[]> => {
+  const response = await instance.get('/crew', {
+    params: {
+      crewName: crewName || undefined,
+      category: category || undefined,
+    }
+  });
   console.log(response);
   return response.data;
 }
 
 const CrewSearchPage = () => {
-  const { data, isError, error, isLoading } = useQuery<CrewListType[], Error>({
-    queryKey: ['crewList'],
-    queryFn: fetchCrewList
-  });
-  const [selectedState, setSelectedState] = useState('ALL');
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [searchCrewName, setSearchCrewName] = useState('');
+
+  const { data, isError, error, isLoading } = useQuery<CrewListType[], Error>({
+    queryKey: ['crewList', selectedCategory, searchCrewName],
+    queryFn: () => fetchCrewList(searchCrewName, selectedCategory),
+    enabled: true
+  });
 
   const handleSearch = (searchCrewName: string) => {
     setSearchCrewName(searchCrewName);
   };
 
-  const handleStateChange = (state: string) => {
-    setSelectedState(state);
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
   };
   if (error) {
     return <div>Error occurred: {error.message}</div>;
@@ -35,20 +42,17 @@ const CrewSearchPage = () => {
     <div style={{ display: 'flex', alignContent: 'center', justifyContent: 'center' }}>
       <div className={styles.search__main_container}>
         <SearchForm
-          selectedState={selectedState}
-          onStateChange={handleStateChange}
+          selectedCategory={selectedCategory}
+          onCategoryChange={handleCategoryChange}
           onSearch={handleSearch}
         />
         <CrewList
-          selectedState={selectedState}
-          searchedCrewName={searchCrewName}
           data={data}
           isLoading={isLoading}
           isError={isError}
           errorMessage={error}
         />
       </div>
-
     </div>
   )
 }
