@@ -5,7 +5,7 @@ export class SocketClient extends Client {
     super({
       brokerURL: import.meta.env.VITE_SOCKET_BASE_URL,
       connectHeaders: {
-        Authorization: accessToken
+        Authorization: `Bearer ${accessToken}`
       },
       onDisconnect: () => {
         console.log("소켓 연결을 해제합니다.");
