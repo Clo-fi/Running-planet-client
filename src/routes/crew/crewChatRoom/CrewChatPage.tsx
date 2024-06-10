@@ -44,7 +44,7 @@ const CrewChatPage = () => {
     status,
   } = useInfiniteQuery({
     queryKey: ['chatList', crewId],
-    queryFn: ({ pageParam = 0 }) => fetchChatList(crewId, pageParam),
+    queryFn: ({ pageParam = 0 }) => fetchChatList(Number(crewId), pageParam),
     getNextPageParam: (lastPage, allPages) => {
       // 마지막 페이지의 existsNextPage 값을 확인하여 다음 페이지가 있는지 판단합니다.
       return lastPage.existsNextPage ? allPages.length : undefined;
