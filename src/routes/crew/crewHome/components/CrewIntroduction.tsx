@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { CrewDetail } from '../../../../types/crew/crewDetail';
 import { MissionList } from '../../../../types/user/mission';
 import parse from 'html-react-parser';
+import { useUserStore } from '../../../../stores/userStore';
 // import MissionChart from './MissionChart';
 
 interface CrewProps {
@@ -13,6 +14,7 @@ interface CrewProps {
 }
 const CrewIntroduction: React.FC<CrewProps> = ({ data, missions }) => {
   const navigate = useNavigate();
+  const user = useUserStore((state) => state.user);
 
   if (!data || !data.crewId) {
     navigate('/home', { replace: true });
@@ -46,6 +48,21 @@ const CrewIntroduction: React.FC<CrewProps> = ({ data, missions }) => {
     navigate(`/crew/${data.crewId}/modify`);
   }
 
+  // const requestNavigate = async(data: CrewDetail) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const requestNavigate = async (data: any) => {
+    try {
+      // if(data.isCrewLeader){ // API완성시 이거사용
+      //   navigate(`/crew/${data.crewId}/request`)
+      // }
+      if (data.crewLeader.nickname === user?.nickname) {
+        console.log('일치')
+        navigate(`/crew/${data.crewId}/approval`)
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
   return (
     <div className={styles.home__main_container}>
       <div className={styles.home__top}>
@@ -60,7 +77,7 @@ const CrewIntroduction: React.FC<CrewProps> = ({ data, missions }) => {
           ) :
             <div className={styles.home__crew_crewImg} />
           }
-          <div className={styles.home__crew_member}>
+          <div className={styles.home__crew_member} onClick={() => requestNavigate(data)}>
             <img src="/icons/CrewUser.png" alt="userImg" />
             <span>{data.memberCnt}/{data.limitMemberCnt}</span>
           </div>

@@ -1,0 +1,138 @@
+.main_container {
+  width: 100dvw;
+  height: 80dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // justify-content: space-between;
+  overflow-y: auto;
+  z-index: 0;
+}
+.top{
+  position: fixed;
+  background: white;
+  z-index: 2;
+  top: 0;
+  width: inherit;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  p{
+    font-size: 20px;
+    font-weight: 700;
+  }
+  border-bottom: 1px solid lightgray;
+}
+.top_backspace{
+  position: absolute;
+  left: 5%;
+  width: 25px;
+  cursor: pointer;
+}
+
+.input_container{
+  position: absolute;
+  bottom: 11dvh;
+  width: 100%;
+  max-width: 768px;
+  height: 8dvh;
+  background: white;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  }
+  .chat_form{
+    width: 90%;
+    height: 50%;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border: 1px solid black;
+    border-radius: 100px;
+    overflow: hidden;
+    img{
+      margin-top: 3px;
+      width: 15px;
+      cursor: pointer;
+    }
+}
+.chat_input{
+  width: 80%;
+  height: 60%;
+  border: none;
+  outline: none;
+}
+
+
+.chat_container{
+  width: 90%;
+  max-width: 768px;
+  //height: 100dvh;
+
+  margin-top: 60px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.chat_username {
+  width: 100%;
+  margin: 5px;
+}
+.chat_message {
+  width: 70%;
+  min-height: 40px;
+  background-color: #dde5de;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+
+  word-wrap: break-word;
+  white-space: wrap;
+  span {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: inherit;
+    margin-left: 10px;
+  }
+}
+.chat_my_box {
+  width: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.chat_my_message {
+  width: 70%;
+
+  min-height: 40px;
+  background-color: lightgray;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+
+  word-wrap: break-word;
+  white-space: wrap;
+  span {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: inherit;
+    margin-left: 10px;
+  }
+}
+.chat_form {
+  width: inherit;
+  height: 15%;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-around;
+}

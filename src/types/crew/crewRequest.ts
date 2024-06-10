@@ -17,3 +17,11 @@ export interface CrewRequest {
   isRequest: boolean;
 }
 
+export interface CrewRequestUser {
+  memberId: number;
+  nickname: string;
+  introduction: string;
+  gender: string;
+  age: number;
+  userImg: string;
+}

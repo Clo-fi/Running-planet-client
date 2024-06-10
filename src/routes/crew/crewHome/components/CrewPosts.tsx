@@ -6,8 +6,14 @@ import useMeasure from 'react-use-measure';
 import styles from './CrewPosts.module.scss';
 import PostList from './post/PostList';
 import { useNavigate, useParams } from 'react-router-dom';
+import { CrewDetail } from '../../../../types/crew/crewDetail';
 
-const CrewPosts = ({ viewport = '100dvh' }: { viewport: string }) => {
+interface Props {
+  data: CrewDetail | null;
+  viewport: string;
+}
+
+const CrewPosts: React.FC<Props> = ({ viewport = '100dvh', data }) => {
   const { crewId } = useParams();
   const navigate = useNavigate();
   const [isOpened, setIsOpened] = useState<boolean>(false);
@@ -104,7 +110,7 @@ const CrewPosts = ({ viewport = '100dvh' }: { viewport: string }) => {
               )}
               {toggleEvent && (
                 <div className={`${styles.list__chat_toggle} ${styles.list__send_move}`}>
-                  <img src="/icons/Send.png" alt="plusIcons" onClick={() => navigate(`/crew/${crewId}/chat`)} />
+                  <img src="/icons/Send.png" alt="plusIcons" onClick={() => navigate(`/crew/${crewId}/chat`, { state: { data } })} />
                 </div>
               )}
             </div>

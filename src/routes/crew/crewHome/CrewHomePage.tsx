@@ -57,7 +57,7 @@ const CrewHomePage = () => {
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <div className={styles.crew__main_container} ref={viewportRef}>
         <CrewIntroduction data={crewData} missions={dummyMission} />
-        <CrewPosts viewport={`${viewportHeight}px`} />
+        <CrewPosts data={crewData} viewport={`${viewportHeight}px`} />
       </div>
     </div>
   )
