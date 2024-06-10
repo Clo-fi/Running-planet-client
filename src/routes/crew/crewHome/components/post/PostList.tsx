@@ -93,7 +93,6 @@ const PostList = ({ isOpened }: { isOpened: boolean }) => {
               </div>
             </div>
           ))}
-        <p>여기에다가 게시판 페이지네이션 추가</p>
         <div style={{ height: '200px' }}></div>
       </div>
     </>
