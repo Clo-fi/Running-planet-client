@@ -12,6 +12,13 @@
   border-radius: 50%;
 }
 
+.profile_img_placeholder {
+  height: 15vh;
+  width: 15vh;
+  border: 1px solid black;
+  border-radius: 50%;
+}
+
 .edit_container {
   margin-top: 7vh;
   display: flex;
@@ -36,26 +43,70 @@
 
 .info_container {
   width: 88vw;
-  border: 1px solid black;
+  border: none;
   border-radius: 2vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  height: 18.5vh;
+  height: fit-content;
   padding: 1vh 0 1vh 0;
+  margin-bottom: 1vh;
 }
 
 .info_line {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   width: 80vw;
 }
 
-.left {
-  width: 30vw;
+.info_missions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80vw;
+  min-height: fit-content;
+  font-size: 2vh;
+  font-weight: 200;
+}
+
+.info_mission {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2vw;
+  width: 70vw;
+}
+
+.missionId {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mission_content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 70vw;
+  align-items: center;
+}
+
+.mission_dot {
+  width: 2vw;
+  height: 2vw;
+  background-color: lightgray;
+  border-radius: 50%;
+  margin-right: 1vh;
+}
+
+.info_type {
+  width: 40vw;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -64,23 +115,31 @@
   margin: 2vw;
 }
 
-.progressbar,
-.right {
-  margin: 2vw;
-  width: 30vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.info_type.left-align {
+  align-self: flex-start; /* 추가: 나의 운동 부분만 왼쪽 정렬 */
 }
 
-.right {
+.info_content {
   font-size: 2vh;
-  font-weight: 300;
+  font-weight: 200;
+}
+
+.mission_title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: center;
+  width: 55vw;
+}
+
+.misson_percent {
+    font-weight: 600;
 }
 
 .calendar_container {
   margin-top: 2vh;
-  height: 60vh;
+  height: 40vh;
   width: 88vw;
   z-index: 2;
   display: flex;
@@ -89,50 +148,4 @@
   align-items: center;
   margin-bottom: 5vh;
   background-color: white;
-}
-
-.mission_container {
-  position: absolute;
-  border: 1px solid black;
-  border-radius: 1vh;
-  width: 80vw;
-  height: 10vh;
-  padding: 2vw;
-  margin-top: 40.5vh;
-}
-
-.section_name {
-  font-size: 2vh;
-  font-weight: 600;
-  margin-bottom: 1.5vh;
-}
-
-.mission {
-  font-size: 1.5vh;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-}
-
-.mission_num {
-  height: 2vh;
-  width: 10vw;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.mission_title {
-  align-items: center;
-  width: 50vw;
-  height: 2vh;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-}
-
-.mission_check{
-  height: 2vh;
-  margin-left: 15vw;
 }

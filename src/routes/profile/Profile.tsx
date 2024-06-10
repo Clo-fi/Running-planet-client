@@ -1,10 +1,16 @@
 import styles from "./Profile.module.scss";
 import UserCalendar from "../../components/common/calendar/UserCalendar";
 import { useNavigate } from "react-router-dom";
+import { useUserStore } from '../../stores/userStore';
+import { useEffect } from 'react';
+import { MissionList } from "../../types/user/mission";
+// import { useMissionList } from "../crew/crewHome/components/hooks/useMissionList";
 
 const Profile = () => {
-
   const nav = useNavigate();
+  const user = useUserStore((state) => state.user);
+
+  // const { data: missionList, isError: isMissionError, isLoading: isMissionLoading } = useMissionList(user?.myCrewId as number);
 
   const handleSettting = () => {
     nav('/setting');
@@ -14,74 +20,102 @@ const Profile = () => {
     nav('/profile/edit');
   }
 
+  // 화면 확인을 위한 예시 데이터
+  const missionList: MissionList = {
+    missions: [
+      {
+        missionId: 1,
+        missionConent: "3KM 달리기",
+        missonProgress: 51
+      },
+      {
+        missionId: 2,
+        missionConent: "45분 달리기",
+        missonProgress: 87
+      }
+    ]
+  };
+
+  // 유저 정보 로딩 안 되어 있으면 홈으로 돌아가서 다시 받아오도록
+  useEffect(() => {
+    if (!user) {
+      nav('/home');
+    }
+  }, [user, nav]);
+
+  // 유저 정보가 없을 때
+  if (!user) {
+    return null; // 유저 정보가 없으면 아무것도 렌더링하지 않음
+  }
+
+  // 로딩 중일 때
+  // if (isMissionLoading) {
+  //   return <div>Loading...</div>;
+  // }
+
+  // // 에러가 발생했을 때
+  // if (isMissionError) {
+  //   return <div>Error: 미션 데이터를 불러오는 중 오류가 발생했습니다.</div>;
+  // }
+
+  // 데이터가 성공적으로 로드되었을 때
   return (
     <div className={styles.profile}>
       <div className={styles.edit_container}>
         <div className={styles.profile_img_container}>
-          <div className={styles.profile_img}></div>
+          {user?.profileImg ? (
+            <img className={styles.profile_img} src={user.profileImg} alt="Profile" />
+          ) : (
+            <div className={styles.profile_img_placeholder}></div>
+          )}
         </div>
         <div className={styles.edit_btn_section}>
-          <img className={styles.edit_btn} onClick={handleSettting} src="/icons/Setting_line.png"></img>
-          <img className={styles.edit_btn} onClick={handleEdit} src="/icons/Edit.png"></img>
+          <img className={styles.edit_btn} onClick={handleSettting} src="/icons/Setting_line.png" alt="Settings"></img>
+          <img className={styles.edit_btn} onClick={handleEdit} src="/icons/Edit.png" alt="Edit"></img>
         </div>
       </div>
+
       <div className={styles.info_container}>
         <div className={styles.info_line}>
-          <p className={styles.left}>닉네임</p>
-          <div className={styles.progressbar}>
-            <p>
-              개인 테라포밍 진행도
-            </p>
-            <div>
-
-            </div>
+          <div className={styles.info_type}>닉네임</div>
+          <div className={styles.info_content}>{user.nickname}</div>
+        </div>
+        <div className={styles.info_line}>
+          <div className={styles.info_type}>소속 크루</div>
+          <div className={styles.info_content}>{user.myCrew}</div>
+        </div>
+        <div className={styles.info_line}>
+          <div className={styles.info_type}>평균 페이스</div>
+          <div className={styles.info_content}>{user.avgPace.min};{user.avgPace.sec}"/KM</div>
+        </div>
+        <div className={styles.info_line}>
+          <div className={styles.info_type}>총 이동거리</div>
+          <div className={styles.info_content}>{user.totalDistance}KM</div>
+        </div>
+        <div className={styles.info_missions}>
+          <div className={`${styles.info_type} ${styles['left-align']}`}>나의 운동</div>
+          <div className={styles.info_mission}>
+            {missionList?.missions.map((mission) => (
+              <div key={mission.missionId}>
+                <div className={styles.mission_content}>
+                  <div className={styles.mission_dot}></div>
+                  <div className={styles.mission_title}>{mission.missionConent}</div>
+                  <div className={styles.misson_percent}>{mission.missonProgress}%</div>
+                </div>
+                <div className={styles.progress}>
+                  {/* 여기 안에 progress bar 컴포넌트 만들어서 넣기 */}
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
-        <div className={styles.info_line}>
-          <div className={styles.left}><p>소속 크루</p></div>
-          <div className={styles.progressbar}>
-            <p>
-              크루 테라포밍 진행도
-            </p>
-            <div>
-
-            </div>
-          </div>
-        </div>
-        <div className={styles.info_line}>
-          <div className={styles.left}><p>평균 페이스</p></div>
-          <div className={styles.right}><p>13;16"/KM</p></div>
-        </div>
-        <div className={styles.info_line}>
-          <div className={styles.left}><p>총 이동거리</p></div>
-          <div className={styles.right}><p>45KM</p></div>
         </div>
       </div>
+
       <div className={styles.calendar_container}>
         <UserCalendar />
-        <div className={styles.mission_container}>
-          <div className={styles.section_name}>
-            오늘의 미션
-          </div>
-          <div className={styles.mission}>
-            <p className={styles.mission_num}>미션 1</p>
-            <p className={styles.mission_title}>200kcal 소모하기</p>
-            <img className={styles.mission_check} src="/icons/Check_ring.png"></img>
-          </div>
-          <div className={styles.mission}>
-            <p className={styles.mission_num}>미션 2</p>
-            <p className={styles.mission_title}>3km 뛰기</p>
-            <img className={styles.mission_check} src="/icons/Check_ring.png"></img>
-          </div>
-          <div className={styles.mission}>
-            <p className={styles.mission_num}>미션 3</p>
-            <p className={styles.mission_title}>게시글 하나 작성하기</p>
-            <img className={styles.mission_check} src="/icons/Checked_ring.png"></img>
-          </div>
-        </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Profile;
