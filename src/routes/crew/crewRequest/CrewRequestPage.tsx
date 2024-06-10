@@ -1,66 +1,67 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import instance from '../../../libs/api/axios';
-// import { useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { CrewRequest } from '../../../types/crew/crewRequest';
 
 import styles from './CrewRequestPage.module.scss';
 import { CustomAlert } from '../../../libs/sweetAlert/alert';
 
-// const fetchCrewData = async (crewId: number) => {
-//   try {
-//     const response = await instance.get(`/api/crew/${crewId}`);
-//     return response.data;
-//   } catch (err) {
-//     throw new Error('Failed to fetch crew request detail',);
-//   }
-// }
-
-
-const data: CrewRequest = {
-  crewId: 2,
-  crewLevel: 6,
-  crewName: '한우혁달린다',
-  introduction: '밥 잘 사주는 한우혁이 있는 크루',
-  memberCnt: 5,
-  limitMemberCnt: 25,
-  tags: ['#열심히', '#달린당', '#여럿이'],
-  category: 'RUNNING',
-  rule: {
-    weeklyRun: 5,
-    distance: 1,
-  },
-  crewTotalDistance: 15,
-  imgFile: null,
-  isRequest: false,
-  crewLeader: {
-    memberId: 2,
-    nickname: '한우혁',
-  },
-  approvalType: 'AUTO'
+const fetchCrewData = async (crewId: number) => {
+  try {
+    const response = await instance.get(`/crew/${crewId}`);
+    console.log(response.data);
+    return response.data;
+  } catch (err) {
+    throw new Error('Failed to fetch crew request detail',);
+  }
 }
+
+
+// const data: CrewRequest = {
+//   crewId: 2,
+//   crewLevel: 6,
+//   crewName: '한우혁달린다',
+//   introduction: '밥 잘 사주는 한우혁이 있는 크루',
+//   memberCnt: 5,
+//   limitMemberCnt: 25,
+//   tags: ['#열심히', '#달린당', '#여럿이'],
+//   category: 'RUNNING',
+//   rule: {
+//     weeklyRun: 5,
+//     distance: 1,
+//   },
+//   crewTotalDistance: 15,
+//   imgFile: null,
+//   isRequest: false,
+//   crewLeader: {
+//     memberId: 2,
+//     nickname: '한우혁',
+//   },
+//   approvalType: 'AUTO'
+// }
 const CrewRequestPage = () => {
   const { crewId } = useParams();
   const navigate = useNavigate();
 
-  // const { data, error, isLoading } = useQuery<CrewRequest, Error>({
-  //   queryKey: ['crewRequestDetail', crewId],
-  //   queryFn: () => fetchCrewData(Number(crewId)),
-  // });
+  const { data, error, isLoading } = useQuery<CrewRequest, Error>({
+    queryKey: ['crewRequestDetail', crewId],
+    queryFn: () => fetchCrewData(Number(crewId)),
+  });
 
 
-  // if (!data || !data.crewId) {
-  //   navigate(-1);
-  //   return null;
-  // }
+  if (!data || !data.crewId) {
+    navigate(-1);
+    return null;
+  }
 
 
-  // if (isLoading) return <div>Loading...</div>;
-  // if (error) return <div>Failed to fetch data</div>;
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Failed to fetch data</div>;
 
   const requestHandler = async () => {
     try {
-      if (data.isRequest) {
-        const response = await instance.get(`/crew/${crewId}`);
+      if (!data.isRequest) {
+        const response = await instance.post(`/crew/${crewId}`, { introduction: 'test' });
         console.log(response);
 
         CustomAlert.fire({
@@ -137,7 +138,7 @@ const CrewRequestPage = () => {
           <p>Rule</p>
           <span>주 {data.rule.weeklyRun}회 이상 러닝하기</span>
         </div>
-        <button className={data.isRequest ? styles.request_btn : styles.request_btn_cancle} onClick={requestHandler}>{data.isRequest ? '가입 신청하기' : '가입 취소하기'}</button>
+        <button className={data.isRequest ? styles.request_btn : styles.request_btn_cancle} onClick={requestHandler}>{!data.isRequest ? '가입 신청하기' : '가입 취소하기'}</button>
       </div>
     </div>
   )
