@@ -1,5 +1,6 @@
 .search__container{
   width: inherit;
+  max-width: 768px;
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -10,6 +11,7 @@
 .search__top{
   position: relative;
   width: inherit;
+  max-width: 768px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,6 +25,7 @@
 
 .search__backspace{
   position: absolute;
+  max-width: 768px;
   left: 5%;
   width: 25px;
   cursor: pointer;
@@ -30,6 +33,7 @@
 
 .search__middle_container{
   width: inherit;
+  max-width: 768px;
 
   border-top: 1px solid lightgray;
   display: flex;
