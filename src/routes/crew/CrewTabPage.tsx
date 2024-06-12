@@ -9,7 +9,6 @@ const CrewTabPage = () => {
     setCrewState(state);
   }
 
-  // useEffect로 크루 상태 확인후 네비게이팅 
   const clickHandler = () => {
     if (crewState) {
       navigate('/crew/create')

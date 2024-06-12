@@ -5,26 +5,82 @@ import CrewTab from "./components/crew/CrewTab";
 import "swiper/css/pagination";
 import "swiper/css";
 import { Pagination } from "swiper/modules";
+import { runUser } from '../../types/running/runUser';
+import instance from '../../libs/api/axios';
+import { useUserStore } from '../../stores/userStore';
+import { useQuery } from '@tanstack/react-query';
+import { useWebSocket } from '../../libs/stomp/useWebSocket';
+import { useEffect, useState } from 'react';
+import { StompSubscription } from '@stomp/stompjs';
 
 // import { useEffect } from 'react';
 // import { useWebSocket } from '../../libs/stomp/useWebSocket';
 // import { SOCKET_TYPE, decode } from '../../libs/stomp/decorder'
+const fetchRunningUser = async (crewId: number): Promise<runUser[]> => {
+  const response = await instance.get(`/crew/${crewId}/running`)
+  console.log(response);
+  return response.data;
+}
 const RunningPage = () => {
+  const [userList, setUserList] = useState<runUser[]>([]);
 
-  // const socketClient = useWebSocket();
-  //   useEffect(() => {
-  //     if (!socketClient) return;
+  const user = useUserStore((state) => state.user);
 
-  //     socketClient.subscribe(/* 운동 일품타 마냥 할 떄 소켓 주소 , */(message) => {
-  //       console.log('러닝 부분 소켓 구독 성공');
+  const { data, isError, isLoading, error } = useQuery({
+    queryKey: ['RunUserList', user?.myCrewId],
+    queryFn: () => fetchRunningUser(Number(user?.myCrewId)),
+    enabled: !!user?.myCrewId
+  })
 
-  //       const { type, data } = decode(message);
-  //       if (type === SOCKET_TYPE) {
+  useEffect(() => {
+    if (data) {
+      setUserList(data);
+    }
+  }, [data])
 
-  //       }
-  //     }))
+  console.log(isError, error, isLoading)
+  // if(isError) {
+  //   return <p>Error : {error.message}</p>
+  // }
+  // if(isLoading){
+  //   return <p>Loading...</p>
+  // }
+  const socketClient = useWebSocket();
 
-  // }, [socketClient])
+  useEffect(() => {
+    if (!socketClient || !user?.myCrewId) return;
+    let subscription: StompSubscription;
+
+    socketClient.onConnect = () => {
+      console.log('운동 소켓 연결');
+
+      subscription = socketClient.subscribe(
+        `/sub/crew/${user.myCrewId}/running`,
+        (message) => {
+          console.log(message)
+          const receivedUser: runUser = JSON.parse(message.body);
+          // userList에 없는 유저인 경우 추가
+          const index = userList.findIndex(user => user.memberId === receivedUser.memberId);
+          if (index === -1) {
+            setUserList(prevList => [...prevList, receivedUser]);
+          } else {
+            // userList에 이미 있는 유저인 경우 상태를 최신화
+            setUserList(prevList => {
+              const updatedList = [...prevList];
+              updatedList[index] = receivedUser;
+              return updatedList;
+            });
+          }
+        }
+      )
+    }
+
+    return () => {
+      // 컴포넌트가 언마운트되거나 업데이트되기 전에 구독을 취소
+      subscription?.unsubscribe();
+    }
+  }, [socketClient, user?.myCrewId, userList])
+
 
   return (
     <main className={styles.main}>

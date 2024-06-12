@@ -14,8 +14,14 @@
   user-select: none; /* Modern browsers */
 
   box-sizing: border-box;
-}
 
+
+  -ms-overflow-style:none;
+  scrollbar-width:none;
+}
+*::-webkit-scrollbar{
+  display:none /* Chrome , Safari , Opera */
+}
 html,
 body,
 p,
