@@ -51,7 +51,8 @@ const Login: React.FC = () => {
   };
 
   const handleNaverLogin = () => {
-    nav('/naverlogin');
+    // nav('/naverlogin');
+    window.location.href = `${import.meta.env.VITE_BASE_URL}/oauth2/authorization/naver`;
   };
 
   const handleGoogleLogin = () => {
