@@ -127,7 +127,7 @@ const CrewModifyPage = () => {
         type: 'application/json'
       });
 
-      formData.append('crewInfo', createModifyBlob);
+      formData.append('modifyInfo', createModifyBlob);
       if (crewImg) {
         formData.append('imgFile', crewImg);
       }
