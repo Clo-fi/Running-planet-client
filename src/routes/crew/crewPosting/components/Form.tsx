@@ -2,6 +2,7 @@ import React, { ChangeEvent, FormEvent } from 'react';
 import styles from './Form.module.scss';
 import instance from '../../../../libs/api/axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import BackSpaceTopBar from '../../../../components/common/BackSpaceTopBar';
 
 interface Props {
   fileInputRef: React.RefObject<HTMLInputElement>;
@@ -55,11 +56,11 @@ const Form = ({
   return (
     <>
       <div className={styles.posting__main_container}>
-        <div className={styles.posting__backspace}>
-          <img src="/icons/Expand_left.png" alt="returnBtn"
-            onClick={() => navigate(-1)}
-          />
-        </div>
+        <BackSpaceTopBar
+          title='게시글 작성'
+          onClick={() => navigate(-1)}
+          isEditable={false}
+        />
         <form className={styles.posting__form} onSubmit={submitHandler}>
           <input className={styles.posting__title} type='text' placeholder='제목을 입력해주세요.' value={title} onChange={(e) => setTitle(e.target.value)} />
           <textarea className={styles.posting_content} placeholder='내용을 입력해주세요.' value={content} onChange={(e) => setContent(e.target.value)} />

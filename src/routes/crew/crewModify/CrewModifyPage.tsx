@@ -5,6 +5,7 @@ import { CustomAlert } from '../../../libs/sweetAlert/alert';
 import { CrewModify, Rule } from '../../../types/crew/crewPage';
 import instance from '../../../libs/api/axios';
 import { useQuery } from '@tanstack/react-query';
+import BackSpaceTopBar from '../../../components/common/BackSpaceTopBar';
 
 const fetchCrewData = async (crewId: number) => {
   try {
@@ -155,10 +156,10 @@ const CrewModifyPage = () => {
   return (
     <>
       <div className={styles.main_container}>
-        <div className={styles.top}>
-          <img className={styles.top_backspace} src='/icons/Expand_left.png' alt='backSpaceImg' onClick={() => navigate(-1)} />
-          <p>{modifyState.crewName}</p>
-        </div>
+        <BackSpaceTopBar
+          title={modifyState.crewName}
+          onClick={() => navigate(-1)}
+        />
         <div className={styles.middle}>
           <div className={styles.crew_state}>
             <p className={styles.crew_level}>{modifyState.crewLevel}Lv</p>

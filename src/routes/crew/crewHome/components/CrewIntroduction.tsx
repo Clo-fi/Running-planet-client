@@ -6,6 +6,7 @@ import { CrewDetail } from '../../../../types/crew/crewDetail';
 import { MissionList } from '../../../../types/user/mission';
 import parse from 'html-react-parser';
 import { useUserStore } from '../../../../stores/userStore';
+import BackSpaceTopBar from '../../../../components/common/BackSpaceTopBar';
 // import MissionChart from './MissionChart';
 
 interface CrewProps {
@@ -65,10 +66,12 @@ const CrewIntroduction: React.FC<CrewProps> = ({ data, missions }) => {
   }
   return (
     <div className={styles.home__main_container}>
-      <div className={styles.home__top}>
-        <img className={styles.home__top_backspace} src='/icons/Expand_left.png' alt='backSpaceImg' onClick={() => navigate(-1)} />
-        <p onClick={() => modifyNavigate(data)}>{data.crewName}</p>
-      </div>
+      <BackSpaceTopBar
+        title={data.crewName}
+        isEditable={true}
+        onClick={() => navigate(-1)}
+        titleOnClick={() => modifyNavigate(data)}
+      />
       <div className={styles.home__middle}>
         <div className={styles.home__crew_state}>
           <p className={styles.home__crew_level}>{data.crewLevel}Lv</p>

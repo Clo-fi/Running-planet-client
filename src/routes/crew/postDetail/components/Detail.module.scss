@@ -6,38 +6,6 @@
   align-items: center;
 }
 
-.detail__top{
-  position: fixed;
-  width: inherit;
-  height: 6dvh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: white;
-  border-bottom: 1px solid lightgray;
-  p{
-    font-size: 20px;
-    font-weight: 700;
-  }
-}
-.detail__backspace{
-  position: absolute;
-  left: 5%;
-  width: 25px;
-  cursor: pointer;
-}
-
-.detail__title{
-  font-size: 24px;
-  font-weight: bold;
-}
-.detail__edit{
-  position: absolute;
-  right: 5%;
-  width: 25px;
-  cursor: pointer;
-}
-
 .detail__content_container{
   width: 90%;
   margin-top: 60px;

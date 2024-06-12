@@ -20,9 +20,6 @@ const ExpectedPost: React.FC<Props> = ({ imgList, handleRemoveImage, title, cont
 
   return (
     <div className={styles.detail__container}>
-      <div className={styles.detail__backspace}>
-        <img src='/icons/Expand_left.png' alt='backSpaceImg' />
-      </div>
       <div className={styles.detail__content_container}>
         <p className={styles.detail__title}>{displayTitle} <span>유저 닉네임</span></p>
         {imgList.map((file, index) => (

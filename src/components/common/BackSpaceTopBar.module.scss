@@ -1,0 +1,33 @@
+
+
+.top{
+  position: fixed;
+  width: inherit;
+  height: 6dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  border-bottom: 1px solid lightgray;
+  p{
+    font-size: 20px;
+    font-weight: 700;
+  }
+}
+.backspace{
+  position: absolute;
+  left: 5%;
+  width: 25px;
+  cursor: pointer;
+}
+
+.title{
+  font-size: 24px;
+  font-weight: bold;
+}
+.edit{
+  position: absolute;
+  right: 5%;
+  width: 25px;
+  cursor: pointer;
+}

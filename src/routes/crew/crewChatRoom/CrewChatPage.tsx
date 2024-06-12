@@ -6,6 +6,7 @@ import { useUserStore } from '../../../stores/userStore';
 import { StompSubscription } from "@stomp/stompjs";
 import instance from '../../../libs/api/axios';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import BackSpaceTopBar from '../../../components/common/BackSpaceTopBar';
 
 interface ChatData {
   from: string;
@@ -138,10 +139,10 @@ const CrewChatPage = () => {
 
   return (
     <div className={styles.main_container}>
-      <div className={styles.top}>
-        <img className={styles.top_backspace} src='/icons/Expand_left.png' alt='backSpaceImg' onClick={() => navigate(-1)} />
-        <p>{data.crewName}</p>
-      </div>
+      <BackSpaceTopBar
+        title={data.crewName}
+        onClick={() => navigate(-1)}
+      />
       <div className={styles.chat_container}>
         {chatList && chatList.length > 0 ? (
           chatList.map((chat, index) => (

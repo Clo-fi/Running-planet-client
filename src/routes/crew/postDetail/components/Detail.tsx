@@ -4,6 +4,7 @@ import { Post } from '../../../../types/crew/crewPost';
 import { useNavigate, useParams } from 'react-router-dom';
 import parse from 'html-react-parser';
 import instance from '../../../../libs/api/axios';
+import BackSpaceTopBar from '../../../../components/common/BackSpaceTopBar';
 
 interface DetailProps {
   data: Post | undefined;
@@ -39,11 +40,11 @@ const Detail: React.FC<DetailProps> = ({ data, isLoading, isLiked, authorId, onN
 
   return (
     <div className={styles.detail__container}>
-      <div className={styles.detail__top}>
-        <img className={styles.detail__backspace} src='/icons/Expand_left.png' alt='backSpaceImg' onClick={() => navigate(-1)} />
-        <p className={styles.detail__title}>{data.title}</p>
-        <img className={styles.detail__edit} src='/icons/Edit.png' alt='editImg' />
-      </div>
+      <BackSpaceTopBar
+        title={data.title}
+        isEditable={true}
+        onClick={() => navigate(-1)}
+      />
       <div className={styles.detail__content_container}>
         {data.imageList && data.imageList.length > 0 ? (
           <>
