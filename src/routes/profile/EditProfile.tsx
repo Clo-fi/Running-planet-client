@@ -55,6 +55,8 @@ const EditProfile: React.FC = () => {
   const handleImgChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       setProfileImg(event.target.files[0]);
+    } else {
+      setProfileImg(null);
     }
   };
 
