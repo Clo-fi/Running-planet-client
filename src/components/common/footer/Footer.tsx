@@ -20,7 +20,7 @@ const Footer = () => {
     }
   };
   const handleTerrabtn = () => {
-    navigate('/terra');
+    navigate('/planet');
   };
 
   const handleRankbtn = () => {

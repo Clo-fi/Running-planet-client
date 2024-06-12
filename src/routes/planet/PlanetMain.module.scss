@@ -1,0 +1,117 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8vh;
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  width: 90vw;
+}
+
+.title p {
+  font-size: 4.5vh;
+  font-weight: 650;
+  width: 90vw;
+}
+
+.select_section {
+  margin-top: 3vh;
+  width: 90vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.select_button {
+  width: 43vw;
+  height: 5vh;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  border: 1px solid black;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 2vh;
+}
+
+.planet_container {
+  margin-top: 2vh;
+  width: 90vw;
+  height: 90vw;
+  border: 1px solid black;
+  border-radius: 20px;
+  background-color: lightgray;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.planet_name {
+  width: 10vw;
+  height: 2vh;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  position: absolute;
+  left: 2vw;
+  top: 1vh;
+}
+
+.planet_Img {
+  width: 80vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vw;
+  text-align: center;
+}
+
+.progress_container {
+  margin-top: 2vh;
+  width: 90vw;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 3vh;
+  width: 90vw;
+  font-size: 2vh;
+  font-weight: 300;
+  margin-bottom: 1vh;
+}
+
+.list_btn {
+  margin-top: 2vh;
+  width: 90vw;
+  height: 6vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 30px;
+  font-size: 2.3vh;
+  font-weight: 300;
+}
