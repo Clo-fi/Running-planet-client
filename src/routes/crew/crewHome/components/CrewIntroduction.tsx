@@ -126,7 +126,7 @@ const CrewIntroduction: React.FC<CrewProps> = ({ data, missions }) => {
           </div>
           <div className={styles.home__rule_introduction_block}>
             <p>일 운동거리</p>
-            <span>{data.rule.weeklyRun}KM</span>
+            <span>{data.rule.distance}KM</span>
           </div>
         </div>
         <div className={styles.home__rule}></div>
