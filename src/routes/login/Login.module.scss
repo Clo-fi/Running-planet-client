@@ -1,42 +1,75 @@
-.login {
-  height: 90vh;
-  padding-top: 5vh;
-}
-
-.copywrite_container {
-  margin-top: 5vh;
-  width: 100vw;
-}
-
-.copywrite {
-  font-size: 4.5vh;
-  font-weight: 650;
-  margin-left: 5vw;
-}
-
-.earth_container {
-  margin-top: 8vh;
+.body{
+  width: 100dvw;
+  height: 100dvh;
   display: flex;
   justify-content: center;
 }
+.login {
+  width: 100%;
+  max-width: 768px;
+  height: 100%;
 
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-around;
+
+}
+
+.copywrite {
+  width: 80%;
+  margin-top: 40px;
+  margin-left: 10%;
+
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 130%;
+  
+}
+
+.earth_container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
 .earth {
   width: 32vh;
   height: 32vh;
 }
 
 .login_btn_container {
+  height: 40%;
+  margin-top: -20px;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 12vh;
 }
 
 .login_btn {
-  border: 1px solid black;
-  border-radius: 5vh;
-  height: 7vh;
-  margin-bottom: 1.5vh;
-  width: 80vw;
+  position: relative;
+  height: 50px;
+  width: 80%;
+  color: black;
+  border-radius: 100px;
+  margin-bottom: 15px;
+}
+.oauthImg{
+  position: absolute;
+  left: 5%;
+  bottom: 10%;
+}
+.kakao_btn{
+  background: #FDDC3F;
+}
+.naver_btn{
+  background: #00C73C;
+}
+.google_btn{
+  background: #FFFFFF;
+  border: 1px solid #DDDDDD;
+  img{
+    margin-bottom: 5px;
+  }
 }
