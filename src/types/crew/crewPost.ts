@@ -20,6 +20,8 @@ export interface ImgItem {
 export interface CrewPost {
   boardResponse: Post;
   comments: Comments[];
+  authorId: number;
+  isLiked: boolean;
 }
 
 export interface Post {
