@@ -34,35 +34,27 @@
 
 .input_container{
   position: absolute;
-  bottom: 11dvh;
-  width: 100%;
+  bottom: 18dvh;
+  width: 80%;
   max-width: 768px;
-  height: 8dvh;
-  background: white;
-
+  height: 5dvh;
+  
+  border: 1px solid black;
+  border-radius: 100px;
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-evenly;
+
+
+  img{
+    margin-top: 3px;
+    width: 15px;
+    cursor: pointer;
   }
-  .chat_form{
-    width: 90%;
-    height: 50%;
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    border: 1px solid black;
-    border-radius: 100px;
-    overflow: hidden;
-    img{
-      margin-top: 3px;
-      width: 15px;
-      cursor: pointer;
-    }
 }
 .chat_input{
   width: 80%;
-  height: 60%;
+  height: 80%;
   border: none;
   outline: none;
 }
@@ -71,7 +63,6 @@
 .chat_container{
   width: 90%;
   max-width: 768px;
-  //height: 100dvh;
 
   margin-top: 60px;
   overflow-y: auto;
@@ -102,7 +93,7 @@
   }
 }
 .chat_my_box {
-  width: inherit;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
