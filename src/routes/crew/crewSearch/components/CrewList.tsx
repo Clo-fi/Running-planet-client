@@ -45,17 +45,7 @@ const CrewList: React.FC<CrewListProps> = ({
     return (
       <div className={styles.container}>
         <div className={styles.list__container}>
-          {[...Array(4)].map((_, index) => (
-            <div key={index} className={styles.list__crew_container}>
-              <div className={styles.list__skeleton} />
-              <div className={styles.list__crew_introduction}>
-                <div className={styles.list__crew_title}>
-                  <p className={styles.list__crew_crewname}>Loading...</p>
-                </div>
-                <div className={styles.list__crew_content}>Loading ...</div>
-              </div>
-            </div>
-          ))}
+          <p>로딩 중 입니다..</p>
         </div>
       </div>
     );
@@ -78,8 +68,8 @@ const CrewList: React.FC<CrewListProps> = ({
                 </div>
               </div>
               <div className={styles.crew_introduction_container}>
-                {/* <img src={crew.imgFile} alt="" /> */}
-                <img className={styles.crew_img} src='/icons/earth.png' alt="crewImg" />
+
+                <img className={styles.crew_img} src={`https://running-planet-s3.s3.ap-northeast-2.amazonaws.com/${crew.imgFile}`} alt="crewImg" />
                 <div className={styles.crew_summary}>
                   <span className={styles.crew_introduction}>{crew.introduction}</span>
                   <div className={styles.crew_summary_bottom}>
@@ -111,30 +101,6 @@ const CrewList: React.FC<CrewListProps> = ({
             </div>
           )}
     </div>
-    // <div className={styles.container}>
-    //   <div className={styles.list__container}>
-    //     {crewList.length > 0 ? (
-    //       crewList.map((crew, index) => (
-    //         <div onClick={() => clickHandler(crew.crewId)} key={index} className={styles.list__crew_container}>
-    //           <div className={styles.list__crew_top}>
-    //             <div>
-    //               <p>{crew.crewLevel}</p>
-    //               <p>{crew.crewName}</p>
-    //             </div>
-    //             <div className={styles.home__crew_member}>
-    //               <img src="/icons/CrewUser.png" alt="userImg" />
-    //               <span>{crew.memberCnt}/{crew.limitMemberCnt}</span>
-    //             </div>
-
-    //           </div>
-
-    //         </div>
-    //       ))
-    //     ) : (
-    //       <div>No data available.</div>
-    //     )}
-    //   </div>
-    // </div>
   );
 };
 
