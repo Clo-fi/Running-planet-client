@@ -7,10 +7,14 @@ import { StompSubscription } from "@stomp/stompjs";
 import instance from '../../../libs/api/axios';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-interface ChatInfo {
+interface ChatData {
   from: string;
   message: string;
-  time: Date;
+  time: Date | null;
+}
+
+interface ChatInfo {
+  data: ChatData;
 }
 
 interface ChatResponse {
@@ -18,9 +22,8 @@ interface ChatResponse {
   existsNextPage: boolean;
 }
 
-
 const fetchChatList = async (crewId: number, page: number): Promise<ChatResponse> => {
-  const response = await instance.get(`/crew/${crewId}/chat?page=${page}`);
+  const response = await instance.get(`/crew/${crewId}/chat?page=${page}&size=30`);
   return response.data;
 }
 
@@ -46,7 +49,6 @@ const CrewChatPage = () => {
     queryKey: ['chatList', crewId],
     queryFn: ({ pageParam = 0 }) => fetchChatList(Number(crewId), pageParam),
     getNextPageParam: (lastPage, allPages) => {
-      // 마지막 페이지의 existsNextPage 값을 확인하여 다음 페이지가 있는지 판단합니다.
       return lastPage.existsNextPage ? allPages.length : undefined;
     },
     initialPageParam: 0,
@@ -54,14 +56,11 @@ const CrewChatPage = () => {
 
 
   if (status === "error") {
-    // 여기서 오류를 처리합니다.
     console.error("An error occurred while fetching chat data:", error);
-    // 예를 들어, 오류가 발생했을 때 사용자에게 알림을 표시하거나, 다른 작업을 수행할 수 있습니다.
   }
 
   useEffect(() => {
     if (chatData) {
-      // chatData가 있을 때만 chatList 상태를 업데이트합니다.
       const newChatList = chatData.pages.flatMap(page => page.chatArray);
       setChatList(prevChatList => [...prevChatList, ...newChatList]);
     }
@@ -108,21 +107,23 @@ const CrewChatPage = () => {
       subscription = socketClient.subscribe(
         `/sub/crew/${crewId}/chat`,
         (message) => {
-          console.log(message);
+          console.log('메시지 수신:', message);
 
           const chatMessage: ChatInfo = JSON.parse(message.body);
           setChatList((prev) => [...prev, chatMessage]);
         }
+
       )
-      return () => {
-        if (socketClient.connected && subscription) {
-          subscription.unsubscribe();
-        }
+    }
+    return () => {
+      if (socketClient.connected && subscription) {
+        subscription.unsubscribe();
       }
     }
 
   }, [socketClient, crewId])
 
+  console.log(chatList)
   const sendMessageHandle = (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
 
@@ -134,7 +135,6 @@ const CrewChatPage = () => {
     });
     setMessage('');
   }
-  console.log(data);
 
   return (
     <div className={styles.main_container}>
@@ -145,14 +145,14 @@ const CrewChatPage = () => {
       <div className={styles.chat_container}>
         {chatList && chatList.length > 0 ? (
           chatList.map((chat, index) => (
-            <div key={index} className={chat.from === user?.nickname ? styles.chat_my_box : ''}>
-              {index > 0 && chatList[index - 1].from === chat.from ? null : (
-                <p className={chat.from === user?.nickname ? styles.chat_my_name : styles.chat_username}>
-                  {chat.from !== user?.nickname ? chat.from : null}
+            <div key={index} className={chat.data.from === user?.nickname ? styles.chat_my_box : ''}>
+              {index > 0 && chatList[index - 1].data.from === chat.data.from ? null : (
+                <p className={chat.data.from === user?.nickname ? styles.chat_my_name : styles.chat_username}>
+                  {chat.data.from !== user?.nickname ? chat.data.from : null}
                 </p>
               )}
-              <p className={chat.from === user?.nickname ? styles.chat_my_message : styles.chat_message}>
-                <span>{chat.message}</span>
+              <p className={chat.data.from === user?.nickname ? styles.chat_my_message : styles.chat_message}>
+                <span>{chat.data.message}</span>
               </p>
             </div>
           ))
@@ -160,14 +160,13 @@ const CrewChatPage = () => {
           <p>채팅 내역이 없습니다.</p>
         )}
       </div>
-      <div className={styles.input_container}>
-        <form className={styles.chat_form} onSubmit={sendMessageHandle}>
-          <input type='text' value={message} onChange={(e) => setMessage(e.target.value)} className={styles.chat_input} placeholder='채팅을 입력해 주세요' />
-          <button type="submit">
-            <img src="/icons/Send_black.png" alt="Send" />
-          </button>
-        </form>
-      </div>
+
+      <form className={styles.input_container} onSubmit={sendMessageHandle}>
+        <input type='text' value={message} onChange={(e) => setMessage(e.target.value)} className={styles.chat_input} placeholder='채팅을 입력해 주세요' />
+        <button type="submit">
+          <img src="/icons/Send_black.png" alt="Send" />
+        </button>
+      </form>
     </div>
   );
 };

@@ -79,7 +79,7 @@ const dummychat = [
   }
 ]
 const ChatList: React.FC<Props> = (chatList) => {
-  console.log(chatList);
+  console.log(';asdasd', chatList);
   const user = useUserStore((state) => state.user)
   return (
     <div className={styles.chat_container}>

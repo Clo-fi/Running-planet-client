@@ -54,11 +54,9 @@ const Home = () => {
     navigate('/profile');
   }
 
-  // 유저가 null이면 로딩 상태를 표시합니다.
   if (!user) {
     return <p>로딩 중...</p>
   }
-  console.log('여긴 홈까지옴')
   return (
     <div className={styles.home}>
       <div className={styles.copyWrite_container}>
