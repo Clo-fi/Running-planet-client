@@ -13,4 +13,5 @@ export interface UserType {
   totalDistance: number;
   myCrew: string | null;
   myCrewId: number | null;
+  memberId: number;
 }
