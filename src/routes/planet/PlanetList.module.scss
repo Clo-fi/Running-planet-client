@@ -1,0 +1,57 @@
+.list_container {
+  margin-top: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.planet {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.planet_item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 90vw;
+  height: 17vh;
+}
+
+.planet_img {
+  width: 30vw;
+  height: 30vw;
+}
+
+.planet_info {
+  width: 50vw;
+  font-size: 1.9vh;
+}
+
+.planet_name {
+  font-weight: 700;
+  margin-bottom: 2vh;
+}
+
+.planet_distance {
+  margin-bottom: 1vh;
+}
+
+.planet_distance, .planet_demand {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hr {
+  background-color: black;
+  width: 100vw;
+  border: none;
+  height: 1px;
+}
+
