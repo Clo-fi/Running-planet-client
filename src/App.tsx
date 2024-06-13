@@ -24,6 +24,7 @@ import CrewRequestPage from './routes/crew/crewRequest/CrewRequestPage';
 import CrewModifyPage from './routes/crew/crewModify/CrewModifyPage';
 import RequestApprovalPage from './routes/crew/requestApproval/RequestApprovalPage';
 import PlanetMain from "./routes/planet/PlanetMain";
+import PlanetList from "./routes/planet/PlanetList";
 
 function App() {
   const { isLogined } = useAuthStore((state) => ({ isLogined: state.isLogined }));
@@ -49,6 +50,7 @@ function App() {
         <Route path='/crew/:crewId/board/write' element={<CrewPostingPage />} />
         <Route path='/crew/:crewId/board/:boardId' element={<PostDetailPage />} />
         <Route path='/planet' element={<PlanetMain />} />
+        <Route path='/planet/list' element={<PlanetList />} />
       </Route>
       <Route path='/crew/:crewId/modify' element={<CrewModifyPage />} />
       <Route path='/crew/:crewId/approval' element={<RequestApprovalPage />} />
