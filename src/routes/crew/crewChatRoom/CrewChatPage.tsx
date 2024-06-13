@@ -1,43 +1,45 @@
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import styles from './CrewChatPage.module.scss'
-import { useEffect, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import styles from './CrewChatPage.module.scss';
+import { useEffect, useState, useRef } from 'react';
 import { useWebSocket } from '../../../libs/stomp/useWebSocket';
 import { useUserStore } from '../../../stores/userStore';
 import { StompSubscription } from "@stomp/stompjs";
 import instance from '../../../libs/api/axios';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import BackSpaceTopBar from '../../../components/common/BackSpaceTopBar';
+import { formatDistanceToNow } from 'date-fns';
+import { decode } from '../../../libs/stomp/decorder';
 
 interface ChatData {
   from: string;
   message: string;
-  time: Date | null;
-}
-
-interface ChatInfo {
-  data: ChatData;
+  time: string;
 }
 
 interface ChatResponse {
-  chatArray: ChatInfo[];
-  existsNextPage: boolean;
+  chatArray: ChatData[];
+  existsNestPage: boolean;
 }
 
 const fetchChatList = async (crewId: number, page: number): Promise<ChatResponse> => {
   const response = await instance.get(`/crew/${crewId}/chat?page=${page}&size=30`);
   return response.data;
-}
+};
+
+const sortChatListByTime = (chatList: ChatData[]): ChatData[] => {
+  return chatList.slice().sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime());
+};
 
 const CrewChatPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { crewId } = useParams();
-  const user = useUserStore((state) => state.user)
+  const user = useUserStore((state) => state.user);
 
   const [message, setMessage] = useState<string>('');
-  const [chatList, setChatList] = useState<ChatInfo[]>([]);
-  // const [page, setPage] = useState<number>(0);
-
+  const [chatList, setChatList] = useState<ChatData[]>([]);
+  const chatListRef = useRef<ChatData[]>([]);
+  const chatContainerRef = useRef<HTMLDivElement | null>(null);
 
   const {
     data: chatData,
@@ -50,39 +52,44 @@ const CrewChatPage = () => {
     queryKey: ['chatList', crewId],
     queryFn: ({ pageParam = 0 }) => fetchChatList(Number(crewId), pageParam),
     getNextPageParam: (lastPage, allPages) => {
-      return lastPage.existsNextPage ? allPages.length : undefined;
+      return lastPage.existsNestPage ? allPages.length : undefined;
     },
     initialPageParam: 0,
   });
-
 
   if (status === "error") {
     console.error("An error occurred while fetching chat data:", error);
   }
 
   useEffect(() => {
+    if (!chatData) {
+      fetchNextPage();
+    }
+  }, []);
+
+  useEffect(() => {
     if (chatData) {
       const newChatList = chatData.pages.flatMap(page => page.chatArray);
-      setChatList(prevChatList => [...prevChatList, ...newChatList]);
+      const mergedChatList = sortChatListByTime([...chatListRef.current, ...newChatList]);
+      chatListRef.current = mergedChatList;
+      setChatList(mergedChatList);
+      scrollToBottom();
     }
   }, [chatData]);
 
   useEffect(() => {
     const handleScroll = () => {
-      const chatContainer = document.querySelector(`.${styles.chat_container}`);
+      const chatContainer = chatContainerRef.current;
       if (!chatContainer) return;
 
       const scrollTop = chatContainer.scrollTop;
-      const scrollHeight = chatContainer.scrollHeight;
-      const clientHeight = chatContainer.clientHeight;
-      const scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-
-      if (scrolledToBottom && hasNextPage && !isFetchingNextPage) {
+      const scrolledToTop = scrollTop === 0;
+      if (scrolledToTop && hasNextPage && !isFetchingNextPage) {
         fetchNextPage();
       }
     };
 
-    const chatContainer = document.querySelector(`.${styles.chat_container}`);
+    const chatContainer = chatContainerRef.current;
     if (chatContainer) {
       chatContainer.addEventListener('scroll', handleScroll);
     }
@@ -93,7 +100,6 @@ const CrewChatPage = () => {
       }
     };
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
-
 
   const socketClient = useWebSocket();
   const { data } = location.state;
@@ -108,23 +114,25 @@ const CrewChatPage = () => {
       subscription = socketClient.subscribe(
         `/sub/crew/${crewId}/chat`,
         (message) => {
-          console.log('메시지 수신:', message);
-
-          const chatMessage: ChatInfo = JSON.parse(message.body);
-          setChatList((prev) => [...prev, chatMessage]);
+          const decodedMessage = decode(message);
+          const chatMessage: ChatData = decodedMessage.data;
+          setChatList((prev) => {
+            const updatedChatList = sortChatListByTime([...prev, chatMessage]);
+            chatListRef.current = updatedChatList;
+            return updatedChatList;
+          });
+          scrollToBottom();
         }
+      );
+    };
 
-      )
-    }
     return () => {
       if (socketClient.connected && subscription) {
         subscription.unsubscribe();
       }
-    }
+    };
+  }, [socketClient, crewId]);
 
-  }, [socketClient, crewId])
-
-  console.log(chatList)
   const sendMessageHandle = (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
 
@@ -135,25 +143,31 @@ const CrewChatPage = () => {
       body: JSON.stringify({ from: user?.nickname, message: message })
     });
     setMessage('');
-  }
+  };
 
+  const scrollToBottom = () => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  };
   return (
     <div className={styles.main_container}>
       <BackSpaceTopBar
         title={data.crewName}
         onClick={() => navigate(-1)}
       />
-      <div className={styles.chat_container}>
+      <div className={styles.chat_container} ref={chatContainerRef}>
         {chatList && chatList.length > 0 ? (
           chatList.map((chat, index) => (
-            <div key={index} className={chat.data.from === user?.nickname ? styles.chat_my_box : ''}>
-              {index > 0 && chatList[index - 1].data.from === chat.data.from ? null : (
-                <p className={chat.data.from === user?.nickname ? styles.chat_my_name : styles.chat_username}>
-                  {chat.data.from !== user?.nickname ? chat.data.from : null}
+            <div key={index} className={chat.from === user?.nickname ? styles.chat_my_box : ''}>
+              {formatDistanceToNow(chat.time)}
+              {index > 0 && chatList[index - 1].from === chat.from ? null : (
+                <p className={chat.from === user?.nickname ? styles.chat_my_name : styles.chat_username}>
+                  {chat.from !== user?.nickname && chat.from}
                 </p>
               )}
-              <p className={chat.data.from === user?.nickname ? styles.chat_my_message : styles.chat_message}>
-                <span>{chat.data.message}</span>
+              <p className={chat.from === user?.nickname ? styles.chat_my_message : styles.chat_message}>
+                <span>{chat.message}</span>
               </p>
             </div>
           ))
