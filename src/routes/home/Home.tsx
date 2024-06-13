@@ -6,6 +6,7 @@ import { UserType } from '../../types/user/user';
 import { useQuery } from '@tanstack/react-query';
 import { useUserStore } from '../../stores/userStore';
 import { useEffect } from 'react';
+import Swal from "sweetalert2";
 
 const fetchUserInfo = async (): Promise<UserType> => {
   const response = await instance.get('/profile')
@@ -27,9 +28,20 @@ const Home = () => {
       setUser(data);
       console.log(user);
       if (!data?.gender || !data?.age || !data?.weight) {
-        console.log('test')
-        // navigate('/onboarding') 유저의 성별, 나이, 몸무게가 없을 때
-        // 온보딩 페이지로 리다이렉트 -> 여기서 상대방이 조회 할 수 없다고 안심하라는 문구랑 같이! 
+        console.log('test');
+        Swal.fire({
+          title: "성별, 나이, 또는 몸무게 데이터가 없습니다!",
+          text: "정확한 측정을 위해 정보를 입력해주세요! 확인 버튼을 누르면 정보 입력 페이지로 이동합니다. 신체 정보는 다른 러너들에게 공개되지 않으니 안심하세요!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "확인"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate('/onboarding');
+          }
+        });
       }
     }
   }, [data, setUser])
@@ -52,27 +64,35 @@ const Home = () => {
   }
   return (
     <div className={styles.home}>
+
       <div className={styles.copyWrite_container}>
-        <p className={styles.copyWrite}>운동하기</p>
+        <p className={styles.copyWrite}>Running Planet</p>
         <img className={styles.profile_image} onClick={handleProfile} src={user.profileImg === null ? '/icons/Ellipse 151.png' : user.profileImg} alt='userImg' />
       </div>
-      <div className={styles.missions_container}>
-        <div className={styles.mission}>
-          <div className={styles.mission_type}> 오늘 미션 </div>
-          <div className={styles.mission_content}> <p className={styles.mission_content_text}>15km 뛰기</p> </div>
-          <div className={styles.mission_progress}> </div>
-        </div>
-        <div className={styles.mission}>
-          <div className={styles.mission_type}> 보너스 미션 </div>
-          <div className={styles.mission_content}> <p className={styles.mission_content_text}>게시글 하나 작성하기</p> </div>
-          <div className={styles.mission_progress}> </div>
-        </div>
-      </div>
+
       <div className={styles.map_container}>
+
+        <div className={styles.missions_container}>
+          <div className={styles.mission}>
+
+            <div className={styles.mission_content}> <p className={styles.mission_content_text}>미션 1 | 15km 달리기</p> </div>
+            
+          </div>
+          <div className={styles.mission}>
+          <div className={styles.mission_content}> <p className={styles.mission_content_text}>미션 2 | 15km 달리기</p> </div>
+
+          </div>
+        </div>
+
         <KakaoMap />
       </div>
-      <div className={styles.btn_container}>
-        <button onClick={handleExercise} className={styles.home_start_btn}>시작하기</button>
+      <div className={styles.btn_container} onClick={handleExercise}>
+        <p className={styles.btn_text}>러닝 시작하기</p>
+        <img src="/icons/start_btn.png" className={styles.run_start_btn}></img>
+      </div>
+
+      <div className={styles.running_planet}>
+
       </div>
     </div>
   )
