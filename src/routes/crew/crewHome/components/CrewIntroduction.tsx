@@ -7,7 +7,7 @@ import { MissionList } from '../../../../types/user/mission';
 import parse from 'html-react-parser';
 import { useUserStore } from '../../../../stores/userStore';
 import BackSpaceTopBar from '../../../../components/common/BackSpaceTopBar';
-// import MissionChart from './MissionChart';
+import MissionChart from './MissionChart';
 
 interface CrewProps {
   data: CrewDetail | null;
@@ -104,7 +104,7 @@ const CrewIntroduction: React.FC<CrewProps> = ({ data, missions }) => {
       <div className={styles.home__bottom}>
         <div className={styles.home__mission_progress}>
           <p className={styles.home__mission_progress_summary}>크루 미션 진행률</p>
-          {/* <MissionChart data={data.missionProgress} /> */}
+          <MissionChart data={data.missionProgress} />
           <div className={styles.home__mission_state}>
 
             {missions.missions.map((mission, index) => (
