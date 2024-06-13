@@ -18,7 +18,7 @@ import OauthCallback from './routes/login/OauthCallback';
 
 import useAuthStore from './stores/useAuthStore';
 import { WebSocketProvider } from './libs/stomp/SocketProvider';
-// import { useKakaoLoader } from 'react-kakao-maps-sdk';
+import { useKakaoLoader } from 'react-kakao-maps-sdk';
 import CrewChatPage from './routes/crew/crewChatRoom/CrewChatPage';
 import CrewRequestPage from './routes/crew/crewRequest/CrewRequestPage';
 import CrewModifyPage from './routes/crew/crewModify/CrewModifyPage';
@@ -28,11 +28,11 @@ import PlanetList from "./routes/planet/PlanetList";
 
 function App() {
   const { isLogined } = useAuthStore((state) => ({ isLogined: state.isLogined }));
-  // const [loading, error] = useKakaoLoader({
-  //   appkey: import.meta.env.VITE_KAKAO_KEY || '',
-  // })
-  // console.log(import.meta.env.VITE_KAKAO_KEY)
-  // console.log(loading, error)
+  const [loading, error] = useKakaoLoader({
+    appkey: import.meta.env.VITE_KAKAO_KEY || '',
+  })
+  console.log(import.meta.env.VITE_KAKAO_KEY)
+  console.log(loading, error)
   return (
     <Routes>
       <Route path="/" element={<Login />} />

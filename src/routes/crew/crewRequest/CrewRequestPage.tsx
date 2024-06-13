@@ -5,6 +5,7 @@ import { CrewRequest } from '../../../types/crew/crewRequest';
 
 import styles from './CrewRequestPage.module.scss';
 import { CustomAlert } from '../../../libs/sweetAlert/alert';
+import BackSpaceTopBar from '../../../components/common/BackSpaceTopBar';
 
 const fetchCrewData = async (crewId: number) => {
   try {
@@ -87,10 +88,11 @@ const CrewRequestPage = () => {
   }
   return (
     <div className={styles.main_container}>
-      <div className={styles.top}>
-        <img className={styles.top_backspace} src='/icons/Expand_left.png' alt='backSpaceImg' onClick={() => navigate(-1)} />
-        <p>{data.crewName}</p>
-      </div>
+      <BackSpaceTopBar
+        title={data.crewName}
+        onClick={() => navigate(-1)}
+        isEditable={false}
+      />
       <div className={styles.middle}>
         <div className={styles.crew_state}>
           <p className={styles.crew_level}>{data.crewLevel}Lv</p>

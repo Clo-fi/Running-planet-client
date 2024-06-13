@@ -4,6 +4,7 @@ import { CrewRequestUser } from '../../../types/crew/crewRequest';
 import instance from '../../../libs/api/axios';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
+import BackSpaceTopBar from '../../../components/common/BackSpaceTopBar';
 
 const fetchRequestUser = async (crewId: number): Promise<CrewRequestUser[]> => {
   const response = await instance.get(`/crew/${crewId}/request`);
@@ -54,10 +55,10 @@ const RequestApprovalPage = () => {
   }
   return (
     <div className={styles.main_container}>
-      <div className={styles.top}>
-        <img className={styles.top_backspace} src='/icons/Expand_left.png' alt='backSpaceImg' onClick={() => navigate(-1)} />
-        <p>가입 신청 인원</p>
-      </div>
+      <BackSpaceTopBar
+        title='가입 신청 인원'
+        onClick={() => navigate(-1)}
+      />
       <div className={styles.list_container}>
         {
           requestUsers.length === 0

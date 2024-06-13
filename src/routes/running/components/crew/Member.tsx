@@ -1,19 +1,27 @@
+import { runUser } from '../../../../types/running/runUser';
 import styles from "./Member.module.scss";
 
 interface Props {
-  isOnline: boolean;
-  isRun: boolean;
-  nickname: string;
-  runDistance: number;
+  user: runUser; // 수정된 부분
 }
 
-const Member = ({ isOnline }: Props) => {
+const Member: React.FC<Props> = ({ user }) => {
   return (
     <div className={styles.box}>
-      <div className={styles.profile}></div>
+      <div className={styles.profile}>
+        {
+          !user.isEnd ? (
+            <img src={user.profileImg} alt='userImg' />
+          ) : (
+            null
+          )
+        }
+      </div>
       <div className={styles.info}>
-        <div className={isOnline ? styles.status_online : styles.status} /> 1h
-        03m
+        <div className={!user.isEnd ? styles.status_online : styles.status} />
+        <p className={styles.runTime}>
+          01h 03m
+        </p>
       </div>
       {
         //TODO 닉네임 등

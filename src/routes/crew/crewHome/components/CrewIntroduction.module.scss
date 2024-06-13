@@ -5,33 +5,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  overflow-y: auto; /* 수직 스크롤 활성화 */
+  overflow-y: auto;
   z-index: 0;
 }
-.home__top{
-  position: fixed;
-  background: white;
-  z-index: 2;
-  top: 0;
-  width: inherit;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 10px;
-  p{
-    font-size: 20px;
-    font-weight: 700;
-  }
-  border-bottom: 1px solid lightgray;
-}
-.home__top_backspace{
-  position: absolute;
-  left: 5%;
-  width: 25px;
-  cursor: pointer;
-}
-
 .home__middle{
   width: inherit;
   max-width: 768px;

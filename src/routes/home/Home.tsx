@@ -7,13 +7,6 @@ import { useQuery } from '@tanstack/react-query';
 import { useUserStore } from '../../stores/userStore';
 import { useEffect } from 'react';
 
-
-// interface runningRecord {
-//   id: number;
-//   runDistance: number;
-//   day: number;
-// }
-
 const fetchUserInfo = async (): Promise<UserType> => {
   const response = await instance.get('/profile')
   console.log(response);

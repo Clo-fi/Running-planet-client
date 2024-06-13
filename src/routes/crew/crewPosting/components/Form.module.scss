@@ -10,17 +10,10 @@
   justify-content: space-between;
 
 }
-.posting__backspace{
-  width: 90%;
-  margin-top: 20px;
-  cursor: pointer;
-  img{
-    width: 25px;
-  }
-}
 
 .posting__form{
   position: relative;
+  margin-top: 6dvh;
   width: 90%;
   height: 100dvh;
   display: flex;

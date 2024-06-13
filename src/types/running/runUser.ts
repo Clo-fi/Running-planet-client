@@ -4,4 +4,5 @@ export interface runUser {
   runTime: number;
   runDistance: number;
   isEnd: boolean;
+  profileImg: string;
 }

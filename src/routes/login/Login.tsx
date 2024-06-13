@@ -71,15 +71,15 @@ const Login: React.FC = () => {
         <div className={styles.login_btn_container}>
           <button onClick={handleKakaoLogin} className={`${styles.login_btn} ${styles.kakao_btn}`}>
             <img className={styles.oauthImg} src="/icons/kakao.png" alt="kakaoImg" />
-            카카오로 계속하기
+            카카오 로그인
           </button>
           <button onClick={handleNaverLogin} className={`${styles.login_btn} ${styles.naver_btn}`}>
             <img className={styles.oauthImg} src="/icons/naver.png" alt="naverImg" />
-            네이버로 계속하기
+            네이버 로그인
           </button>
           <button onClick={handleGoogleLogin} className={`${styles.login_btn} ${styles.google_btn}`}>
             <img className={styles.oauthImg} src="/icons/google.png" alt="googleImg" />
-            구글로 계속하기
+            구글 로그인
           </button>
         </div>
       </div>
