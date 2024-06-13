@@ -13,7 +13,7 @@ import PostDetailPage from './routes/crew/postDetail/PostDetailPage';
 import Setting from "./routes/setting/Setting";
 import CrewTabPage from './routes/crew/CrewTabPage';
 import CrewCreatePage from './routes/crew/crewCreate/CrewCreatePage';
-import Onboarding from "./components/common/onboarding/Onboarding";
+import Onboarding from "./routes/onboarding/Onboarding";
 import OauthCallback from './routes/login/OauthCallback';
 
 import useAuthStore from './stores/useAuthStore';
@@ -24,6 +24,7 @@ import CrewRequestPage from './routes/crew/crewRequest/CrewRequestPage';
 import CrewModifyPage from './routes/crew/crewModify/CrewModifyPage';
 import RequestApprovalPage from './routes/crew/requestApproval/RequestApprovalPage';
 import PlanetMain from "./routes/planet/PlanetMain";
+import PlanetList from "./routes/planet/PlanetList";
 
 function App() {
   const { isLogined } = useAuthStore((state) => ({ isLogined: state.isLogined }));
@@ -36,9 +37,8 @@ function App() {
     <Routes>
       <Route path="/" element={<Login />} />
       <Route element={<LayoutWithFooter />}>
-        <Route path="/onboarding" element={<Onboarding />} />
 
-        <Route path="/home" element={isLogined ? <Home /> : <Navigate to='/' replace />} />
+        <Route path="/home" element={isLogined ? <Home /> : <Navigate to='/' replace />} /> */
         <Route path="/callback" element={<OauthCallback />} />
         <Route path="/profile" element={<Profile />} />
         <Route path='/crew' element={<CrewTabPage />} />
@@ -49,9 +49,11 @@ function App() {
         <Route path='/crew/:crewId/board/write' element={<CrewPostingPage />} />
         <Route path='/crew/:crewId/board/:boardId' element={<PostDetailPage />} />
         <Route path='/planet' element={<PlanetMain />} />
+        <Route path='/planet/list' element={<PlanetList />} />
       </Route>
       <Route path='/crew/:crewId/modify' element={<CrewModifyPage />} />
       <Route path='/crew/:crewId/approval' element={<RequestApprovalPage />} />
+      <Route path="/onboarding" element={<Onboarding />} />
       <Route element={<WebSocketProvider />}>
         <Route element={<LayoutWithFooter />}>
           <Route path='/crew/:crewId/chat' element={<CrewChatPage />} />
