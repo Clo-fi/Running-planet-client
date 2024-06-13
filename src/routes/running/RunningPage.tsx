@@ -12,6 +12,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useWebSocket } from '../../libs/stomp/useWebSocket';
 import { useEffect, useState } from 'react';
 import { StompSubscription } from '@stomp/stompjs';
+import RunningMap from './components/map/RunningMap';
 // import ExitTab from './components/exit/ExitTab';
 
 // import { useEffect } from 'react';
@@ -94,6 +95,9 @@ const RunningPage = () => {
         style={{ width: "100%", height: "100%" }}
         initialSlide={1}
       >
+        <SwiperSlide>
+          <RunningMap />
+        </SwiperSlide>
         <SwiperSlide>
           <RunningTab />
         </SwiperSlide>
