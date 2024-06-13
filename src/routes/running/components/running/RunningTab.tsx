@@ -21,8 +21,9 @@ const RunningTab = () => {
   const weight = useUserStore((state) => state.user?.weight) as number;
   const [positions, setPositions] = useState<PositionType[]>([
     "LEFT",
-    "RIGHT",
     "CENTER",
+    "RIGHT",
+    "TOP"
   ]);
   const navigate = useNavigate();
   const [longClick, setLongClick] = useState<boolean>(false);
@@ -123,6 +124,22 @@ const RunningTab = () => {
     [currentRecord, postRunningRecordMutate, time]
   );
 
+  const exitHandler = async () => {
+    try {
+      CustomAlert.fire({
+        title: '정말 나가시겠습니까?',
+        showCancelButton: true,
+        timer: 1000
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // 확인 버튼이 눌렸을 때 이동 처리
+          navigate(-1); // navigate 함수는 어딘가에서 정의된 것으로 가정
+        }
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
   /* isRunningMode Check*/
   useEffect(() => {
     console.log('isRunningMode is ', isRunningMode);
@@ -156,11 +173,11 @@ const RunningTab = () => {
 
   const bind = useLongPress(
     () => {
-      if (!currentRecord) {
-        console.log(currentRecord);
-        CustomAlert.fire({ title: "운동 기록이 없습니다." });
-        return;
-      }
+      // if (!currentRecord) {
+      //   console.log(currentRecord);
+      //   CustomAlert.fire({ title: "운동 기록이 없습니다." });
+      //   return;
+      // }
       saveCurrentRecord(true).then(() => {
         navigate("/running-complete", {
           state: { recordId: postRunningRecordRes?.id },
@@ -194,15 +211,17 @@ const RunningTab = () => {
           position={positions[2]}
           description="이동한 거리"
         />
+        <Circle
+          position={positions[3]}
+          component={<button onClick={() => exitHandler()} >홈으로 돌아가기</button>}
+        />
         <ArrowLeftIcon
           className={styles.left_btn}
-          onClick={() => {
-            setPositions((prev) => [prev[2], prev[0], prev[1]]);
-          }}
+          onClick={() => { setPositions((prev) => [prev[3], prev[0], prev[1], prev[2],]); }}
         />
         <ArrowRightIcon
           className={styles.right_btn}
-          onClick={() => setPositions((prev) => [prev[1], prev[2], prev[0]])}
+          onClick={() => setPositions((prev) => [prev[1], prev[2], prev[3], prev[0],])}
         />
       </section>
       <section className={styles.time_section}>
