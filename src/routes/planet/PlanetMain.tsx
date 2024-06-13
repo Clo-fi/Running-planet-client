@@ -16,6 +16,10 @@ const PlanetMain = () => {
     nav('/crew');
   };
 
+  const handlePlanetList = () => {
+    nav('/planet/list');
+  }
+
   useEffect(() => {
     if (planetList?.planets?.length) {
       setCurrentPlanet(planetList.planets[planetList.planets.length - 1]);
@@ -44,7 +48,7 @@ const PlanetMain = () => {
           {currentPlanet?.planetName}
         </div>
         <div className={styles.planet_Img}>
-          {currentPlanet && <img src={currentPlanet.planetImg} alt={currentPlanet.planetName} />}
+          {currentPlanet && <img src={currentPlanet.planetImage} alt={currentPlanet.planetName} />}
         </div>
       </div>
 
@@ -59,7 +63,7 @@ const PlanetMain = () => {
         </div>
       </div>
 
-      <div className={styles.list_btn}>
+      <div className={styles.list_btn} onClick={handlePlanetList}>
         <p>행성 목록 보기</p>
       </div>
     </div>
