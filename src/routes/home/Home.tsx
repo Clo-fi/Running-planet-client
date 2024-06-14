@@ -9,26 +9,25 @@ import { useEffect } from 'react';
 import Swal from "sweetalert2";
 
 const fetchUserInfo = async (): Promise<UserType> => {
-  const response = await instance.get('/profile')
+  const response = await instance.get('/profile');
   console.log(response);
   return response.data;
 }
 
-const Home = () => {
+const Home: React.FC = () => {
   const navigate = useNavigate();
-  const user = useUserStore((state) => state.user)
-  const setUser = useUserStore((state) => state.setUser)
+  const user = useUserStore((state) => state.user);
+  const setUser = useUserStore((state) => state.setUser);
+
   const { data, isError, error, isLoading } = useQuery<UserType, Error>({
     queryKey: ['userInfo'],
     queryFn: fetchUserInfo
-  })
+  });
 
   useEffect(() => {
     if (data) {
       setUser(data);
-      console.log(user);
-      if (!data?.gender || !data?.age || !data?.weight) {
-        console.log('test');
+      if (!data.gender || !data.age || !data.weight) {
         Swal.fire({
           title: "성별, 나이, 또는 몸무게 데이터가 없습니다!",
           text: "정확한 측정을 위해 정보를 입력해주세요! 확인 버튼을 누르면 정보 입력 페이지로 이동합니다. 신체 정보는 다른 러너들에게 공개되지 않으니 안심하세요!",
@@ -44,24 +43,27 @@ const Home = () => {
         });
       }
     }
-  }, [data, setUser])
+  }, [data]);
 
   if (isLoading) {
-    return <p>기달기달</p>
+    return <p>기다려 주세요...</p>;
   }
   if (isError) {
-    return <p>error: {error.message}</p>
+    return <p>에러: {error?.message}</p>;
   }
+
   const handleExercise = () => {
     navigate('/running');
   }
-  const handleProfile = async () => {
+
+  const handleProfile = () => {
     navigate('/profile');
   }
 
   if (!user) {
-    return <p>로딩 중...</p>
+    return <p>로딩 중...</p>;
   }
+
   return (
     <div className={styles.home}>
 
