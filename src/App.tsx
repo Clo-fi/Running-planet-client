@@ -5,7 +5,7 @@ import Profile from "./routes/profile/Profile";
 import EditProfile from "./routes/profile/EditProfile";
 import Login from "./routes/login/Login";
 import CrewSearchPage from './routes/crew/crewSearch/CrewSearchPage';
-import RunningPage from "./routes/running/RunningPage";
+import RunningPage from './routes/running/RunningPage';
 import RunningCompletePage from "./routes/running-complete/RunningCompletePage";
 import CrewHomePage from './routes/crew/crewHome/CrewHomePage';
 import CrewPostingPage from './routes/crew/crewPosting/CrewPostingPage';
@@ -25,6 +25,7 @@ import CrewModifyPage from './routes/crew/crewModify/CrewModifyPage';
 import RequestApprovalPage from './routes/crew/requestApproval/RequestApprovalPage';
 import PlanetMain from "./routes/planet/PlanetMain";
 import PlanetList from "./routes/planet/PlanetList";
+
 
 function App() {
   const { isLogined } = useAuthStore((state) => ({ isLogined: state.isLogined }));

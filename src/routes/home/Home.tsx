@@ -10,7 +10,6 @@ import Swal from "sweetalert2";
 
 const fetchUserInfo = async (): Promise<UserType> => {
   const response = await instance.get('/profile')
-  console.log(response);
   return response.data;
 }
 
@@ -26,9 +25,7 @@ const Home = () => {
   useEffect(() => {
     if (data) {
       setUser(data);
-      console.log(user);
       if (!data?.gender || !data?.age || !data?.weight) {
-        console.log('test');
         Swal.fire({
           title: "성별, 나이, 또는 몸무게 데이터가 없습니다!",
           text: "정확한 측정을 위해 정보를 입력해주세요! 확인 버튼을 누르면 정보 입력 페이지로 이동합니다. 신체 정보는 다른 러너들에게 공개되지 않으니 안심하세요!",
@@ -76,10 +73,10 @@ const Home = () => {
           <div className={styles.mission}>
 
             <div className={styles.mission_content}> <p className={styles.mission_content_text}>미션 1 | 15km 달리기</p> </div>
-            
+
           </div>
           <div className={styles.mission}>
-          <div className={styles.mission_content}> <p className={styles.mission_content_text}>미션 2 | 15km 달리기</p> </div>
+            <div className={styles.mission_content}> <p className={styles.mission_content_text}>미션 2 | 15km 달리기</p> </div>
 
           </div>
         </div>
