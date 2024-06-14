@@ -157,7 +157,7 @@ const RunningTab = () => {
     return () => {
       clearInterval(timer);
     };
-  }, [isRunningMode]);
+  }, [isRunningMode, saveCurrentRecord]);
 
   /* 운동 시간 */
   useEffect(() => {
