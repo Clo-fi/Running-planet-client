@@ -76,7 +76,7 @@ const CrewIntroduction: React.FC<CrewProps> = ({ data, missions }) => {
         <div className={styles.home__crew_state}>
           <p className={styles.home__crew_level}>{data.crewLevel}Lv</p>
           {data.imgFile ? (
-            <img className={styles.home__crew_crewImg} src={`https://running-planet-s3.s3.ap-northeast-2.amazonaws.com/${data.imgFile}`} alt='crewImg' />
+            <img className={styles.home__crew_crewImg} src={data.imgFile} alt='crewImg' />
           ) :
             <div className={styles.home__crew_crewImg} />
           }

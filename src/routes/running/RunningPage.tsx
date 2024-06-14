@@ -12,15 +12,13 @@ import { useQuery } from '@tanstack/react-query';
 import { useWebSocket } from '../../libs/stomp/useWebSocket';
 import { useEffect, useState } from 'react';
 import { StompSubscription } from '@stomp/stompjs';
-import RunningMap from './components/map/RunningMap';
-// import ExitTab from './components/exit/ExitTab';
 
 // import { useEffect } from 'react';
 // import { useWebSocket } from '../../libs/stomp/useWebSocket';
 // import { SOCKET_TYPE, decode } from '../../libs/stomp/decorder'
 const fetchRunningUser = async (crewId: number): Promise<runUser[]> => {
   const response = await instance.get(`/crew/${crewId}/running`)
-  console.log('멤버조회', response);
+  console.log(response);
   return response.data;
 }
 const RunningPage = () => {
@@ -28,7 +26,7 @@ const RunningPage = () => {
 
   const user = useUserStore((state) => state.user);
 
-  const { data, /*isError, isLoading, error*/ } = useQuery({
+  const { data, isError, isLoading, error } = useQuery({
     queryKey: ['RunUserList', user?.myCrewId],
     queryFn: () => fetchRunningUser(Number(user?.myCrewId)),
     enabled: !!user?.myCrewId
@@ -40,7 +38,7 @@ const RunningPage = () => {
     }
   }, [data])
 
-  // console.log(isError, error, isLoading)
+  console.log(isError, error, isLoading)
   // if(isError) {
   //   return <p>Error : {error.message}</p>
   // }
@@ -78,11 +76,10 @@ const RunningPage = () => {
     }
 
     return () => {
-      if (socketClient.connected && subscription) {
-        subscription.unsubscribe();
-      }
+      // 컴포넌트가 언마운트되거나 업데이트되기 전에 구독을 취소
+      subscription?.unsubscribe();
     }
-  }, [socketClient, userList])
+  }, [socketClient, user?.myCrewId, userList])
 
 
   return (
@@ -93,16 +90,12 @@ const RunningPage = () => {
         pagination={{ clickable: true }}
         className={styles.swiper}
         style={{ width: "100%", height: "100%" }}
-        initialSlide={1}
       >
-        <SwiperSlide>
-          <RunningMap />
-        </SwiperSlide>
         <SwiperSlide>
           <RunningTab />
         </SwiperSlide>
         <SwiperSlide>
-          <CrewTab userList={userList} />
+          <CrewTab />
         </SwiperSlide>
       </Swiper>
     </main>

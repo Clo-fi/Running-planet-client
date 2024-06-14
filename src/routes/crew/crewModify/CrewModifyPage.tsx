@@ -175,7 +175,7 @@ const CrewModifyPage = () => {
               <img
                 className={styles.crew_crewImg}
                 onClick={handleImageAdd}
-                src={crewImg ? URL.createObjectURL(crewImg) : (modifyState.imgFile ? `https://running-planet-s3.s3.ap-northeast-2.amazonaws.com/${data.imgFile}` : '')}
+                src={crewImg ? URL.createObjectURL(crewImg) : (modifyState.imgFile ? (data.imgFile) : '')}
                 alt={crewImg ? 'crewImg' : (modifyState.imgFile ? 'crewImg' : '')}
               />
             </div>

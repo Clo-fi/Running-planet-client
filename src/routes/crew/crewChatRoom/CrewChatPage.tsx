@@ -5,9 +5,10 @@ import { useWebSocket } from '../../../libs/stomp/useWebSocket';
 import { useUserStore } from '../../../stores/userStore';
 import { StompSubscription } from "@stomp/stompjs";
 import instance from '../../../libs/api/axios';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import BackSpaceTopBar from '../../../components/common/BackSpaceTopBar';
 import { formatDistanceToNow } from 'date-fns';
+// import { ko } from "date-fns/locale";
 import { decode } from '../../../libs/stomp/decorder';
 
 interface ChatData {
@@ -22,7 +23,7 @@ interface ChatResponse {
 }
 
 const fetchChatList = async (crewId: number, page: number): Promise<ChatResponse> => {
-  const response = await instance.get(`/crew/${crewId}/chat?page=${page}&size=30`);
+  const response = await instance.get(`/crew/${crewId}/chat?page=${page}&size=10`);
   return response.data;
 };
 
@@ -40,67 +41,23 @@ const CrewChatPage = () => {
   const [chatList, setChatList] = useState<ChatData[]>([]);
   const chatListRef = useRef<ChatData[]>([]);
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
+  const [page, setPage] = useState<number>(0);
 
-  const {
-    data: chatData,
-    error,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    status,
-  } = useInfiniteQuery({
-    queryKey: ['chatList', crewId],
-    queryFn: ({ pageParam = 0 }) => fetchChatList(Number(crewId), pageParam),
-    getNextPageParam: (lastPage, allPages) => {
-      return lastPage.existsNestPage ? allPages.length : undefined;
-    },
-    initialPageParam: 0,
-  });
 
-  if (status === "error") {
-    console.error("An error occurred while fetching chat data:", error);
-  }
-
-  useEffect(() => {
-    if (!chatData) {
-      fetchNextPage();
-    }
-  }, []);
+  const { data: chatData, error, isError, isLoading } = useQuery({
+    queryKey: ['chatData', crewId, page],
+    queryFn: () => fetchChatList(Number(crewId), page),
+    enabled: !!crewId
+  })
+  console.log(error, isError, isLoading, setPage)
 
   useEffect(() => {
     if (chatData) {
-      const newChatList = chatData.pages.flatMap(page => page.chatArray);
-      const mergedChatList = sortChatListByTime([...chatListRef.current, ...newChatList]);
-      chatListRef.current = mergedChatList;
-      setChatList(mergedChatList);
+      const newChatList = sortChatListByTime(chatData.chatArray);
+      setChatList(newChatList);
       scrollToBottom();
     }
   }, [chatData]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const chatContainer = chatContainerRef.current;
-      if (!chatContainer) return;
-
-      const scrollTop = chatContainer.scrollTop;
-      const scrolledToTop = scrollTop === 0;
-      if (scrolledToTop && hasNextPage && !isFetchingNextPage) {
-        fetchNextPage();
-      }
-    };
-
-    const chatContainer = chatContainerRef.current;
-    if (chatContainer) {
-      chatContainer.addEventListener('scroll', handleScroll);
-    }
-
-    return () => {
-      if (chatContainer) {
-        chatContainer.removeEventListener('scroll', handleScroll);
-      }
-    };
-  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
-
   const socketClient = useWebSocket();
   const { data } = location.state;
 
@@ -157,6 +114,9 @@ const CrewChatPage = () => {
         onClick={() => navigate(-1)}
       />
       <div className={styles.chat_container} ref={chatContainerRef}>
+        <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+          <img src='/icons/circle_right.png' alt='request' />
+        </div>
         {chatList && chatList.length > 0 ? (
           chatList.map((chat, index) => (
             <div key={index} className={chat.from === user?.nickname ? styles.chat_my_box : ''}>
