@@ -52,7 +52,7 @@ const Detail: React.FC<DetailProps> = ({ data, isLoading, isLiked, authorId, onN
               <img
                 className={styles.img}
                 key={image.id}
-                src={`https://running-planet-s3.s3.ap-northeast-2.amazonaws.com/${image.img}`}
+                src={image.img}
                 alt={`img_${image.id}`} />
             ))}
           </>

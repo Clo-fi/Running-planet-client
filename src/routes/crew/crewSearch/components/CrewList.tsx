@@ -69,7 +69,7 @@ const CrewList: React.FC<CrewListProps> = ({
               </div>
               <div className={styles.crew_introduction_container}>
 
-                <img className={styles.crew_img} src={`https://running-planet-s3.s3.ap-northeast-2.amazonaws.com/${crew.imgFile}`} alt="crewImg" />
+                <img className={styles.crew_img} src={crew.imgFile} alt="crewImg" />
                 <div className={styles.crew_summary}>
                   <span className={styles.crew_introduction}>{crew.introduction}</span>
                   <div className={styles.crew_summary_bottom}>
