@@ -25,6 +25,7 @@ import CrewModifyPage from './routes/crew/crewModify/CrewModifyPage';
 import RequestApprovalPage from './routes/crew/requestApproval/RequestApprovalPage';
 import PlanetMain from "./routes/planet/PlanetMain";
 import PlanetList from "./routes/planet/PlanetList";
+import PlanetNaming from "./routes/planet/PlanetNaming";
 
 function App() {
   const { isLogined } = useAuthStore((state) => ({ isLogined: state.isLogined }));
@@ -54,6 +55,7 @@ function App() {
       <Route path='/crew/:crewId/modify' element={<CrewModifyPage />} />
       <Route path='/crew/:crewId/approval' element={<RequestApprovalPage />} />
       <Route path="/onboarding" element={<Onboarding />} />
+      <Route path="/planet/:planetId" element={<PlanetNaming />} />
       <Route element={<WebSocketProvider />}>
         <Route element={<LayoutWithFooter />}>
           <Route path='/crew/:crewId/chat' element={<CrewChatPage />} />
