@@ -1,14 +1,21 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./Onboarding.module.scss";
 import instance from "../../libs/api/axios";
+import { useUserStore } from '../../stores/userStore';
 import Swal from "sweetalert2";
-import { useNavigate } from 'react-router-dom';
 
-const Onboarding = () => {
-  const navigate = useNavigate();
+const fetchUserInfo = async () => {
+  const response = await instance.get('/profile');
+  return response.data;
+}
+
+const Onboarding: React.FC = () => {
   const [gender, setGender] = useState<string>('');
   const [age, setAge] = useState<number | string>('');
   const [weight, setWeight] = useState<number | string>('');
+  const navigate = useNavigate();
+  const setUser = useUserStore((state) => state.setUser);
 
   const handleSet = async () => {
     if (!gender || !age || !weight) {
@@ -27,9 +34,23 @@ const Onboarding = () => {
         age: Number(age),
         weight: Number(weight),
       };
-      const response = await instance.post(`/onboarding`, onboardingData);
-      navigate('/home')
-      console.log(response);
+      try {
+        const response = await instance.post(`/onboarding`, onboardingData);
+        console.log(response);
+        const userData = await fetchUserInfo();
+        setUser(userData);
+        Swal.fire({
+          title: "정보 저장을 완료했습니다!",
+          icon: "success",
+        }).then(() => {
+          navigate('/home');
+        });
+      } catch (error) {
+        Swal.fire({
+          title: "데이터 전송에 실패했습니다.",
+          icon: "error",
+        });
+      }
     }
   };
 
@@ -94,8 +115,8 @@ const Onboarding = () => {
           </div>
         </div>
       </div>
-      <footer className={styles.footer}>
-        <p onClick={handleSet}>다음</p>
+      <footer className={styles.footer} onClick={handleSet}>
+        <p>다음</p>
       </footer>
     </div>
   );

@@ -4,6 +4,7 @@ import { UserType } from '../../types/user/user';
 import { useUserStore } from '../../stores/userStore';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from "sweetalert2";
 
 const fetchUserInfo = async (): Promise<UserType> => {
   const response = await instance.get('/profile');
@@ -45,7 +46,18 @@ const EditProfile: React.FC = () => {
       });
       const updatedUser = await fetchUserInfo();
       setUser(updatedUser);
-      navigate('/profile');
+      Swal.fire({
+        title: "프로필 수정 완료!",
+        icon: "success",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "확인"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate('/profile');
+        }
+      });
     } catch (error) {
       console.error('프로필 수정 오류:', error);
       // 오류 처리
