@@ -2,8 +2,10 @@ import { useState } from "react";
 import styles from "./Onboarding.module.scss";
 import instance from "../../libs/api/axios";
 import Swal from "sweetalert2";
+import { useNavigate } from 'react-router-dom';
 
 const Onboarding = () => {
+  const navigate = useNavigate();
   const [gender, setGender] = useState<string>('');
   const [age, setAge] = useState<number | string>('');
   const [weight, setWeight] = useState<number | string>('');
@@ -26,6 +28,7 @@ const Onboarding = () => {
         weight: Number(weight),
       };
       const response = await instance.post(`/onboarding`, onboardingData);
+      navigate('/home')
       console.log(response);
     }
   };
