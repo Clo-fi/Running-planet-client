@@ -25,13 +25,15 @@ const Profile = () => {
     missions: [
       {
         missionId: 1,
-        missionConent: "3KM 달리기",
-        missonProgress: 51
+        missionContent: "3KM 달리기",
+        missionProgress: 51,
+        missionComplete: false
       },
       {
         missionId: 2,
-        missionConent: "45분 달리기",
-        missonProgress: 87
+        missionContent: "45분 달리기",
+        missionProgress: 87,
+        missionComplete: false
       }
     ]
   };
@@ -99,8 +101,8 @@ const Profile = () => {
               <div key={mission.missionId}>
                 <div className={styles.mission_content}>
                   <div className={styles.mission_dot}></div>
-                  <div className={styles.mission_title}>{mission.missionConent}</div>
-                  <div className={styles.misson_percent}>{mission.missonProgress}%</div>
+                  <div className={styles.mission_title}>{mission.missionContent}</div>
+                  <div className={styles.misson_percent}>{mission.missionProgress}%</div>
                 </div>
                 <div className={styles.progress}>
                   {/* 여기 안에 progress bar 컴포넌트 만들어서 넣기 */}
