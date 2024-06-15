@@ -7,7 +7,7 @@ interface Props {
 }
 
 const CrewList: React.FC<Props> = ({ userList }) => {
-  console.log('프롭스전달', userList)
+  // console.log('프롭스전달', userList)
   return (
     <section className={styles.container}>
       {userList.map((user, index) => (

@@ -1,6 +1,5 @@
 import styles from "./RunningPage.module.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
-import RunningTab from "./components/running/RunningTab";
 import CrewTab from "./components/crew/CrewTab";
 import "swiper/css/pagination";
 import "swiper/css";
@@ -13,6 +12,9 @@ import { useWebSocket } from '../../libs/stomp/useWebSocket';
 import { useEffect, useState } from 'react';
 import { StompSubscription } from '@stomp/stompjs';
 import RunningMap from './components/map/RunningMap';
+import RunningTab from './components/running/RunningTab';
+
+
 // import ExitTab from './components/exit/ExitTab';
 
 // import { useEffect } from 'react';
@@ -20,7 +22,7 @@ import RunningMap from './components/map/RunningMap';
 // import { SOCKET_TYPE, decode } from '../../libs/stomp/decorder'
 const fetchRunningUser = async (crewId: number): Promise<runUser[]> => {
   const response = await instance.get(`/crew/${crewId}/running`)
-  console.log('멤버조회', response);
+  // console.log('멤버조회', response);
   return response.data;
 }
 const RunningPage = () => {
