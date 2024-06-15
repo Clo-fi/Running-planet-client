@@ -78,10 +78,10 @@ const Home: React.FC = () => {
           <div className={styles.mission}>
 
             <div className={styles.mission_content}> <p className={styles.mission_content_text}>미션 1 | 15km 달리기</p> </div>
-            
+
           </div>
           <div className={styles.mission}>
-          <div className={styles.mission_content}> <p className={styles.mission_content_text}>미션 2 | 15km 달리기</p> </div>
+            <div className={styles.mission_content}> <p className={styles.mission_content_text}>미션 2 | 15km 달리기</p> </div>
 
           </div>
         </div>

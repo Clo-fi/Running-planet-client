@@ -71,6 +71,8 @@ const CrewRequestPage = () => {
           showConfirmButton: false,
           timer: 1500
         })
+
+        navigate('/crew/search')
       } else {
         const response = await instance.delete(`/crew/${crewId}/request`)
         console.log(response);

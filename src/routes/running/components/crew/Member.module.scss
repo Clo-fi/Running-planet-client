@@ -8,8 +8,16 @@
 
 .profile {
   width: 100%;
+  border-radius: 10px;
   aspect-ratio: 1;
-  background-color: ghostwhite;
+  background-color: lightgray;
+
+  overflow: hidden;
+  
+  img{
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .info {
@@ -21,7 +29,7 @@
 
 .status {
   height: 100%;
-  background-color: rgb(199, 199, 199);
+  background-color: #D9D9D9;
   border-radius: 50%;
   align-self: stretch;
   aspect-ratio: 1 / 1;
@@ -29,8 +37,14 @@
 
 .status_online {
   height: 100%;
-  background-color: rgb(101, 237, 164);
+  background-color: #4F4F4F;
   border-radius: 50%;
   align-self: stretch;
   aspect-ratio: 1 / 1;
+}
+
+.runTime{
+  margin-top: 2px;
+ font-size: 16px; 
+ font-weight: 700;
 }

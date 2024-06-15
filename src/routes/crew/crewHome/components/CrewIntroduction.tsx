@@ -11,7 +11,7 @@ import MissionChart from './MissionChart';
 
 interface CrewProps {
   data: CrewDetail | null;
-  missions: MissionList;
+  missions: MissionList | null;
 }
 const CrewIntroduction: React.FC<CrewProps> = ({ data, missions }) => {
   const navigate = useNavigate();
@@ -20,6 +20,9 @@ const CrewIntroduction: React.FC<CrewProps> = ({ data, missions }) => {
   if (!data || !data.crewId) {
     navigate('/home', { replace: true });
     return null;
+  }
+  if (!missions) {
+    return <p>불러오는 중...</p>;
   }
   // const exitCrewHandler = () => {
   //   CustomAlert.fire({
@@ -107,16 +110,16 @@ const CrewIntroduction: React.FC<CrewProps> = ({ data, missions }) => {
           <MissionChart data={data.missionProgress} />
           <div className={styles.home__mission_state}>
 
-            {missions.missions.map((mission, index) => (
+            {missions?.missions.map((mission, index) => (
               <div className={styles.home__mission_state_box} key={index}>
                 <div className={styles.home__mission}>
                   <p>
                     <div style={{ width: '8px', height: '8px', borderRadius: '100px', background: 'white', marginRight: '10px' }} />
-                    {mission.missionConent}
+                    {mission.missionContent}
                   </p>
-                  <span>{mission.missonProgress}%</span>
+                  <span>{mission.missionProgress}%</span>
                 </div>
-                <div className={styles.home__mission_progress_back}><div className={styles.home__mission_progress_front} style={{ width: `${mission.missonProgress}%` }} /></div>
+                <div className={styles.home__mission_progress_back}><div className={styles.home__mission_progress_front} style={{ width: `${mission.missionProgress}%` }} /></div>
               </div>
             ))}
 

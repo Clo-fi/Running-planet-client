@@ -8,7 +8,7 @@ import instance from '../../../libs/api/axios';
 import { useQuery } from '@tanstack/react-query';
 import BackSpaceTopBar from '../../../components/common/BackSpaceTopBar';
 import { formatDistanceToNow } from 'date-fns';
-// import { ko } from "date-fns/locale";
+import { ko } from "date-fns/locale";
 import { decode } from '../../../libs/stomp/decorder';
 
 interface ChatData {
@@ -120,10 +120,11 @@ const CrewChatPage = () => {
         {chatList && chatList.length > 0 ? (
           chatList.map((chat, index) => (
             <div key={index} className={chat.from === user?.nickname ? styles.chat_my_box : ''}>
-              {formatDistanceToNow(chat.time)}
+
               {index > 0 && chatList[index - 1].from === chat.from ? null : (
                 <p className={chat.from === user?.nickname ? styles.chat_my_name : styles.chat_username}>
                   {chat.from !== user?.nickname && chat.from}
+                  {formatDistanceToNow(new Date(chat.time), { locale: ko })}
                 </p>
               )}
               <p className={chat.from === user?.nickname ? styles.chat_my_message : styles.chat_message}>
