@@ -14,6 +14,9 @@
 
   overflow: hidden;
   
+  display: flex;
+  justify-content: center;
+  align-items: center;
   img{
     width: 100%;
     height: 100%;
@@ -45,6 +48,6 @@
 
 .runTime{
   margin-top: 2px;
- font-size: 16px; 
+ font-size: 14px; 
  font-weight: 700;
 }

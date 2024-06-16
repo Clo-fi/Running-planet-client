@@ -7,16 +7,16 @@ interface Props {
 }
 
 const CrewList: React.FC<Props> = ({ userList }) => {
-  // console.log('프롭스전달', userList)
+  const sortedUserList = [...userList].sort((a, b) => {
+    if (a.isEnd === b.isEnd) return 0;
+    return a.isEnd ? 1 : -1;
+  });
+
   return (
     <section className={styles.container}>
-      {userList.map((user, index) => (
+      {sortedUserList.map((user, index) => (
         <Member key={index} user={user} />
       ))}
-
-      {/* {[1, 2, 3, 4, 6, 73].map((_, index) => (
-        <Member key={index} isOnline={true} isRun={false} nickname={""} runDistance={0} />
-      ))} */}
     </section>
   );
 };

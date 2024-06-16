@@ -4,10 +4,12 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   height: 70vh;
+  // margin-top: 6dvh;
   overflow-y: auto;
   align-items: center;
   align-content: start;
 
-  padding-bottom: 3rem;
+  padding: 2rem;
+  // padding-bottom: 3rem;
   margin-bottom: 3rem;
 }

@@ -216,18 +216,18 @@ const RunningTab = () => {
     <>
       <section className={styles.status_section}>
         <Circle
-          content={`${currentRecord?.avgPace?.min ?? 0}'${currentRecord?.avgPace?.sec ?? 0
+          content={`${userRecord?.avgPace?.min ?? 0}'${currentRecord?.avgPace?.sec ?? 0
             }''/KM`}
           position={positions[0]}
           description="평균페이스"
         />
         <Circle
-          content={`${currentRecord?.calories?.toFixed(0) ?? 0}kcal`}
+          content={`${userRecord?.calories?.toFixed(0) ?? 0}kcal`}
           position={positions[1]}
           description="칼로리"
         />
         <Circle
-          content={`${currentRecord?.runDistance?.toFixed(2) ?? 0}km`}
+          content={`${userRecord?.runDistance?.toFixed(2) ?? 0}km`}
           position={positions[2]}
           description="이동한 거리"
         />
@@ -259,7 +259,6 @@ const RunningTab = () => {
           value="종료하기"
           description="꾹 눌러서"
           className={`${styles.button} ${longClick ? styles.active : ""}`}
-          // onClick={testsubmit}
           {...bind()}
         />
       </section>

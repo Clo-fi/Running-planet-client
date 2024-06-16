@@ -1,8 +1,35 @@
-.btn {
-  width: 100%;
-}
-
 .main {
   height: 100%;
-  padding: 2rem;
+}
+
+.btn_container{
+  width: 100dvw;
+  height: 5dvh;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.btn {
+  background: lightgray;
+  width: 90%;
+  height: 100%;
+  border-radius: 100px;
+}
+.btn:active{
+  background: gray;
+  transition: 0.1s all ease-in-out;
+}
+
+.top{
+  width: inherit;
+  height: 7dvh;
+  // background: lightcoral;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid lightgray;
+  p{
+    font-size: 24px;
+    font-weight: 700;
+  }
 }

@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import { StompSubscription } from '@stomp/stompjs';
 import RunningMap from './components/map/RunningMap';
 import RunningTab from './components/running/RunningTab';
+import { myDecode } from '../../libs/stomp/decorder';
 
 
 // import ExitTab from './components/exit/ExitTab';
@@ -22,7 +23,7 @@ import RunningTab from './components/running/RunningTab';
 // import { SOCKET_TYPE, decode } from '../../libs/stomp/decorder'
 const fetchRunningUser = async (crewId: number): Promise<runUser[]> => {
   const response = await instance.get(`/crew/${crewId}/running`)
-  // console.log('멤버조회', response);
+  console.log('멤버조회', response);
   return response.data;
 }
 const RunningPage = () => {
@@ -61,20 +62,18 @@ const RunningPage = () => {
       subscription = socketClient.subscribe(
         `/sub/crew/${user.myCrewId}/running`,
         (message) => {
-          console.log(message)
-          const receivedUser: runUser = JSON.parse(message.body);
-          // userList에 없는 유저인 경우 추가
-          const index = userList.findIndex(user => user.memberId === receivedUser.memberId);
+          const decodedMessage = myDecode(message)
+          const index = userList.findIndex(user => user.memberId === decodedMessage.memberId);
           if (index === -1) {
-            setUserList(prevList => [...prevList, receivedUser]);
+            setUserList(prevList => [...prevList, decodedMessage]);
           } else {
-            // userList에 이미 있는 유저인 경우 상태를 최신화
             setUserList(prevList => {
               const updatedList = [...prevList];
-              updatedList[index] = receivedUser;
+              updatedList[index] = decodedMessage;
               return updatedList;
             });
           }
+
         }
       )
     }
