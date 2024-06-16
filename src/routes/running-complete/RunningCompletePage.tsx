@@ -81,7 +81,7 @@ const RunningCompletePage = () => {
           </div>
           <div>
             <div className={styles.status_content}>
-              {recordDetail?.runDistance}
+              {recordDetail?.runDistance.toFixed(2)}km
             </div>
             <div className={styles.status_title}>이동거리</div>
           </div>
