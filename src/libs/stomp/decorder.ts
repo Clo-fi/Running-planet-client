@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IMessage } from '@stomp/stompjs';
 
 // 이 부분은 소켓 타입 CHAT 입장시 CHAT 세션 소켓통신
@@ -22,4 +23,28 @@ export const decode = (message: IMessage): Socket => {
   const jsonText = decoder.decode(body);
 
   return JSON.parse(jsonText);
-} 
+}
+
+export function myDecode(message: any): any {
+  if (typeof message.body === 'string') {
+    try {
+      const decodedData = JSON.parse(message.body);
+      return decodedData;
+    } catch (error) {
+      console.error('Failed to parse JSON:', error);
+      return null;
+    }
+  } else if (message.body instanceof ArrayBuffer) {
+    try {
+      const jsonString = new TextDecoder().decode(message.body);
+      const decodedData = JSON.parse(jsonString);
+      return decodedData;
+    } catch (error) {
+      console.error('Failed to decode and parse JSON:', error);
+      return null;
+    }
+  } else {
+    console.error('Unsupported message format:', message);
+    return null;
+  }
+}
