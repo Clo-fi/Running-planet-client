@@ -1,7 +1,7 @@
 export interface Mission {
   missionId: number;
-  missionConent: string;
-  missonProgress: number;
+  missionContent: string;
+  missionProgress: number;
 }
 
 export interface MissionList {
