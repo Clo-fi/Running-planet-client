@@ -86,7 +86,7 @@ const Profile = () => {
                   <div className={styles.mission_percent}>{mission.missionProgress}%</div>
                 </div>
                 <div className={styles.progress}>
-                <div className={styles.home__mission_progress_back}><div className={styles.home__mission_progress_front} style={{ width: `${mission.missionProgress}%` }} /></div>
+                  <div className={styles.home__mission_progress_back}><div className={styles.home__mission_progress_front} style={{ width: `${mission.missionProgress}%` }} /></div>
                 </div>
               </div>
             ))}
