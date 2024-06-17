@@ -4,7 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { CrewPostList } from '../../../../../types/crew/crewPost';
 import instance from '../../../../../libs/api/axios';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
 
 const PostList = ({ isOpened }: { isOpened: boolean }) => {
   const navigate = useNavigate();
@@ -19,9 +18,6 @@ const PostList = ({ isOpened }: { isOpened: boolean }) => {
     queryFn: fetchCrewPostList,
     enabled: isOpened
   })
-  useEffect(() => {
-    console.log(data);
-  }, [data])
 
   const formatDate = (dateString: string) => {
     const year = dateString.slice(0, 4);

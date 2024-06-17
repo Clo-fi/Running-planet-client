@@ -65,38 +65,41 @@ const Home: React.FC = () => {
   }
 
   return (
-    <div className={styles.home}>
+    <div style={{ width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', overflow: 'hidden' }}>
+ <div className={styles.home}>
 
-      <div className={styles.copyWrite_container}>
-        <p className={styles.copyWrite}>Running Planet</p>
-        <img className={styles.profile_image} onClick={handleProfile} src={user.profileImg === null ? '/icons/Ellipse 151.png' : user.profileImg} alt='userImg' />
-      </div>
+<div className={styles.copyWrite_container}>
+  <p className={styles.copyWrite}>Running Planet</p>
+  <img className={styles.profile_image} onClick={handleProfile} src={user.profileImg === null ? '/icons/Ellipse 151.png' : user.profileImg} alt='userImg' />
+</div>
 
-      <div className={styles.map_container}>
+<div className={styles.map_container}>
 
-        <div className={styles.missions_container}>
-          <div className={styles.mission}>
+  <div className={styles.missions_container}>
+    <div className={styles.mission}>
 
-            <div className={styles.mission_content}> <p className={styles.mission_content_text}>미션 1 | 15km 달리기</p> </div>
-            
-          </div>
-          <div className={styles.mission}>
-          <div className={styles.mission_content}> <p className={styles.mission_content_text}>미션 2 | 15km 달리기</p> </div>
+      <div className={styles.mission_content}> <p className={styles.mission_content_text}>미션 1 | 15km 달리기</p> </div>
 
-          </div>
-        </div>
-
-        <KakaoMap />
-      </div>
-      <div className={styles.btn_container} onClick={handleExercise}>
-        <p className={styles.btn_text}>러닝 시작하기</p>
-        <img src="/icons/start_btn.png" className={styles.run_start_btn}></img>
-      </div>
-
-      <div className={styles.running_planet}>
-
-      </div>
     </div>
+    <div className={styles.mission}>
+      <div className={styles.mission_content}> <p className={styles.mission_content_text}>미션 2 | 15km 달리기</p> </div>
+
+    </div>
+  </div>
+
+  <KakaoMap />
+</div>
+<div className={styles.btn_container} onClick={handleExercise}>
+  <p className={styles.btn_text}>러닝 시작하기</p>
+  <img src="/icons/start_btn.png" className={styles.run_start_btn}></img>
+</div>
+
+<div className={styles.running_planet}>
+
+</div>
+</div>
+    </div>
+   
   )
 }
 

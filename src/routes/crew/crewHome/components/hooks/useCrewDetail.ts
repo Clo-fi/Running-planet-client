@@ -6,7 +6,6 @@ import { useQuery } from '@tanstack/react-query';
 export const fetchCrewDetail = async (crewId: number) => {
   try {
     const response = await instance.get(`/crew/${crewId}/page`);
-    console.log('page 요청', response);
     return response.data;
   } catch (error) {
     throw new Error('Failed to fetch crew detail');

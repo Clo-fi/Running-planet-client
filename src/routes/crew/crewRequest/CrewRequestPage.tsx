@@ -71,6 +71,8 @@ const CrewRequestPage = () => {
           showConfirmButton: false,
           timer: 1500
         })
+
+        navigate('/crew/search')
       } else {
         const response = await instance.delete(`/crew/${crewId}/request`)
         console.log(response);
@@ -97,7 +99,7 @@ const CrewRequestPage = () => {
         <div className={styles.crew_state}>
           <p className={styles.crew_level}>{data.crewLevel}Lv</p>
           {data.imgFile ? (
-            <img className={styles.crew_crewImg} src={`https://running-planet-s3.s3.ap-northeast-2.amazonaws.com/${data.imgFile}`} alt='crewImg' />
+            <img className={styles.crew_crewImg} src={data.imgFile} alt='crewImg' />
           ) :
             <div className={styles.crew_crewImg} />
           }

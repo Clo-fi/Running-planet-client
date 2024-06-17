@@ -1,6 +1,5 @@
 import styles from "./RunningPage.module.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
-import RunningTab from "./components/running/RunningTab";
 import CrewTab from "./components/crew/CrewTab";
 import "swiper/css/pagination";
 import "swiper/css";
@@ -12,13 +11,19 @@ import { useQuery } from '@tanstack/react-query';
 import { useWebSocket } from '../../libs/stomp/useWebSocket';
 import { useEffect, useState } from 'react';
 import { StompSubscription } from '@stomp/stompjs';
+import RunningMap from './components/map/RunningMap';
+import RunningTab from './components/running/RunningTab';
+import { myDecode } from '../../libs/stomp/decorder';
+
+
+// import ExitTab from './components/exit/ExitTab';
 
 // import { useEffect } from 'react';
 // import { useWebSocket } from '../../libs/stomp/useWebSocket';
 // import { SOCKET_TYPE, decode } from '../../libs/stomp/decorder'
 const fetchRunningUser = async (crewId: number): Promise<runUser[]> => {
   const response = await instance.get(`/crew/${crewId}/running`)
-  console.log(response);
+  console.log('멤버조회', response);
   return response.data;
 }
 const RunningPage = () => {
@@ -26,7 +31,7 @@ const RunningPage = () => {
 
   const user = useUserStore((state) => state.user);
 
-  const { data, isError, isLoading, error } = useQuery({
+  const { data, /*isError, isLoading, error*/ } = useQuery({
     queryKey: ['RunUserList', user?.myCrewId],
     queryFn: () => fetchRunningUser(Number(user?.myCrewId)),
     enabled: !!user?.myCrewId
@@ -38,7 +43,7 @@ const RunningPage = () => {
     }
   }, [data])
 
-  console.log(isError, error, isLoading)
+  // console.log(isError, error, isLoading)
   // if(isError) {
   //   return <p>Error : {error.message}</p>
   // }
@@ -57,29 +62,28 @@ const RunningPage = () => {
       subscription = socketClient.subscribe(
         `/sub/crew/${user.myCrewId}/running`,
         (message) => {
-          console.log(message)
-          const receivedUser: runUser = JSON.parse(message.body);
-          // userList에 없는 유저인 경우 추가
-          const index = userList.findIndex(user => user.memberId === receivedUser.memberId);
+          const decodedMessage = myDecode(message)
+          const index = userList.findIndex(user => user.memberId === decodedMessage.memberId);
           if (index === -1) {
-            setUserList(prevList => [...prevList, receivedUser]);
+            setUserList(prevList => [...prevList, decodedMessage]);
           } else {
-            // userList에 이미 있는 유저인 경우 상태를 최신화
             setUserList(prevList => {
               const updatedList = [...prevList];
-              updatedList[index] = receivedUser;
+              updatedList[index] = decodedMessage;
               return updatedList;
             });
           }
+
         }
       )
     }
 
     return () => {
-      // 컴포넌트가 언마운트되거나 업데이트되기 전에 구독을 취소
-      subscription?.unsubscribe();
+      if (socketClient.connected && subscription) {
+        subscription.unsubscribe();
+      }
     }
-  }, [socketClient, user?.myCrewId, userList])
+  }, [socketClient, userList])
 
 
   return (
@@ -90,12 +94,16 @@ const RunningPage = () => {
         pagination={{ clickable: true }}
         className={styles.swiper}
         style={{ width: "100%", height: "100%" }}
+        initialSlide={1}
       >
+        <SwiperSlide>
+          <RunningMap />
+        </SwiperSlide>
         <SwiperSlide>
           <RunningTab />
         </SwiperSlide>
         <SwiperSlide>
-          <CrewTab />
+          <CrewTab userList={userList} />
         </SwiperSlide>
       </Swiper>
     </main>

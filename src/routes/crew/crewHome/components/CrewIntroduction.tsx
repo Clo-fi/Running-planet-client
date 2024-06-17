@@ -5,21 +5,22 @@ import { useNavigate } from 'react-router-dom';
 import { CrewDetail } from '../../../../types/crew/crewDetail';
 import { MissionList } from '../../../../types/user/mission';
 import parse from 'html-react-parser';
-import { useUserStore } from '../../../../stores/userStore';
 import BackSpaceTopBar from '../../../../components/common/BackSpaceTopBar';
 import MissionChart from './MissionChart';
 
 interface CrewProps {
   data: CrewDetail | null;
-  missions: MissionList;
+  missions: MissionList | null;
 }
 const CrewIntroduction: React.FC<CrewProps> = ({ data, missions }) => {
   const navigate = useNavigate();
-  const user = useUserStore((state) => state.user);
 
   if (!data || !data.crewId) {
     navigate('/home', { replace: true });
     return null;
+  }
+  if (!missions) {
+    return <p>불러오는 중...</p>;
   }
   // const exitCrewHandler = () => {
   //   CustomAlert.fire({
@@ -53,11 +54,7 @@ const CrewIntroduction: React.FC<CrewProps> = ({ data, missions }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const requestNavigate = async (data: any) => {
     try {
-      // if(data.isCrewLeader){ // API완성시 이거사용
-      //   navigate(`/crew/${data.crewId}/request`)
-      // }
-      if (data.crewLeader.nickname === user?.nickname) {
-        console.log('일치')
+      if (data.isCrewLeader) { // API완성시 이거사용
         navigate(`/crew/${data.crewId}/approval`)
       }
     } catch (err) {
@@ -68,7 +65,6 @@ const CrewIntroduction: React.FC<CrewProps> = ({ data, missions }) => {
     <div className={styles.home__main_container}>
       <BackSpaceTopBar
         title={data.crewName}
-        isEditable={true}
         onClick={() => navigate(-1)}
         titleOnClick={() => modifyNavigate(data)}
       />
@@ -107,16 +103,16 @@ const CrewIntroduction: React.FC<CrewProps> = ({ data, missions }) => {
           <MissionChart data={data.missionProgress} />
           <div className={styles.home__mission_state}>
 
-            {missions.missions.map((mission, index) => (
+            {missions?.missions.map((mission, index) => (
               <div className={styles.home__mission_state_box} key={index}>
                 <div className={styles.home__mission}>
-                  <p>
+                  <div>
                     <div style={{ width: '8px', height: '8px', borderRadius: '100px', background: 'white', marginRight: '10px' }} />
-                    {mission.missionConent}
-                  </p>
-                  <span>{mission.missonProgress}%</span>
+                    {mission.missionContent}
+                  </div>
+                  <span>{mission.missionProgress}%</span>
                 </div>
-                <div className={styles.home__mission_progress_back}><div className={styles.home__mission_progress_front} style={{ width: `${mission.missonProgress}%` }} /></div>
+                <div className={styles.home__mission_progress_back}><div className={styles.home__mission_progress_front} style={{ width: `${mission.missionProgress}%` }} /></div>
               </div>
             ))}
 

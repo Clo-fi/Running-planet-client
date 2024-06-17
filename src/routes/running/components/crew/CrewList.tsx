@@ -1,10 +1,21 @@
 import Member from "./Member";
 import styles from "./CrewList.module.scss";
-const CrewList = () => {
+import { runUser } from '../../../../types/running/runUser';
+
+interface Props {
+  userList: runUser[];
+}
+
+const CrewList: React.FC<Props> = ({ userList }) => {
+  const sortedUserList = [...userList].sort((a, b) => {
+    if (a.isEnd === b.isEnd) return 0;
+    return a.isEnd ? 1 : -1;
+  });
+
   return (
     <section className={styles.container}>
-      {[1, 2, 3, 4, 6, 73, 5, 2, 5, 2, 5, 4, 6, 343].map((_, index) => (
-        <Member key={index} isOnline={true} isRun={false} nickname={""} runDistance={0} />
+      {sortedUserList.map((user, index) => (
+        <Member key={index} user={user} />
       ))}
     </section>
   );

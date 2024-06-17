@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import styles from './Login.module.scss';
 import { useNavigate } from 'react-router-dom';
+import { CustomAlert } from '../../libs/sweetAlert/alert';
 
 // Vite 환경 변수를 이용하여 KAKAO_APP_KEY 가져오기
 const KAKAO_APP_KEY = import.meta.env.VITE_KAKAO_KEY;
@@ -58,6 +59,33 @@ const Login: React.FC = () => {
     nav('/googlelogin');
   };
 
+  useEffect(() => {
+    // Service Worker 등록 로직 (예: Workbox 등)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(registration => {
+            console.log('Service Worker registered:', registration);
+          })
+          .catch(error => {
+            console.error('Service Worker registration failed:', error);
+          });
+      });
+    }
+  }, []);
+
+  const handleInstallPWA = () => {
+    if ('beforeinstallprompt' in window) {
+      const installPromptEvent: any = new Event('beforeinstallprompt');
+      window.dispatchEvent(installPromptEvent);
+    } else {
+      CustomAlert.fire({
+        icon: 'error',
+        title: '설치 에러!',
+        html: '이미 설치되어 있거나, 현재 브라우저에서 PWA를 설치할 수 없습니다. <br/> <br/> IOS 환경은 주소탭을 클릭 후 홈화면에 추가를 눌러주세요.',
+      })
+    }
+  };
   return (
     <div className={styles.body}>
       <div className={styles.login}>
@@ -80,6 +108,9 @@ const Login: React.FC = () => {
           <button onClick={handleGoogleLogin} className={`${styles.login_btn} ${styles.google_btn}`}>
             <img className={styles.oauthImg} src="/icons/google.png" alt="googleImg" />
             구글 로그인
+          </button>
+          <button onClick={handleInstallPWA} className={styles.login_btn}>
+            모바일 다운로드
           </button>
         </div>
       </div>

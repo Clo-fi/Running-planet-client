@@ -3,7 +3,7 @@ import Circle, { PositionType } from "./Circle";
 import styles from "./RunningTab.module.scss";
 import ArrowLeftIcon from "/public/icons/expandLeft.svg?react";
 import ArrowRightIcon from "/public/icons/expandRight.svg?react";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLongPress } from "use-long-press";
 import { getKcal, haversineDistance } from "../../../../utils/runningUtils";
@@ -16,23 +16,45 @@ import {
 import { PostRunningRecordRequest } from "../../../../apis/running/dto";
 import { CustomAlert } from "../../../../libs/sweetAlert/alert";
 import { useUserStore } from '../../../../stores/userStore';
+import useGetLocation from '../../../../libs/hooks/useGetLocation';
+import useInterval from './hooks/useInterval';
+
+
+
 
 const RunningTab = () => {
+  const queryClient = new QueryClient();
+  const { myLat, myLot } = useGetLocation();
   const weight = useUserStore((state) => state.user?.weight) as number;
   const [positions, setPositions] = useState<PositionType[]>([
     "LEFT",
-    "RIGHT",
     "CENTER",
+    "RIGHT",
+    "TOP"
   ]);
   const navigate = useNavigate();
   const [longClick, setLongClick] = useState<boolean>(false);
   const [isRunningMode, setIsRunningMode] = useState<boolean>(false);
   const [time, setTime] = useState<number>(0);
+
+  const [userRecord, setUserRecord] = useState<PostRunningRecordRequest>({
+    latitude: 0,
+    longitude: 0,
+    runTime: 0,
+    runDistance: 0,
+    calories: 0,
+    avgPace: {
+      min: 0,
+      sec: 0,
+    },
+    isEnd: true,
+  });
+
   const { data: currentRecord } = useQuery({
     queryKey: runningKeys.current(),
     queryFn: () => getCurrentRunningRecord(),
+    refetchOnWindowFocus: false,
   });
-  const queryClient = new QueryClient();
 
   const { data: postRunningRecordRes, mutate: postRunningRecordMutate } =
     useMutation({
@@ -42,125 +64,151 @@ const RunningTab = () => {
         queryClient.invalidateQueries({ queryKey: runningKeys.current() });
       },
     });
+  const getLocation = async () => {
+    try {
+      const position = await new Promise<GeolocationPosition>((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      });
 
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+
+      setUserRecord(prev => ({
+        ...prev,
+        latitude: latitude,
+        longitude: longitude,
+      }));
+    } catch (error) {
+      console.error('위치 가져오기 오류:', error);
+      CustomAlert.fire({
+        icon: 'error',
+        title: '에러 발생!',
+        text: '위치 정보를 가져오는 중 문제가 발생했습니다. 다시 시도해주세요.',
+      });
+    }
+  };
   useEffect(() => {
-    if (!currentRecord) return;
-    setTime(
-      currentRecord.runTime.hour * 3600 +
-      currentRecord.runTime.min * 60 +
-      currentRecord.runTime.sec
-    );
+    if (currentRecord) {
+
+      setUserRecord({
+        latitude: currentRecord.latitude,
+        longitude: currentRecord.longitude,
+        runTime: currentRecord.runTime.hour * 3600 + currentRecord.runTime.min * 60 + currentRecord.runTime.sec,
+        runDistance: currentRecord.runDistance,
+        calories: currentRecord.calories,
+        avgPace: currentRecord.avgPace,
+        isEnd: true,
+      });
+      if (currentRecord.latitude === 0) {
+        setUserRecord((prev) => ({
+          ...prev,
+          latitude: myLat,
+          longitude: myLot
+        }));
+
+      }
+      setTime(currentRecord.runTime.hour * 3600 + currentRecord.runTime.min * 60 + currentRecord.runTime.sec);
+    } else {
+      getLocation();
+    }
   }, [currentRecord]);
 
-  const saveCurrentRecord = useCallback(
-    async (isEnd: boolean) => {
-      return navigator.geolocation.getCurrentPosition(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ({ coords: { latitude, longitude } }: any) => {
-          console.log(`${latitude} ${longitude}`)
-          if (!currentRecord) {
-            postRunningRecordMutate({
-              latitude,
-              longitude,
-              runTime: time,
-              runDistance: 0,
-              calories: 0,
-              avgPace: {
-                min: 0,
-                sec: 0,
-              },
-              isEnd: isEnd,
-            });
-            return;
-          } //처음시작 로직
 
-          const distance = haversineDistance(
-            {
-              latitude: currentRecord?.latitude,
-              longitude: currentRecord?.longitude,
-            },
-            { latitude, longitude }
-          );
+  useEffect(() => {
+    console.log('changed', userRecord)
+  }, [userRecord])
 
-          if (
-            distance /
-            (currentRecord.runTime.hour * 3600 +
-              currentRecord.runTime.min * 60 +
-              currentRecord.runTime.sec) >
-            100
-          ) {
-            //TODO 속도 빠르다고 표시, 속도제한 어느정도로 할지
-            CustomAlert.fire({
-              title: "속도가 너무 빨라요!",
-              text: "교통수단을 이용하고 있으신가요? 직접 달리지 않으면 기록이 취소돼요.",
-            });
-            setIsRunningMode(false);
-          }
-
-          // if (distance === 0) return;
-
-          postRunningRecordMutate({
-            latitude,
-            longitude,
-            runTime: time,
-            runDistance: currentRecord?.runDistance + distance,
-            calories: getKcal(
-              weight,
-              (currentRecord?.runDistance + distance) / time / 3600,
-              time
-            ),
-            avgPace: {
-              min: Math.floor(
-                time / (currentRecord?.runDistance + distance) / 60
-              ),
-              sec: (time / (currentRecord?.runDistance + distance)) % 60,
-            },
-            isEnd: isEnd,
-          });
+  const exitHandler = async () => {
+    try {
+      CustomAlert.fire({
+        title: '정말 나가시겠습니까?',
+        showCancelButton: true,
+        timer: 1000
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate(-1);
         }
-      );
-    },
-    [currentRecord, postRunningRecordMutate, time]
-  );
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
-  /* isRunningMode Check*/
   useEffect(() => {
     console.log('isRunningMode is ', isRunningMode);
   }, [isRunningMode])
+
+
   /* 주기적으로 운동 상태 저장 */
-  useEffect(() => {
 
-    const timer = setInterval(() => {
-      if (!isRunningMode) return;
-      console.log('saveCurrentRecord')
-      saveCurrentRecord(false);
-      console.log(currentRecord);
-    }, 5000);
+  const runningStateSave = async (isEnd: boolean, currentTime: number) => {
+    try {
+      console.log(currentTime);
+      const newLat = myLat;
+      const newLot = myLot;
+      const distance = haversineDistance(
+        { latitude: userRecord.latitude, longitude: userRecord.longitude },
+        { latitude: newLat, longitude: newLot }
+      );
+      console.log('디스탠스: ', distance);
+      console.log(newLat, newLot);
 
-    return () => {
-      clearInterval(timer);
-    };
-  }, [isRunningMode]);
+      const updatedRecord = {
+        ...currentRecord,
+        latitude: newLat,
+        longitude: newLot,
+        runTime: currentTime,
+        runDistance: userRecord.runDistance + distance,
+        calories: getKcal(weight, userRecord.runDistance + distance / currentTime / 3600, currentTime),
+        avgPace: {
+          min: Math.floor(currentTime / (userRecord.runDistance + distance) / 60),
+          sec: (currentTime / (userRecord.runDistance + distance)) % 60,
+        },
+        isEnd: isEnd,
+      };
+      console.log(updatedRecord);
 
-  /* 운동 시간 */
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if (!isRunningMode) return;
+      await postRunningRecordMutate(updatedRecord, {
+        onSuccess: () => {
+          setUserRecord(updatedRecord); // Update local state
+          console.log('Successfully posted running record.');
+        },
+        onError: (error) => {
+          console.error('Error posting running record:', error);
+          CustomAlert.fire({
+            icon: 'error',
+            title: '에러 발생!',
+            text: '운동 기록을 서버에 전송하는 중 문제가 발생했습니다.',
+          });
+        },
+      });
+    } catch (error) {
+      console.error('위치 정보를 가져오는 중 오류 발생:', error);
+    }
+  };
+
+  useInterval(() => {
+    if (isRunningMode) {
       setTime((prev) => prev + 1);
-    }, 1000);
+      console.log('1초 타이머');
+      console.log(time);
+    }
+  }, 1000);
 
-    return () => {
-      clearInterval(timer);
-    };
-  }, [isRunningMode]);
-
+  useInterval(() => {
+    if (isRunningMode) {
+      console.log('5초 타이머');
+      runningStateSave(false, time);
+    }
+  }, 5000);
   const bind = useLongPress(
     () => {
       // if (!currentRecord) {
+      //   console.log(currentRecord);
       //   CustomAlert.fire({ title: "운동 기록이 없습니다." });
       //   return;
       // }
-      saveCurrentRecord(true).then(() => {
+      runningStateSave(true, time).then(() => {
         navigate("/running-complete", {
           state: { recordId: postRunningRecordRes?.id },
         });
@@ -178,30 +226,32 @@ const RunningTab = () => {
     <>
       <section className={styles.status_section}>
         <Circle
-          content={`${currentRecord?.avgPace?.min ?? 0}'${currentRecord?.avgPace?.sec ?? 0
+          content={`${userRecord?.avgPace?.min ?? 0}'${currentRecord?.avgPace?.sec ?? 0
             }''/KM`}
           position={positions[0]}
           description="평균페이스"
         />
         <Circle
-          content={`${currentRecord?.calories?.toFixed(0) ?? 0}kcal`}
+          content={`${userRecord?.calories?.toFixed(0) ?? 0}kcal`}
           position={positions[1]}
           description="칼로리"
         />
         <Circle
-          content={`${currentRecord?.runDistance?.toFixed(2) ?? 0}km`}
+          content={`${userRecord?.runDistance?.toFixed(2) ?? 0}km`}
           position={positions[2]}
           description="이동한 거리"
         />
+        <Circle
+          position={positions[3]}
+          component={<button onClick={() => exitHandler()} >홈으로 돌아가기</button>}
+        />
         <ArrowLeftIcon
           className={styles.left_btn}
-          onClick={() => {
-            setPositions((prev) => [prev[2], prev[0], prev[1]]);
-          }}
+          onClick={() => { setPositions((prev) => [prev[3], prev[0], prev[1], prev[2],]); }}
         />
         <ArrowRightIcon
           className={styles.right_btn}
-          onClick={() => setPositions((prev) => [prev[1], prev[2], prev[0]])}
+          onClick={() => setPositions((prev) => [prev[1], prev[2], prev[3], prev[0],])}
         />
       </section>
       <section className={styles.time_section}>
