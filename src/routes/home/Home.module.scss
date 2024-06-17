@@ -14,6 +14,7 @@
   margin-top: 10vh;
   display: flex;
   justify-content: space-between;
+  color: var(--color-black-to-fff);
   align-items: center;
   width: 85vw;
   max-width: 768px;
@@ -104,8 +105,21 @@
   margin-top: 7.7vh;
 }
 
+.btn {
+  width: 80dvw;
+  height: 50px;
+
+  border-radius: 100px;
+  background:var(--color-lightgray-to-000);
+  color: var(--color-black-to-white);
+  font-size: 16px;
+  border: 1px solid var(--color-lightgray-to-mint);
+  // background: lightcoral;
+}
+
 .run_start_btn {
   width: 90vw;
+    // border: 1px solid var(--mint);
 }
 
 .btn_text {
@@ -119,7 +133,7 @@
   position: absolute;
   height: 33vh;
   width: 33vh;
-  background-color: rgb(162, 162, 162);
+  background-color: var(--color-gray-to-mint);
   border-radius: 50%;
   z-index: -2;
   border: none;

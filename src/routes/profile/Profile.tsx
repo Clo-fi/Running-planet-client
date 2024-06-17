@@ -42,6 +42,15 @@ const Profile = () => {
   }
 
   // 데이터가 성공적으로 로드되었을 때
+
+  const darkmodeHandle = () => {
+    if (document.documentElement.getAttribute('data-theme') === 'dark') {
+      document.documentElement.removeAttribute('data-theme');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  };
+
   return (
     <div className={styles.profile}>
       <div className={styles.edit_container}>
@@ -55,6 +64,7 @@ const Profile = () => {
         <div className={styles.edit_btn_section}>
           <img className={styles.edit_btn} onClick={handleSettting} src="/icons/Setting_line.png" alt="Settings"></img>
           <img className={styles.edit_btn} onClick={handleEdit} src="/icons/Edit.png" alt="Edit"></img>
+          <img className={styles.edit_btn} onClick={darkmodeHandle} src="/icons/darkmode.png" alt="Edit"></img>
         </div>
       </div>
 

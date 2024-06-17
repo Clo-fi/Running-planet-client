@@ -26,6 +26,7 @@ import RequestApprovalPage from './routes/crew/requestApproval/RequestApprovalPa
 import PlanetMain from "./routes/planet/PlanetMain";
 import PlanetList from "./routes/planet/PlanetList";
 import PlanetNaming from "./routes/planet/PlanetNaming";
+import RankingPage from './routes/rank/RankingPage';
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
         <Route path='/crew/:crewId/board/:boardId' element={<PostDetailPage />} />
         <Route path='/planet' element={<PlanetMain />} />
         <Route path='/planet/list' element={<PlanetList />} />
+        <Route path='/rank' element={<RankingPage />} />
       </Route>
       <Route path='/crew/:crewId/modify' element={<CrewModifyPage />} />
       <Route path='/crew/:crewId/approval' element={<RequestApprovalPage />} />

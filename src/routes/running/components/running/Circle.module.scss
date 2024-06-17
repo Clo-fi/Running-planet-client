@@ -1,5 +1,5 @@
 %circle {
-  background-color: rgb(159, 159, 159);
+  background-color: var(--color-circle);
   border-radius: 50%;
   color: white;
   width: 30%;
@@ -26,6 +26,7 @@
 
 .circle_right {
   @extend %circle;
+  border: 1px solid var(--color-circle-border);
   width: 30%;
   margin-left: 50%;
   margin-top: 35%;
@@ -33,6 +34,7 @@
 
 .circle_left {
   @extend %circle;
+  border: 1px solid var(--color-circle-border);
   width: 30%;
   margin-left: 20%;
   margin-top: 35%;
@@ -67,7 +69,6 @@
     font-size: 1.2rem;
     font-weight: bold;
     color: white;
-    border: 1px solid rgb(159, 159, 159);
     padding: 10px;
     border-radius: 100px;
   }

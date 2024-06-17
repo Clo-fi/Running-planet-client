@@ -70,8 +70,8 @@ const RequestApprovalPage = () => {
                     <p>{user.nickname}</p>
                   </div>
                   <div className={styles.action_btn_container}>
-                    <button onClick={() => approvalHandler(user.memberId, true)}>수락</button>
-                    <button onClick={() => approvalHandler(user.memberId, false)}>거절</button>
+                    <button className={styles.yes} onClick={() => approvalHandler(user.memberId, true)}>수락</button>
+                    <button className={styles.no} onClick={() => approvalHandler(user.memberId, false)}>거절</button>
                   </div>
                 </div>
               ))

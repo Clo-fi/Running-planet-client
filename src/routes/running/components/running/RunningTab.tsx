@@ -73,6 +73,7 @@ const RunningTab = () => {
       const latitude = position.coords.latitude;
       const longitude = position.coords.longitude;
 
+      console.log(latitude, longitude);
       setUserRecord(prev => ({
         ...prev,
         latitude: latitude,
@@ -89,7 +90,7 @@ const RunningTab = () => {
   };
   useEffect(() => {
     if (currentRecord) {
-
+      console.log(currentRecord)
       setUserRecord({
         latitude: currentRecord.latitude,
         longitude: currentRecord.longitude,
@@ -99,15 +100,15 @@ const RunningTab = () => {
         avgPace: currentRecord.avgPace,
         isEnd: true,
       });
-      if (currentRecord.latitude === 0) {
-        setUserRecord((prev) => ({
-          ...prev,
-          latitude: myLat,
-          longitude: myLot
-        }));
+      // if (currentRecord.latitude === 0) {
+      //   setUserRecord((prev) => ({
+      //     ...prev,
+      //     latitude: myLat,
+      //     longitude: myLot
+      //   }));
 
-      }
-      setTime(currentRecord.runTime.hour * 3600 + currentRecord.runTime.min * 60 + currentRecord.runTime.sec);
+      // }
+      // setTime(currentRecord.runTime.hour * 3600 + currentRecord.runTime.min * 60 + currentRecord.runTime.sec);
     } else {
       getLocation();
     }

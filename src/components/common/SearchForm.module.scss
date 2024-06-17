@@ -15,8 +15,10 @@
   height: 95%;
   display: flex;
   align-items: center;
-  border: 1px solid black;
+  border: 1px solid var(--color-black-to-white);
   border-radius: 25px;
+  background: #ffffff;
+  overflow: hidden;
 }
 
 .form__search_icon{

@@ -21,8 +21,9 @@
 .request_user_container{
   width: 90%;
   height: 90px;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid var(--color-lightgray-to-white);
 
+  color: var(--color-black-to-white);
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;
@@ -43,17 +44,25 @@
   }
 }
 .action_btn_container{
-  // width: 30%;
   display: flex;
   flex-wrap: nowrap;
 
   button{
     width: 40px;
     height: 30px;
-    border: 1px solid black;
+    border: 1px solid var(--color-black-to-mint);
     border-radius: 5px;
     margin-right: 5px;
     font-size: 18px;
     font-weight: 700;
+    padding: 3px;
   }
+}
+
+.yes{
+  background-color: var(--color-white-to-mint);
+}
+.no{
+  background-color: var(--color-white-to-black);
+  color: var(--color-black-to-white);
 }
