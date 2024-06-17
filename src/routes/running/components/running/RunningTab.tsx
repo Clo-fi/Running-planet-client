@@ -89,6 +89,7 @@ const RunningTab = () => {
   };
   useEffect(() => {
     if (currentRecord) {
+
       setUserRecord({
         latitude: currentRecord.latitude,
         longitude: currentRecord.longitude,
@@ -98,6 +99,15 @@ const RunningTab = () => {
         avgPace: currentRecord.avgPace,
         isEnd: true,
       });
+      if (currentRecord.latitude === 0) {
+        setUserRecord((prev) => ({
+          ...prev,
+          latitude: myLat,
+          longitude: myLot
+        }));
+
+      }
+      setTime(currentRecord.runTime.hour * 3600 + currentRecord.runTime.min * 60 + currentRecord.runTime.sec);
     } else {
       getLocation();
     }
@@ -147,7 +157,7 @@ const RunningTab = () => {
         ...currentRecord,
         latitude: newLat,
         longitude: newLot,
-        runTime: currentTime, // 최신 시간 값 사용
+        runTime: currentTime,
         runDistance: userRecord.runDistance + distance,
         calories: getKcal(weight, userRecord.runDistance + distance / currentTime / 3600, currentTime),
         avgPace: {
