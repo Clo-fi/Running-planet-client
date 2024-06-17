@@ -4,6 +4,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: var(--color-white-to-black);
+  color: var(--color-black-to-white);
 }
 
 .detail__content_container{

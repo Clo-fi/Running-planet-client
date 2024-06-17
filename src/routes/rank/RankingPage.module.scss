@@ -1,0 +1,31 @@
+.body{
+  width: inherit;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  // justify-content: space-around;
+  background: lightblue;
+  align-content: center;
+}
+.top{
+  width: inherit;
+  height: 100%;
+  margin-top: 8dvh;
+}
+.btn_container{
+  width: inherit;
+  height: 5%;
+  display: flex;
+  align-content: center;
+  justify-content: space-around;
+
+}
+.rank_btn{
+  width: 40%;
+  border: 1px solid black;
+
+  border-radius: 10px;
+}
+.selected{
+  background: lightgray;
+}

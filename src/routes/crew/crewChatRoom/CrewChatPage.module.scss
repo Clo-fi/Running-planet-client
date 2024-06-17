@@ -39,7 +39,7 @@
   max-width: 768px;
   height: 5dvh;
   
-  border: 1px solid black;
+  border: 1px solid var(--color-black-to-mint);
   border-radius: 100px;
   display: flex;
   align-items: center;
@@ -56,7 +56,9 @@
   width: 80%;
   height: 80%;
   border: none;
+  background: none;
   outline: none;
+  color: var(--color-black-to-white)
 }
 
 
@@ -72,11 +74,14 @@
 .chat_username {
   width: 100%;
   margin: 5px;
+  color: var(--color-black-to-white);
 }
 .chat_message {
   width: 70%;
   min-height: 40px;
-  background-color: #dde5de;
+  // background-color: #dde5de;
+  color: var(--color-black-to-white);
+  border: 1px solid var(--color-black-to-mint);
   border-radius: 5px;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -97,22 +102,26 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  p{
+    color: var(--color-black-to-white);
+  }
 }
 
 .chat_my_message {
   width: 70%;
 
   min-height: 40px;
-  background-color: lightgray;
+  background-color: var(--color-lightgray-to-mint);
   border-radius: 5px;
   margin-top: 5px;
   margin-bottom: 5px;
   display: flex;
   align-items: center;
-
+  
   word-wrap: break-word;
   white-space: wrap;
   span {
+    color: black;
     margin-top: 10px;
     margin-bottom: 10px;
     width: inherit;

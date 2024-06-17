@@ -66,7 +66,7 @@ const Detail: React.FC<DetailProps> = ({ data, isLoading, isLiked, authorId, onN
             {data.writtenDate}
           </span>
           <div className={styles.detail__info_like_comment}>
-            <img src={isLiked ? '/icons/Favorite_full.png' : `/icons/Favorite.png`} alt="likeImg" onClick={likeHandler} />
+            <img src={isLiked ? '/icons/Favorite_red.png' : `/icons/Favorite.png`} alt="likeImg" onClick={likeHandler} />
             <span>{data.likeCnt}</span>
           </div>
         </div>

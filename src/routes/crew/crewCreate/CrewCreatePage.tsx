@@ -299,7 +299,7 @@ const CrewCreatePage = () => {
           <p>크루 생성</p>
         </div>
         <div style={{ width: '80%', backgroundColor: '#D9D9D9' }}>
-          <div style={{ width: `${progressPercentage}%`, height: '2px', backgroundColor: 'black', }}></div>
+          <div className={styles.progress_inner} style={{ width: `${progressPercentage}%`, height: '2px' }}></div>
         </div>
         <div className={styles.create__form}>
           {renderStep()}

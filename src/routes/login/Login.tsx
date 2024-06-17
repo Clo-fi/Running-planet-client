@@ -109,7 +109,7 @@ const Login: React.FC = () => {
             <img className={styles.oauthImg} src="/icons/google.png" alt="googleImg" />
             구글 로그인
           </button>
-          <button onClick={handleInstallPWA} className={styles.login_btn}>
+          <button onClick={handleInstallPWA} className={`${styles.login_btn} ${styles.pwa_btn}`}>
             모바일 다운로드
           </button>
         </div>

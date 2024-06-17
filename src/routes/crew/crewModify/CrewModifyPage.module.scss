@@ -14,7 +14,7 @@
   max-width: 768px;
   font-size: 16px;
   height: 10dvh;
-  background: lightgray;
+  background: var(--color-lightgray-to-mint);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,6 +58,7 @@
   min-height: 150px;
   max-width: 768px;
 
+  color: var(--color-black-to-white);
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -104,19 +105,22 @@
 
     text-align: center;
     border-radius: 5px;
-    border: 1px dashed lightgray;
+    background: none;
+    border: 2px dashed var(--color-lightgray-to-white);
+    color: var(--color-black-to-white);
     padding: 2px;
 }
 .crew_category{
   width: 90%;
   min-height: 5dvh;
   
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid var(--color-lightgray-to-white);
   display: flex;
   justify-content: space-between;
   flex-wrap: nowrap;
 
   p{
+    color: var(--color-black-to-white);
     font-size: 20px;
     font-weight: 700;
   }
@@ -132,9 +136,13 @@
 
   input{
     max-width: 40px;
+    padding: 5px;
     border-radius: 8px;
-    border: 1px dashed lightgray;
+    border: 2px dashed lightgray;
+    background: none;
+    color: var(--color-black-to-white);
     text-align: center;
+    outline: none;
   }
   
 }
@@ -161,14 +169,16 @@
   margin-bottom: 30px;
   align-items: center;
   justify-content: space-around;
+  color: var(--color-black-to-white);
 }
 .rule_introduction_block{
   width: 30%;
   display: flex;
   flex-direction: column;
-
+  
   align-items: center;
   p{
+    color: var(--color-black-to-mint);
     font-size: 16px;
   }
 }
@@ -192,7 +202,9 @@
     font-weight: 700;
     border: none;  
     outline: none;
+    background: none;
     text-align: right;
+    color: var(--color-black-to-white);
   }
 }
 .select_container{
@@ -221,8 +233,8 @@
   cursor: pointer;
 }
 .selected{
-  border: 1px solid black;
-  color:black ;
+  border: 1px solid var(--color-black-to-mint);
+  color:var(--color-black-to-mint) ;
 
 }
 .rule__summary{
@@ -233,9 +245,11 @@
   font-weight: 700;
 
   p{
+    color: var(--color-black-to-mint);
     font-size: 36px;
   }
   span{
+    color: var(--color-black-to-white);
     margin-top: 20px;
     font-size: 24px;
   }

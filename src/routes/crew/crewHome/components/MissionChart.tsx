@@ -16,7 +16,7 @@ const MissionChart = (data: Props) => {
     <ResponsiveContainer width='90%' height={200}>
       <BarChart data={progressData} margin={{ top: 20 }}>
         <XAxis dataKey="name" />
-        <Bar dataKey="progress" fill='#ffffff' barSize={30} >
+        <Bar dataKey="progress" fill='#C4FFDD' barSize={30} >
           <LabelList dataKey={'progress'} position={'top'} formatter={(value: number) => `${value}%`} />
         </Bar>
       </BarChart>

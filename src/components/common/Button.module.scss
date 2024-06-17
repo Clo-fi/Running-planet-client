@@ -1,13 +1,12 @@
 .container {
-  //TODO 스타일 정의
-
   box-sizing: border-box;
   text-align: center;
   min-width: 50px;
   min-height: 20px;
   padding: 10px 20px;
   border-radius: 20px;
-  border: 1px solid black;
+  border: 1px solid var(--color-black-to-mint);
+  background: var(--color-white-to-mint);
   font-size: 13px;
   font-weight: bold;
   position: relative;
@@ -18,9 +17,10 @@
 
 .description {
   font-size: 0.7rem;
-  color: rgb(185, 185, 185);
+  color: var(--color-lightgray-to-black);
   position: absolute;
   top: 13px;
   left: 50%;
   transform: translate(-50%, -50%);
 }
+

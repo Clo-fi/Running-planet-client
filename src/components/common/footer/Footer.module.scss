@@ -3,7 +3,7 @@
   bottom: 0;
   width: 100vw;
   height: 10vh; /* 높이 수정 필요한 경우 min-height로 변경 */
-  background-color: lightgray;
+  background-color: var(--color-lightgray-to-000);
   z-index: 10;
 }
 
@@ -34,7 +34,7 @@
 
 
 .footer_grayzone {
-  background-color: lightgray;
+  background-color: var(--color-lightgray-to-000);
   height: 10vh;
   margin-top: 10px;
   display: flex;
