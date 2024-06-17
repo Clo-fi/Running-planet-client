@@ -86,7 +86,7 @@ const Profile = () => {
                   <div className={styles.mission_percent}>{mission.missionProgress}%</div>
                 </div>
                 <div className={styles.progress}>
-                  {/* 여기 안에 progress bar 컴포넌트 만들어서 넣기 */}
+                <div className={styles.home__mission_progress_back}><div className={styles.home__mission_progress_front} style={{ width: `${mission.missionProgress}%` }} /></div>
                 </div>
               </div>
             ))}
