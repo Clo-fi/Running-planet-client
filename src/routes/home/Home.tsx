@@ -43,7 +43,7 @@ const Home: React.FC = () => {
         });
       }
     }
-  }, [data]);
+  }, [data, setUser, navigate]);
 
   if (isLoading) {
     return <p>기다려 주세요...</p>;

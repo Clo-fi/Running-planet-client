@@ -3,14 +3,13 @@ import UserCalendar from "../../components/common/calendar/UserCalendar";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from '../../stores/userStore';
 import { useEffect } from 'react';
-import { MissionList } from "../../types/user/mission";
-// import { useMissionList } from "../crew/crewHome/components/hooks/useMissionList";
+import { useMissionList } from "../crew/crewHome/components/hooks/useMissionList";
 
 const Profile = () => {
   const nav = useNavigate();
   const user = useUserStore((state) => state.user);
 
-  // const { data: missionList, isError: isMissionError, isLoading: isMissionLoading } = useMissionList(user?.myCrewId as number);
+  const { data: missionList, isError: isMissionError, isLoading: isMissionLoading } = useMissionList(user?.myCrewId as number);
 
   const handleSettting = () => {
     nav('/setting');
@@ -19,24 +18,6 @@ const Profile = () => {
   const handleEdit = () => {
     nav('/profile/edit');
   }
-
-  // 화면 확인을 위한 예시 데이터
-  const missionList: MissionList = {
-    missions: [
-      {
-        missionId: 1,
-        missionContent: "3KM 달리기",
-        missionProgress: 51,
-        missionComplete: false
-      },
-      {
-        missionId: 2,
-        missionContent: "45분 달리기",
-        missionProgress: 87,
-        missionComplete: false
-      }
-    ]
-  };
 
   // 유저 정보 로딩 안 되어 있으면 홈으로 돌아가서 다시 받아오도록
   useEffect(() => {
@@ -51,14 +32,14 @@ const Profile = () => {
   }
 
   // 로딩 중일 때
-  // if (isMissionLoading) {
-  //   return <div>Loading...</div>;
-  // }
+  if (isMissionLoading) {
+    return <div>Loading...</div>;
+  }
 
-  // // 에러가 발생했을 때
-  // if (isMissionError) {
-  //   return <div>Error: 미션 데이터를 불러오는 중 오류가 발생했습니다.</div>;
-  // }
+  // 에러가 발생했을 때
+  if (isMissionError) {
+    return <div>Error: 미션 데이터를 불러오는 중 오류가 발생했습니다.</div>;
+  }
 
   // 데이터가 성공적으로 로드되었을 때
 
@@ -112,10 +93,10 @@ const Profile = () => {
                 <div className={styles.mission_content}>
                   <div className={styles.mission_dot}></div>
                   <div className={styles.mission_title}>{mission.missionContent}</div>
-                  <div className={styles.misson_percent}>{mission.missionProgress}%</div>
+                  <div className={styles.mission_percent}>{mission.missionProgress}%</div>
                 </div>
                 <div className={styles.progress}>
-                  {/* 여기 안에 progress bar 컴포넌트 만들어서 넣기 */}
+                  <div className={styles.home__mission_progress_back}><div className={styles.home__mission_progress_front} style={{ width: `${mission.missionProgress}%` }} /></div>
                 </div>
               </div>
             ))}
