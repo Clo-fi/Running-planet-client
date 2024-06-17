@@ -42,7 +42,7 @@ export const StyleCalendar = styled(Calendar)`
 
   .react-calendar__navigation button:enabled:hover,
   .react-calendar__navigation button:enabled:focus {
-    background-color: #e8e8e8;
+    background-color: transparent;
   }
 
   .react-calendar__viewContainer {

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { CalendarProps } from "react-calendar";
-/*
 import { useQuery } from "@tanstack/react-query";
-*/
 import * as S from "./StyleCalendar";
+import instance from "../../../libs/api/axios";
 
 // API로부터 받을 데이터 타입 정의
 interface DistanceData {
@@ -11,37 +10,35 @@ interface DistanceData {
   distance: number;
 }
 
-// API 호출 함수 (주석 처리)
-// const fetchDistances = async (): Promise<DistanceData[]> => {
-//   const response = await fetch(`/api/profile/{memberId}/calendar?year=2024&month=5`);
-//   if (!response.ok) {
-//     throw new Error('Network response was not ok');
-//   }
-//   return response.json();
-// };
+// API 호출 함수
+const fetchDistances = async (year: number, month: number): Promise<DistanceData[]> => {
+  const response = await instance.get(`/record?year=${year}&month=${month}`);
+  if (response.status !== 200) {
+    throw new Error('Network response was not ok');
+  }
+  return response.data;
+};
 
 const UserCalendar: React.FC = () => {
   const [today, setToday] = useState<Date>(new Date());
-  const [distances, setDistances] = useState<DistanceData[]>([]);
+  const [localDistances, setLocalDistances] = useState<DistanceData[]>([]);
+  const [activeStartDate, setActiveStartDate] = useState<{ year: number, month: number }>({
+    year: today.getFullYear(),
+    month: today.getMonth() + 1,
+  });
 
-  // 초기 데이터를 설정하기 위한 useEffect
+  const { data: distances, error, isLoading, isSuccess } = useQuery<DistanceData[], Error>({
+    queryKey: ['distances', activeStartDate.year, activeStartDate.month],
+    queryFn: () => fetchDistances(activeStartDate.year, activeStartDate.month),
+  });
+
   useEffect(() => {
-    const testData: DistanceData[] = [
-      { day: 13, distance: 1.2 },
-      { day: 27, distance: 2.5 },
-    ];
-    setDistances(testData);
-  }, []);
-
-  // React Query를 사용하여 데이터 가져오기
-  // const { data: distances = [], error, isLoading } = useQuery<DistanceData[], Error>({
-  //   queryKey: ['distances'],
-  //   queryFn: fetchDistances,
-  //   initialData: [
-  //     { day: 13, distance: 1.2 },
-  //     { day: 27, distance: 2.5 },
-  //   ]
-  // });
+    if (isSuccess && distances) {
+      setLocalDistances(distances);
+    } else if (error) {
+      setLocalDistances([]);  // 에러 발생 시 빈 배열로 설정
+    }
+  }, [isSuccess, distances, error]);
 
   const onChangeToday: CalendarProps['onChange'] = (value) => {
     if (value && !Array.isArray(value)) {
@@ -56,23 +53,42 @@ const UserCalendar: React.FC = () => {
 
   const tileContent: CalendarProps['tileContent'] = ({ date, view }) => {
     if (view === 'month') {
-      const distance = distances.find(d => d.day === date.getDate());
-      return distance ? <div style={{ marginBottom: '0.5vh', display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center" }}>{distance.distance} km</div> : <div style={{ marginBottom: '0.5vh', display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center" }}></div>;
+      const distance = localDistances.find(d => d.day === date.getDate());
+      return (
+        <div style={{ marginBottom: '0.5vh', display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center" }}>
+          {distance ? `${distance.distance} km` : null}
+        </div>
+      );
     }
     return null;
   };
 
-  // if (isLoading) return <div>Loading...</div>;
-  // if (error) return <div>Error: {error.message}</div>;
+  const onActiveStartDateChange: CalendarProps['onActiveStartDateChange'] = ({ activeStartDate }) => {
+    if (activeStartDate) {
+      setActiveStartDate({
+        year: activeStartDate.getFullYear(),
+        month: activeStartDate.getMonth() + 1,
+      });
+    }
+  };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
   return (
     <S.CalendarBox>
       <S.StyleCalendar
         onChange={onChangeToday}
+        onActiveStartDateChange={onActiveStartDateChange}
         value={today}
         next2Label={null}
         prev2Label={null}
         tileClassName="circle-tile"
-        // eslint-disable-next-line
         formatDay={(_locale, date) => date.getDate().toString()}
         formatShortWeekday={formatShortWeekday}
         tileContent={tileContent}
