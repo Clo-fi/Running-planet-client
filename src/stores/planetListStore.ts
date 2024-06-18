@@ -7,7 +7,7 @@ export const fetchPlanetList = async (memberId: number): Promise<PlanetList> => 
     const response = await instance.get(`/profile/${memberId}/planet`);
     return response.data;
   } catch (error) {
-    throw new Error('Failed to fetch mission list');
+    throw new Error('Failed to fetch planet list');
   }
 };
 

@@ -1,9 +1,18 @@
 .list_container {
-  margin-top: 10vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  width: 100vw;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4vw;
+  margin-top: 10vh;
+  width: 100vw;
 }
 
 .planet {
@@ -11,15 +20,18 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border: 1px solid black;
+  width: 40vw;
+  border-radius: 20px;
 }
 
 .planet_item {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  width: 90vw;
-  height: 17vh;
+  width: 40vw;
+  height: 40vw;
 }
 
 .planet_img {
@@ -28,7 +40,11 @@
 }
 
 .planet_info {
-  width: 50vw;
+  width: fit-content;
+  display: flex;
+  position: relative;
+  right: 10vw;
+  top: 2vh;
   font-size: 1.9vh;
 }
 
@@ -47,11 +63,3 @@
   justify-content: space-between;
   align-items: center;
 }
-
-.hr {
-  background-color: black;
-  width: 100vw;
-  border: none;
-  height: 1px;
-}
-
