@@ -17,52 +17,11 @@ const PlanetMain = () => {
     nav('/planet/list');
   }
 
-  const dummyPlanetList: Planet[] = [
-    {
-      planetId: 3,
-      planetName: "지구",
-      planetImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Earth_Western_Hemisphere_transparent_background.png/1200px-Earth_Western_Hemisphere_transparent_background.png",
-      demandDistance: 10.0,
-      distance: 10.0
-    },
-    {
-      planetId: 4,
-      planetName: "화성",
-      planetImage: "https://static.vecteezy.com/system/resources/thumbnails/020/922/027/small_2x/isolated-realistic-mars-illustration-png.png",
-      demandDistance: 50.0,
-      distance: 40.0
-    },
-    {
-      planetId: 5,
-      planetName: "화성2",
-      planetImage: "https://static.vecteezy.com/system/resources/thumbnails/020/922/027/small_2x/isolated-realistic-mars-illustration-png.png",
-      demandDistance: 50.0,
-      distance: 40.0
-    },
-    {
-      planetId: 6,
-      planetName: "화성3",
-      planetImage: "https://static.vecteezy.com/system/resources/thumbnails/020/922/027/small_2x/isolated-realistic-mars-illustration-png.png",
-      demandDistance: 50.0,
-      distance: 40.0
-    },
-    {
-      planetId: 7,
-      planetName: "화성4",
-      planetImage: "https://static.vecteezy.com/system/resources/thumbnails/020/922/027/small_2x/isolated-realistic-mars-illustration-png.png",
-      demandDistance: 50.0,
-      distance: 40.0
-    }
-  ];
-
   useEffect(() => {
     if (planetData?.planets?.length) {
       setPlanets(planetData.planets);
       setCurrentPlanet(planetData.planets[planetData.planets.length - 1]);
-    } else {
-      setPlanets(dummyPlanetList);
-      setCurrentPlanet(dummyPlanetList[dummyPlanetList.length - 1]);
-    }
+    } 
   }, [planetData]);
 
   if (isLoading) {
