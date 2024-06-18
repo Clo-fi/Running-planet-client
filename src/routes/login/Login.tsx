@@ -94,7 +94,7 @@ const Login: React.FC = () => {
           러닝 플래닛!
         </div>
         <div className={styles.earth_container}>
-          <img className={styles.earth} src="/icons/earth.png" alt="Earth" />
+          <img className={styles.earth} src="/logo/icon-512x512.png" alt="Earth" />
         </div>
         <div className={styles.login_btn_container}>
           <button onClick={handleKakaoLogin} className={`${styles.login_btn} ${styles.kakao_btn}`}>

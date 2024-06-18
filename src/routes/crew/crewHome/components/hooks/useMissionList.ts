@@ -11,9 +11,12 @@ export const fetchMissionList = async (crewId: number): Promise<MissionList> => 
   }
 };
 
-export const useMissionList = (crewId: number) => {
-  return useQuery<MissionList, Error>({
+export const useMissionList = (crewId: number | null) => {
+  const { data, isLoading, isError } = useQuery<MissionList, Error>({
     queryKey: ['missionList', crewId],
-    queryFn: () => fetchMissionList(crewId),
+    queryFn: () => crewId ? fetchMissionList(crewId) : Promise.resolve({ missions: [] }),
+    enabled: !!crewId, // crewId가 존재할 때만 쿼리를 실행하도록 설정
   });
+
+  return { data, isLoading, isError };
 };

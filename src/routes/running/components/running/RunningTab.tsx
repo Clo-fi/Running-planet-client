@@ -23,6 +23,8 @@ import useInterval from './hooks/useInterval';
 
 
 const RunningTab = () => {
+  const location = useUserStore((state) => state.location)
+
   const queryClient = new QueryClient();
   const { myLat, myLot } = useGetLocation();
   const weight = useUserStore((state) => state.user?.weight) as number;
@@ -38,8 +40,8 @@ const RunningTab = () => {
   const [time, setTime] = useState<number>(0);
 
   const [userRecord, setUserRecord] = useState<PostRunningRecordRequest>({
-    latitude: 0,
-    longitude: 0,
+    latitude: location?.lat as number,
+    longitude: location?.lot as number,
     runTime: 0,
     runDistance: 0,
     calories: 0,
@@ -64,60 +66,6 @@ const RunningTab = () => {
         queryClient.invalidateQueries({ queryKey: runningKeys.current() });
       },
     });
-  const getLocation = async () => {
-    try {
-      const position = await new Promise<GeolocationPosition>((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject);
-      });
-
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-
-      setUserRecord(prev => ({
-        ...prev,
-        latitude: latitude,
-        longitude: longitude,
-      }));
-    } catch (error) {
-      console.error('위치 가져오기 오류:', error);
-      CustomAlert.fire({
-        icon: 'error',
-        title: '에러 발생!',
-        text: '위치 정보를 가져오는 중 문제가 발생했습니다. 다시 시도해주세요.',
-      });
-    }
-  };
-  useEffect(() => {
-    console.log('dsasd')
-    if (currentRecord) {
-      console.log(currentRecord)
-      setUserRecord({
-        latitude: currentRecord.latitude,
-        longitude: currentRecord.longitude,
-        runTime: currentRecord.runTime.hour * 3600 + currentRecord.runTime.min * 60 + currentRecord.runTime.sec,
-        runDistance: currentRecord.runDistance,
-        calories: currentRecord.calories,
-        avgPace: currentRecord.avgPace,
-        isEnd: true,
-      });
-      // if (currentRecord.latitude === 0) {
-      //   setUserRecord((prev) => ({
-      //     ...prev,
-      //     latitude: myLat,
-      //     longitude: myLot
-      //   }));
-
-      // }
-      // setTime(currentRecord.runTime.hour * 3600 + currentRecord.runTime.min * 60 + currentRecord.runTime.sec);
-    } else {
-      getLocation();
-    }
-  }, [currentRecord]);
-
-
-  useEffect(() => {
-    console.log('changed', userRecord)
-  }, [userRecord])
 
   const exitHandler = async () => {
     try {
@@ -135,13 +83,44 @@ const RunningTab = () => {
     }
   }
 
+
   useEffect(() => {
-    console.log('isRunningMode is ', isRunningMode);
-  }, [isRunningMode])
+    console.log(myLat, myLot);
+  }, [myLat, myLot])
+
+  useEffect(() => {
+    console.log("changed", userRecord);
+  }, [userRecord]);
+
+  /* 기존 운동 정보 없을 때 함수 */
+  const getLocation = async () => {
+    setUserRecord(prev => ({
+      ...prev,
+      latitude: location?.lat as number,
+      longitude: location?.lot as number,
+    }));
+  };
+  /* 기존 운동 기록 가져오기 */
+  useEffect(() => {
+    if (currentRecord) {
+      console.log(currentRecord)
+      setUserRecord({
+        latitude: currentRecord.latitude,
+        longitude: currentRecord.longitude,
+        runTime: currentRecord.runTime.hour * 3600 + currentRecord.runTime.min * 60 + currentRecord.runTime.sec,
+        runDistance: currentRecord.runDistance,
+        calories: currentRecord.calories,
+        avgPace: currentRecord.avgPace,
+        isEnd: true,
+      });
+      setTime(currentRecord.runTime.hour * 3600 + currentRecord.runTime.min * 60 + currentRecord.runTime.sec);
+    } else {
+      getLocation();
+    }
+  }, [currentRecord]);
 
 
   /* 주기적으로 운동 상태 저장 */
-
   const runningStateSave = async (isEnd: boolean, currentTime: number) => {
     try {
       console.log(currentTime);
@@ -152,21 +131,25 @@ const RunningTab = () => {
         { latitude: newLat, longitude: newLot }
       );
       console.log('디스탠스: ', distance);
-      console.log(newLat, newLot);
 
+      const newRunDistance = +(userRecord.runDistance + distance).toFixed(2);
+      const newKcal = Number(getKcal(weight, userRecord.runDistance /* + distance*/ / currentTime / 3600, currentTime).toFixed(1));
+      const newAvgMin = Number(Math.floor(currentTime / (userRecord.runDistance + distance) / 60));
+      const newAvgSec = Number(((currentTime / (userRecord.runDistance + distance)) % 60).toFixed(0));
       const updatedRecord = {
         ...currentRecord,
         latitude: newLat,
         longitude: newLot,
         runTime: currentTime,
-        runDistance: userRecord.runDistance + distance,
-        calories: getKcal(weight, userRecord.runDistance + distance / currentTime / 3600, currentTime),
+        runDistance: newRunDistance,
+        calories: newKcal,
         avgPace: {
-          min: Math.floor(currentTime / (userRecord.runDistance + distance) / 60),
-          sec: (currentTime / (userRecord.runDistance + distance)) % 60,
+          min: newAvgMin,
+          sec: newAvgSec,
         },
         isEnd: isEnd,
       };
+      console.log('updated', updatedRecord)
 
       await postRunningRecordMutate(updatedRecord, {
         onSuccess: () => {
@@ -191,7 +174,6 @@ const RunningTab = () => {
     if (isRunningMode) {
       setTime((prev) => prev + 1);
       console.log('1초 타이머');
-      console.log(time);
     }
   }, 1000);
 

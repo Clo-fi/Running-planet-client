@@ -15,3 +15,8 @@ export interface UserType {
   myCrewId: number | null;
   memberId: number;
 }
+
+export interface userLocation {
+  lat: number;
+  lot: number;
+}

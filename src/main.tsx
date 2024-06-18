@@ -24,6 +24,7 @@ const Main = () => {
       window.removeEventListener('beforeinstallprompt', handler);
     };
   }, []);
+  // useEffect(() => { document.documentElement.setAttribute('data-theme', 'dark'); }, [])
 
   const handleInstallClick = async () => {
     if (deferredPrompt) {
