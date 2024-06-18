@@ -117,7 +117,7 @@ const CrewIntroduction: React.FC<CrewProps> = ({ data, missions }) => {
                     <div style={{ width: '8px', height: '8px', borderRadius: '100px', background: 'white', marginRight: '10px' }} />
                     {mission.missionContent}
                   </div>
-                  <span>{mission.missionProgress}%</span>
+                  <span>{mission.missionProgress.toFixed(1)}%</span>
                 </div>
                 <div className={styles.home__mission_progress_back}><div className={styles.home__mission_progress_front} style={{ width: `${mission.missionProgress}%` }} /></div>
               </div>

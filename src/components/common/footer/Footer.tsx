@@ -64,7 +64,7 @@ const Footer = () => {
             src={
               pathname.includes('/rank')
                 ?
-                (isDarkMode ? '/icons/Trophy.png' : '/icons/Trophy.png')
+                (isDarkMode ? '/icons/Trophy_mint.png' : '/icons/Trophy_white.png')
                 : '/icons/Trophy.png'
             }>
           </img>

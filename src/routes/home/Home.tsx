@@ -30,7 +30,7 @@ const Home: React.FC = () => {
       if (!data.gender || !data.age || !data.weight) {
         Swal.fire({
           title: "성별, 나이, 또는 몸무게 데이터가 없습니다!",
-          text: "정확한 측정을 위해 정보를 입력해주세요! 확인 버튼을 누르면 정보 입력 페이지로 이동합니다. 신체 정보는 다른 러너들에게 공개되지 않으니 안심하세요!",
+          html: "정확한 측정을 위해 정보를 입력해주세요!<br/> 확인 버튼을 누르면 정보 입력 페이지로 이동합니다. 신체 정보는 다른 러너들에게 공개되지 않으니 안심하세요! <br/> 정보 미 기입시 크루 활동이 원활히 진행 되지 않을 수 있습니다.",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
