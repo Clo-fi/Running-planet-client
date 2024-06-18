@@ -15,6 +15,11 @@ const PlanetList = () => {
   // const memberId = user!.memberId;
   // const { data: planetList, error } = usePlanetList(memberId);
 
+  const handlePlanetClick = (planetId:number) => {
+    navigate(`/planet/${planetId}`);
+
+  }
+
   // useEffect(() => {
   //   if (planetList?.planets) {
   //     setPlanets(planetList.planets);
@@ -118,7 +123,7 @@ const PlanetList = () => {
       <BackSpaceTopBar title="내 행성" onClick={() => navigate(-1)}></BackSpaceTopBar>
       <div className={styles.list}>
         {planets.map((planet) => (
-          <div className={styles.planet}>
+          <div className={styles.planet} onClick={() => handlePlanetClick(planet.planetId)}>
             <div key={planet.planetId} className={styles.planet_item}>
               <div className={styles.planet_info}>
                 <div className={styles.planet_name}>{planet.planetName}</div>
