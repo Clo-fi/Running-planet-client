@@ -2,11 +2,12 @@ import { useEffect, useRef, useState } from 'react'
 import styles from './KakaoMap.module.scss'
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import useGetLocation from '../../../libs/hooks/useGetLocation';
+import { useUserStore } from '../../../stores/userStore';
 
 
 const KakaoMap = () => {
   const { myLat, myLot } = useGetLocation();
-
+  const setLocation = useUserStore((state) => state.setLocation)
   const mapRef = useRef<kakao.maps.Map>(null);
 
   const [latitude, setLatitude] = useState<number>(myLat); // 초기값 설정
@@ -23,6 +24,7 @@ const KakaoMap = () => {
 
 
     const showPosition = (position: GeolocationPosition) => {
+      setLocation({ lat: position.coords.latitude, lot: position.coords.longitude })
       setLatitude(position.coords.latitude);
       setLongitude(position.coords.longitude);
       const map = mapRef.current;

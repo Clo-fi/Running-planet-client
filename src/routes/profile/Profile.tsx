@@ -84,7 +84,7 @@ const Profile = () => {
         </div>
         <div className={styles.info_line}>
           <div className={styles.info_type}>총 이동거리</div>
-          <div className={styles.info_content}>{user.totalDistance}KM</div>
+          <div className={styles.info_content}>{user.totalDistance.toFixed(3)}KM</div>
         </div>
         <div className={styles.info_missions}>
           <div className={`${styles.info_type} ${styles['left-align']}`}>나의 운동</div>
@@ -94,7 +94,7 @@ const Profile = () => {
                 <div className={styles.mission_content}>
                   <div className={styles.mission_dot}></div>
                   <div className={styles.mission_title}>{mission.missionContent}</div>
-                  <div className={styles.mission_percent}>{mission.missionProgress}%</div>
+                  <div className={styles.mission_percent}>{mission.missionProgress.toFixed(1)}%</div>
                 </div>
                 <div className={styles.progress}>
                   <div className={styles.home__mission_progress_back}><div className={styles.home__mission_progress_front} style={{ width: `${mission.missionProgress}%` }} /></div>
