@@ -3,72 +3,17 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 8vh;
-}
-
-.title {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: center;
-  width: 90vw;
-}
-
-.title p {
-  font-size: 4.5vh;
-  font-weight: 650;
-  width: 90vw;
-}
-
-.select_section {
-  margin-top: 3vh;
-  width: 90vw;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.select_button {
-  width: 43vw;
-  height: 5vh;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  justify-content: center;
-  border: 1px solid black;
-  border-radius: 20px;
-  text-align: center;
-  font-size: 2vh;
-}
-
-.planet_container {
-  margin-top: 2vh;
-  width: 90vw;
-  height: 90vw;
-  border: 1px solid black;
-  border-radius: 20px;
-  background-color: lightgray;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+  margin-top: 5vh;
 }
 
 .planet_name {
-  width: 10vw;
-  height: 2vh;
-  background-color: white;
-  border: 1px solid black;
-  border-radius: 10px;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
   display: flex;
-  position: absolute;
-  left: 2vw;
-  top: 1vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 4vh;
+  font-weight: 700;
 }
 
 .planet_Img {
@@ -102,8 +47,53 @@
   margin-bottom: 1vh;
 }
 
-.list_btn {
+.planet_list {
   margin-top: 2vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 11vh;
+  width: 90vw;
+  overflow-x: auto;
+  /* 가로 스크롤 허용 */
+  overflow-y: hidden;
+  flex-wrap: nowrap;
+  scroll-snap-type: x mandatory;
+  /* 선택사항: 스냅 스크롤 효과 */
+}
+
+.planet_element {
+  flex: 0 0 auto;
+  /* 요소가 줄어들거나 커지지 않도록 설정 */
+  width: 10vh;
+  height: 10vh;
+  background-color: lightgray;
+  border: transparent;
+  border-radius: 10px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1vh;
+  white-space: nowrap;
+  scroll-snap-align: start;
+  /* 선택사항: 스냅 스크롤 효과 */
+}
+
+.planet_ele_img {
+  width: 8vh;
+  height: 8vh;
+}
+
+
+.planet_ele_img {
+  width: 8vh;
+  height: 8vh;
+}
+
+.list_btn {
+  margin-top: 8vh;
   width: 90vw;
   height: 6vh;
   display: flex;
