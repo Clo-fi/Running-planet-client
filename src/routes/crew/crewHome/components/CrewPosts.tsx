@@ -14,6 +14,7 @@ interface Props {
 }
 
 const CrewPosts: React.FC<Props> = ({ viewport = '100dvh', data }) => {
+  const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
   const { crewId } = useParams();
   const navigate = useNavigate();
   const [isOpened, setIsOpened] = useState<boolean>(false);
@@ -55,6 +56,7 @@ const CrewPosts: React.FC<Props> = ({ viewport = '100dvh', data }) => {
     const newIsOpened = info.offset.y < 0;
     setIsOpened(newIsOpened);
   };
+
   return (
     <>
       <motion.div
@@ -95,7 +97,7 @@ const CrewPosts: React.FC<Props> = ({ viewport = '100dvh', data }) => {
           <div className={styles.posts__sheet_content_wrapper} style={{ height: '100dvh' }} ref={contentRef}>
             <div className={styles.posts__sheet_content}>
               <div className={styles.posts_sheet_state}>
-                <img src="/icons/circle_right.png" alt="return" onClick={() => setIsOpened(false)} />
+                <img src={isDarkMode ? '/icons/Expand_left_white.png' : '/icons/Expand_left.png'} alt="return" onClick={() => setIsOpened(false)} />
                 <p>현재 우리 크루는?</p>
               </div>
               <PostList isOpened={isOpened} />

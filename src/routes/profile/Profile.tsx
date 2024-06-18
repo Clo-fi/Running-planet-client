@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useMissionList } from "../crew/crewHome/components/hooks/useMissionList";
 
 const Profile = () => {
+  const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
   const nav = useNavigate();
   const user = useUserStore((state) => state.user);
 
@@ -62,8 +63,8 @@ const Profile = () => {
           )}
         </div>
         <div className={styles.edit_btn_section}>
-          <img className={styles.edit_btn} onClick={handleSettting} src="/icons/Setting_line.png" alt="Settings"></img>
-          <img className={styles.edit_btn} onClick={handleEdit} src="/icons/Edit.png" alt="Edit"></img>
+          <img className={styles.edit_btn} onClick={handleSettting} src={isDarkMode ? '/icons/Setting_line_white.png' : '/icons/Setting_line.png'} alt="Settings"></img>
+          <img className={styles.edit_btn} onClick={handleEdit} src={isDarkMode ? '/icons/Edit_white.png' : '/icons/Edit.png'} alt="Edit"></img>
           <img className={styles.edit_btn} onClick={darkmodeHandle} src="/icons/darkmode.png" alt="Edit"></img>
         </div>
       </div>

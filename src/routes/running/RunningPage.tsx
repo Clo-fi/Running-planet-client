@@ -16,11 +16,6 @@ import RunningTab from './components/running/RunningTab';
 import { myDecode } from '../../libs/stomp/decorder';
 
 
-// import ExitTab from './components/exit/ExitTab';
-
-// import { useEffect } from 'react';
-// import { useWebSocket } from '../../libs/stomp/useWebSocket';
-// import { SOCKET_TYPE, decode } from '../../libs/stomp/decorder'
 const fetchRunningUser = async (crewId: number): Promise<runUser[]> => {
   const response = await instance.get(`/crew/${crewId}/running`)
   console.log('멤버조회', response);

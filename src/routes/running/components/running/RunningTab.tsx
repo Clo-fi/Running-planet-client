@@ -73,7 +73,6 @@ const RunningTab = () => {
       const latitude = position.coords.latitude;
       const longitude = position.coords.longitude;
 
-      console.log(latitude, longitude);
       setUserRecord(prev => ({
         ...prev,
         latitude: latitude,
@@ -89,6 +88,7 @@ const RunningTab = () => {
     }
   };
   useEffect(() => {
+    console.log('dsasd')
     if (currentRecord) {
       console.log(currentRecord)
       setUserRecord({
@@ -127,7 +127,7 @@ const RunningTab = () => {
         timer: 1000
       }).then((result) => {
         if (result.isConfirmed) {
-          navigate(-1);
+          navigate('/home');
         }
       });
     } catch (err) {
@@ -167,7 +167,6 @@ const RunningTab = () => {
         },
         isEnd: isEnd,
       };
-      console.log(updatedRecord);
 
       await postRunningRecordMutate(updatedRecord, {
         onSuccess: () => {

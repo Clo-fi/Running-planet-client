@@ -37,6 +37,7 @@ const fetchCrewData = async (crewId: number) => {
 //   approvalType: 'AUTO'
 // }
 const CrewModifyPage = () => {
+  const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
   const { crewId } = useParams();
   const navigate = useNavigate();
   const [modifyState, setModifyState] = useState<CrewModify | null>(null);
@@ -180,7 +181,7 @@ const CrewModifyPage = () => {
               />
             </div>
             <div className={styles.crew_member}>
-              <img src="/icons/CrewUser.png" alt="userImg" />
+              <img src={isDarkMode ? '/icons/User_white.png' : '/icons/CrewUser.png'} alt="userImg" />
               <span>{modifyState.memberCnt}/{modifyState.limitMemberCnt}</span>
             </div>
           </div>

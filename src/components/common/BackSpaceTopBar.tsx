@@ -16,12 +16,13 @@ const BackSpaceTopBar: React.FC<Props> = ({
   titleOnClick,
 }) => {
   const navigate = useNavigate();
+  const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
 
   return (
     <div className={styles.top}>
       <img
         className={styles.backspace}
-        src='/icons/Expand_left.png'
+        src={isDarkMode ? '/icons/Expand_left_white.png' : '/icons/Expand_left.png'}
         alt='backSpaceImg'
         onClick={onClick ? onClick : () => navigate(-1)}
       />
@@ -29,7 +30,7 @@ const BackSpaceTopBar: React.FC<Props> = ({
       {isEditable && (
         <img
           className={styles.edit}
-          src='/icons/Edit.png'
+          src={isDarkMode ? '/icons/Edit_white.png' : '/icons/Edit.png'}
           alt='editImg'
         />
       )}

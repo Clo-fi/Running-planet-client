@@ -22,6 +22,7 @@
   
   
   --color-gray-to-mint: gray;
+  --color-red-to-lightcoral: red;
 }
 
 [data-theme="dark"] {
@@ -42,4 +43,5 @@
   --color-circle-border: var(--mint);
 
   --color-gray-to-mint: var(--mint);
+  --color-red-to-lightcoral: lightcoral;
 }
