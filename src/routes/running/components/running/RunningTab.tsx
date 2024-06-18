@@ -133,9 +133,9 @@ const RunningTab = () => {
       console.log('디스탠스: ', distance);
 
       const newRunDistance = +(userRecord.runDistance + distance).toFixed(2);
-      const newKcal = Number(getKcal(weight, userRecord.runDistance /* + distance*/ / currentTime / 3600, currentTime).toFixed(1));
-      const newAvgMin = Number(Math.floor(currentTime / (userRecord.runDistance + distance) / 60));
-      const newAvgSec = Number(((currentTime / (userRecord.runDistance + distance)) % 60).toFixed(0));
+      const newKcal = Number(getKcal(weight, ((userRecord.runDistance + distance) / (currentTime / 60)) * 3600, time).toFixed(1));
+      const newAvgMin = Number(Math.floor(time / ((userRecord.runDistance + distance) / 1000) / 60));
+      const newAvgSec = Number(((time / ((userRecord.runDistance + distance) / 1000)) % 60));
       const updatedRecord = {
         ...currentRecord,
         latitude: newLat,
