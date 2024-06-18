@@ -13,15 +13,16 @@ interface CrewProps {
   missions: MissionList | null;
 }
 const CrewIntroduction: React.FC<CrewProps> = ({ data, missions }) => {
+  const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
   const navigate = useNavigate();
 
   if (!data || !data.crewId) {
     navigate('/home', { replace: true });
     return null;
   }
-  if (!missions) {
-    return <p>불러오는 중...</p>;
-  }
+  // if (!missions) {
+  //   return <p>불러오는 중...</p>;
+  // }
   // const exitCrewHandler = () => {
   //   CustomAlert.fire({
   //     title: '정말 나가실 건가요?',
@@ -46,8 +47,14 @@ const CrewIntroduction: React.FC<CrewProps> = ({ data, missions }) => {
   //   })
   // }
 
-  const modifyNavigate = (data: CrewDetail) => {
-    navigate(`/crew/${data.crewId}/modify`);
+  const modifyNavigate = async (data: CrewDetail) => {
+    try {
+      if (data.isCrewLeader) {
+        navigate(`/crew/${data.crewId}/modify`);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   // const requestNavigate = async(data: CrewDetail) => {
@@ -77,7 +84,7 @@ const CrewIntroduction: React.FC<CrewProps> = ({ data, missions }) => {
             <div className={styles.home__crew_crewImg} />
           }
           <div className={styles.home__crew_member} onClick={() => requestNavigate(data)}>
-            <img src="/icons/CrewUser.png" alt="userImg" />
+            <img src={isDarkMode ? '/icons/User_white.png' : '/icons/CrewUser.png'} alt="userImg" />
             <span>{data.memberCnt}/{data.limitMemberCnt}</span>
           </div>
         </div>

@@ -3,14 +3,14 @@ import UserCalendar from "../../components/common/calendar/UserCalendar";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from '../../stores/userStore';
 import { useEffect } from 'react';
-// import { useMissionList } from "../crew/crewHome/components/hooks/useMissionList";
+import { useMissionList } from "../crew/crewHome/components/hooks/useMissionList";
 
 const Profile = () => {
   const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
   const nav = useNavigate();
   const user = useUserStore((state) => state.user);
 
-  // const { data: missionList, isError: isMissionError, isLoading: isMissionLoading } = useMissionList(user?.myCrewId as number);
+  const { data: missionList, isError: isMissionError, isLoading: isMissionLoading } = useMissionList(user?.myCrewId as number);
 
   const handleSettting = () => {
     nav('/setting');
@@ -33,14 +33,14 @@ const Profile = () => {
   }
 
   // 로딩 중일 때
-  // if (isMissionLoading) {
-  //   return <div>Loading...</div>;
-  // }
+  if (isMissionLoading) {
+    return <div>Loading...</div>;
+  }
 
-  // // 에러가 발생했을 때
-  // if (isMissionError) {
-  //   return <div>Error: 미션 데이터를 불러오는 중 오류가 발생했습니다.</div>;
-  // }
+  // 에러가 발생했을 때
+  if (isMissionError) {
+    return <div>Error: 미션 데이터를 불러오는 중 오류가 발생했습니다.</div>;
+  }
 
   // 데이터가 성공적으로 로드되었을 때
 
@@ -89,7 +89,7 @@ const Profile = () => {
         <div className={styles.info_missions}>
           <div className={`${styles.info_type} ${styles['left-align']}`}>나의 운동</div>
           <div className={styles.info_mission}>
-            {/* {missionList?.missions.map((mission) => (
+            {missionList?.missions.map((mission) => (
               <div key={mission.missionId}>
                 <div className={styles.mission_content}>
                   <div className={styles.mission_dot}></div>
@@ -100,7 +100,7 @@ const Profile = () => {
                   <div className={styles.home__mission_progress_back}><div className={styles.home__mission_progress_front} style={{ width: `${mission.missionProgress}%` }} /></div>
                 </div>
               </div>
-            ))} */}
+            ))}
           </div>
         </div>
       </div>

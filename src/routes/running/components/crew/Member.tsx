@@ -1,4 +1,3 @@
-
 import { CustomAlert } from '../../../../libs/sweetAlert/alert';
 import { useUserStore } from '../../../../stores/userStore';
 import { runUser } from '../../../../types/running/runUser';
@@ -19,8 +18,9 @@ const Member: React.FC<Props> = ({ user }) => {
       text: `${Math.floor(user.runTime / 3600)}h ${Math.floor(user.runTime / 60) % 60}m ${user.runTime % 60}s`,
       imageWidth: 400,
       imageHeight: 300,
-    })
-  }
+    });
+  };
+
   return (
     <div className={styles.box} onClick={checkUserHandler}>
       <div className={styles.profile}>
@@ -28,29 +28,27 @@ const Member: React.FC<Props> = ({ user }) => {
           !user.isEnd ? (
             <img src={user.profileImg} alt='userImg' />
           ) : (
-            <p>{user.nickname} 님은 <br />오프라인입니다!</p>
+            <div>
+              <p>{user.nickname} 님은</p>
+              <p>오프라인입니다!</p>
+            </div>
           )
         }
       </div>
       <div className={styles.info}>
         <div className={!user.isEnd ? styles.status_online : styles.status} />
-        <p className={styles.runTime}>
+        <div className={styles.runTime}>
           {
             userStore?.memberId === user.memberId ? (
-              <p>플레이어</p>
+              <span>플레이어</span>
             ) : (
-              !user.isEnd ? <p> 열심히 러닝 중! </p> : <p> 쉬고있어요! </p>
-              // <p>
-              //   {Math.floor(user.runTime / 3600)}h&nbsp;
-              //   {Math.floor(user.runTime / 60) % 60}m&nbsp;
-              //   {user.runTime % 60}s
-              // </p>
+              !user.isEnd ? <span>열심히 러닝 중!</span> : <span>쉬고 있어요!</span>
             )
           }
-        </p>
+        </div>
       </div>
       {
-        //TODO 닉네임 등
+        // TODO: 닉네임 등 추가 작업
       }
     </div>
   );

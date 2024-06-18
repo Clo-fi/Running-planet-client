@@ -6,8 +6,8 @@ import instance from "../../../libs/api/axios";
 
 // API로부터 받을 데이터 타입 정의
 interface DistanceData {
+  runDistance: number;
   day: number;
-  distance: number;
 }
 
 // API 호출 함수
@@ -53,10 +53,11 @@ const UserCalendar: React.FC = () => {
 
   const tileContent: CalendarProps['tileContent'] = ({ date, view }) => {
     if (view === 'month') {
-      const distance = localDistances.find(d => d.day === date.getDate());
+      const distancesForDay = localDistances.filter(d => d.day === date.getDate() && d.day !== undefined);
+      const totalDistance = distancesForDay.reduce((total, distance) => total + distance.runDistance, 0);
       return (
-        <div style={{ marginBottom: '0.5vh', display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center" }}>
-          {distance ? `${distance.distance} km` : null}
+        <div style={{ color: 'var(--color-black-to-mint)', marginBottom: '0.5vh', display: "flex", flexDirection: "column", justifyContent: "center", alignContent: "center" }}>
+          {totalDistance ? `${totalDistance.toFixed(2)} km` : null}
         </div>
       );
     }

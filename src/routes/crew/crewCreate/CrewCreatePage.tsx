@@ -2,8 +2,8 @@ import { useRef, useState } from 'react'
 import styles from './CrewCreatePage.module.scss';
 import { CreateCrew, Rule } from '../../../types/crew/crewCreate'
 import instance from '../../../libs/api/axios';
-import Swal from "sweetalert2";
 import { useNavigate } from 'react-router-dom';
+import { CustomAlert } from '../../../libs/sweetAlert/alert';
 
 
 const CrewCreatePage = () => {
@@ -74,7 +74,10 @@ const CrewCreatePage = () => {
     if (isStepValid(step)) {
       setStep(step + 1);
     } else {
-      alert('입력을 완료해주세요.');
+      CustomAlert.fire({
+        title: '입력을 완료해주세요!',
+        timer: 1500
+      })
     }
   };
   const prevStep = () => {
@@ -276,14 +279,14 @@ const CrewCreatePage = () => {
       console.log(updatedCrewInfo);
       console.log(response);
 
-      await Swal.fire({
+      await CustomAlert.fire({
         icon: 'success',
         title: '크루 생성 완료!',
         text: '크루가 성공적으로 생성되었습니다.',
       });
       navigate('/home');
     } catch (error) {
-      Swal.fire({
+      CustomAlert.fire({
         icon: 'error',
         title: '에러 발생!',
         text: '크루 생성 중 에러가 발생하였습니다.',
