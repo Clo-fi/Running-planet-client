@@ -8,12 +8,12 @@ import { useUserStore } from "../../stores/userStore";
 
 const PlanetList = () => {
 
-  const navigate = useNavigate();
-
-  const [planets, setPlanets] = useState<Planet[]>([]);
   const user = useUserStore((state) => state.user);
+  const navigate = useNavigate();
   const memberId = user!.memberId;
-  const { data: planetList, error } = usePlanetList(memberId);
+
+  const { data: planetData, error, isLoading } = usePlanetList(memberId!);
+  const [planets, setPlanets] = useState<Planet[]>([]);
 
   const handlePlanetClick = (planetId:number) => {
     navigate(`/planet/${planetId}`);
@@ -21,17 +21,25 @@ const PlanetList = () => {
   }
 
   useEffect(() => {
-    if (planetList?.planets) {
-      setPlanets(planetList.planets);
+    if (planetData && Array.isArray(planetData) && planetData.length > 0) {
+      setPlanets(planetData);
     }
-  }, [planetList]);
+  }, [planetData]);
+
+  if (!memberId) {
+    return <div>유저 정보가 없습니다. 로그인 후 다시 시도해주세요.</div>;
+  }
+
+  if (isLoading) {
+    return <div>로딩 중...</div>;
+  }
 
   if (error) {
     return <div>에러가 발생했습니다: {error.message}</div>;
   }
 
-  if (!planetList) {
-    return <div>로딩 중...</div>;
+  if (!planetData || !Array.isArray(planetData) || planetData.length === 0) {
+    return <div>현재 행성이 없습니다.</div>;
   }
 
 
@@ -40,8 +48,8 @@ const PlanetList = () => {
       <BackSpaceTopBar title="내 행성" onClick={() => navigate(-1)}></BackSpaceTopBar>
       <div className={styles.list}>
         {planets.map((planet) => (
-          <div className={styles.planet} onClick={() => handlePlanetClick(planet.planetId)}>
-            <div key={planet.planetId} className={styles.planet_item}>
+          <div  key={planet.planetId} className={styles.planet} onClick={() => handlePlanetClick(planet.planetId)}>
+            <div className={styles.planet_item}>
               <div className={styles.planet_info}>
                 <div className={styles.planet_name}>{planet.planetName}</div>
               </div>
