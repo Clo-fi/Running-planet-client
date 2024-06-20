@@ -68,7 +68,7 @@ const PostList = ({ isOpened }: { isOpened: boolean }) => {
             <div className={styles.list__post} key={post.id} onClick={() => navigateHandler(post.id)}>
               <img
                 className={styles.list__post_img}
-                src={post.imageList && post.imageList.length > 0 ? (post.imageList[0].img) : '/public/icons/Line_fill.png'}
+                src={post.imageList && post.imageList.length > 0 ? (post.imageList[0].img) : '/logo/icon-512x512.png'}
                 alt="postImg"
               />
               <div className={styles.list__post_details}>

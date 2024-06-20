@@ -29,6 +29,7 @@ const CrewList: React.FC<CrewListProps> = ({
   isError,
   errorMessage,
 }) => {
+  const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
   const navigate = useNavigate();
   const crewList = Array.isArray(data) ? data : [];
 
@@ -63,7 +64,7 @@ const CrewList: React.FC<CrewListProps> = ({
                   <p className={styles.crew_crewName}>{crew.crewName}</p>
                 </div>
                 <div className={styles.crew_member}>
-                  <img src="/icons/CrewUser.png" alt="userImg" />
+                  <img src={isDarkMode ? '/icons/User_white.png' : '/icons/CrewUser.png'} alt="userImg" />
                   <span>{crew.memberCnt}/{crew.limitMemberCnt}</span>
                 </div>
               </div>

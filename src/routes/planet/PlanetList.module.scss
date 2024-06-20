@@ -4,6 +4,9 @@
   justify-content: space-between;
   align-items: center;
   width: 100vw;
+  
+  background: var(--color-white-to-black);
+  color: var(--color-black-to-white);
 }
 
 .list {
@@ -20,7 +23,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
+  border: 1px solid var(--color-black-to-white);
   width: 40vw;
   border-radius: 20px;
 }

@@ -66,7 +66,7 @@ const RequestApprovalPage = () => {
               requestUsers.map((user, index) => (
                 <div key={index} className={styles.request_user_container}>
                   <div className={styles.request_user_info}>
-                    <img src={user.userImg || "/icons/earth.png"} alt="userImg" />
+                    <img src={user.userImg || "/logo/icon-512x512.png"} alt="userImg" />
                     <p>{user.nickname}</p>
                   </div>
                   <div className={styles.action_btn_container}>

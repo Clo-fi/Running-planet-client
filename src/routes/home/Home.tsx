@@ -6,7 +6,9 @@ import { UserType } from '../../types/user/user';
 import { useQuery } from '@tanstack/react-query';
 import { useUserStore } from '../../stores/userStore';
 import { useEffect } from 'react';
-import Swal from "sweetalert2";
+import { CustomAlert } from '../../libs/sweetAlert/alert';
+// import { useMissionList } from '../crew/crewHome/components/hooks/useMissionList';
+// import { MissionList } from '../../types/user/mission';
 
 const fetchUserInfo = async (): Promise<UserType> => {
   const response = await instance.get('/profile');
@@ -15,6 +17,7 @@ const fetchUserInfo = async (): Promise<UserType> => {
 }
 
 const Home: React.FC = () => {
+
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
@@ -23,12 +26,21 @@ const Home: React.FC = () => {
     queryKey: ['userInfo'],
     queryFn: fetchUserInfo
   });
+  // const [missionData, setMissionData] = useState<MissionList | null>(null);
+  // const { data: missionList, isError: isMissionError, isLoading: isMissionLoading } = useMissionList(user?.myCrewId as number);
+
+  // useEffect(() => {
+  //   if (!isMissionLoading && !isMissionError && missionList) {
+  //     setMissionData(missionList);
+  //     console.log('미션 리스트:', missionList);
+  //   }
+  // }, [missionList, isMissionLoading, isMissionError]);
 
   useEffect(() => {
     if (data) {
       setUser(data);
       if (!data.gender || !data.age || !data.weight) {
-        Swal.fire({
+        CustomAlert.fire({
           title: "성별, 나이, 또는 몸무게 데이터가 없습니다!",
           html: "정확한 측정을 위해 정보를 입력해주세요!<br/> 확인 버튼을 누르면 정보 입력 페이지로 이동합니다. 신체 정보는 다른 러너들에게 공개되지 않으니 안심하세요! <br/> 정보 미 기입시 크루 활동이 원활히 진행 되지 않을 수 있습니다.",
           icon: "warning",
@@ -76,6 +88,13 @@ const Home: React.FC = () => {
         <div className={styles.map_container}>
 
           <div className={styles.missions_container}>
+            {/* {
+              missionData?.missions.map((mission, index) => (
+                <div key={index} className={styles.mission}>
+                  <div className={styles.mission_content}> <p className={styles.mission_content_text}>미션 {index} | {mission.missionContent} 달리기</p> </div>
+                </div>
+              ))
+            } */}
             <div className={styles.mission}>
 
               <div className={styles.mission_content}> <p className={styles.mission_content_text}>미션 1 | 15km 달리기</p> </div>

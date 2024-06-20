@@ -20,9 +20,9 @@ const CrewIntroduction: React.FC<CrewProps> = ({ data, missions }) => {
     navigate('/home', { replace: true });
     return null;
   }
-  // if (!missions) {
-  //   return <p>불러오는 중...</p>;
-  // }
+  if (!missions) {
+    return <p>불러오는 중...</p>;
+  }
   // const exitCrewHandler = () => {
   //   CustomAlert.fire({
   //     title: '정말 나가실 건가요?',
