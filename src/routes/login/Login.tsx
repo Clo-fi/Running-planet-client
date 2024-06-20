@@ -56,7 +56,8 @@ const Login: React.FC = () => {
   };
 
   const handleGoogleLogin = () => {
-    nav('/googlelogin');
+    
+    window.location.href = `${import.meta.env.VITE_BASE_URL}/oauth2/authorization/google`;
   };
 
   useEffect(() => {
