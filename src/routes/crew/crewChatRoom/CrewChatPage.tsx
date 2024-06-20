@@ -123,7 +123,7 @@ const CrewChatPage = () => {
     const lastTimestamp = oldestChat ? oldestChat.time : lastChatTimestamp;
 
     if (lastTimestamp) {
-      console.log(lastTimestamp);
+      // console.log(lastTimestamp);
       const newChatData = await fetchPreviousChatList(Number(crewId), lastTimestamp);
       if (newChatData.chatArray.length > 0) {
         setChatList(prevChatList => {
@@ -158,10 +158,14 @@ const CrewChatPage = () => {
         {!isLoading && !isError && chatList.length > 0 ? (
           chatList.map((chat, index) => (
             <div key={index} className={chat.from === user?.nickname ? styles.chat_my_box : ''}>
+              {(index === 0 || new Date(chatList[index].time).getTime() !== new Date(chatList[index - 1].time).getTime()) && (
+                <p className={styles.chat_time}>
+                  {formatDistanceToNow(new Date(chat.time), { locale: ko })}
+                </p>
+              )}
               {index > 0 && chatList[index - 1].from === chat.from ? null : (
                 <p className={chat.from === user?.nickname ? styles.chat_my_name : styles.chat_username}>
                   {chat.from !== user?.nickname && chat.from}
-                  {formatDistanceToNow(new Date(chat.time), { locale: ko })}
                 </p>
               )}
               <p className={chat.from === user?.nickname ? styles.chat_my_message : styles.chat_message}>
