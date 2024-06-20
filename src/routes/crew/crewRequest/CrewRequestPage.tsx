@@ -10,7 +10,7 @@ import BackSpaceTopBar from '../../../components/common/BackSpaceTopBar';
 const fetchCrewData = async (crewId: number) => {
   try {
     const response = await instance.get(`/crew/${crewId}`);
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
   } catch (err) {
     throw new Error('Failed to fetch crew request detail',);

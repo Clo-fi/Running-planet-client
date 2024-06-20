@@ -15,7 +15,7 @@ const Main = () => {
     const handler = (event: Event) => {
       event.preventDefault();
       setDeferredPrompt(event);
-      console.log(event);
+      // console.log(event);
     };
 
     window.addEventListener('beforeinstallprompt', handler);

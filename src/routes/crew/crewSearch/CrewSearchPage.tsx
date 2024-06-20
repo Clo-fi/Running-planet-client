@@ -13,7 +13,7 @@ const fetchCrewList = async (crewName: string, category: string): Promise<CrewLi
       category: category || undefined,
     }
   });
-  console.log(response);
+  // console.log(response);
   return response.data;
 }
 

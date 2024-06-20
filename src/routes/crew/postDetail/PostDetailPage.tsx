@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { CrewPost } from '../../../types/crew/crewPost';
 import instance from '../../../libs/api/axios';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
 const PostDetailPage = () => {
   const { crewId, boardId } = useParams();
@@ -21,9 +21,9 @@ const PostDetailPage = () => {
     enabled: !!crewId && !!boardId,
   });
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  // useEffect(() => {
+  //   console.log(data);
+  // }, [data]);
 
   if (isLoading) {
     return <div>Loading...</div>;

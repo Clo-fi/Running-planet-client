@@ -21,19 +21,19 @@ const CrewHomePage = () => {
   useEffect(() => {
     if (!isCrewLoading && !isCrewError && crewDetail) {
       setCrewData(crewDetail);
-      console.log('크루 상세 정보:', crewDetail);
+      // console.log('크루 상세 정보:', crewDetail);
     }
   }, [crewDetail, isCrewLoading, isCrewError]);
 
   useEffect(() => {
     if (!isMissionLoading && !isMissionError && missionList) {
       setMissionData(missionList);
-      console.log('미션 리스트:', missionList);
+      // console.log('미션 리스트:', missionList);
     }
   }, [missionList, isMissionLoading, isMissionError]);
 
   useEffect(() => {
-    console.log('현재 미션 데이터 상태:', missionData);
+    // console.log('현재 미션 데이터 상태:', missionData);
   }, [missionData]);
 
   if (isCrewLoading || isMissionLoading) {

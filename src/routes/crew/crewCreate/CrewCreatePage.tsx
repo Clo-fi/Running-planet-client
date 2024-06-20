@@ -276,7 +276,7 @@ const CrewCreatePage = () => {
           'Content-Type': 'multipart/form-data',
         }
       });
-      console.log(updatedCrewInfo);
+      // console.log(updatedCrewInfo);
       console.log(response);
 
       await CustomAlert.fire({

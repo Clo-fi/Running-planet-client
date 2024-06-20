@@ -9,7 +9,7 @@ import BackSpaceTopBar from '../../../components/common/BackSpaceTopBar';
 // crewRequest.ts 파일에서 타입을 가져옵니다.
 const fetchRequestUser = async (crewId: number): Promise<member[]> => {
   const response = await instance.get(`/crew/${crewId}/request`);
-  console.log(response.data);
+  // console.log(response.data);
   return response.data.approvalMember; // 데이터에서 approvalMember 배열을 가져와 반환합니다.
 }
 
