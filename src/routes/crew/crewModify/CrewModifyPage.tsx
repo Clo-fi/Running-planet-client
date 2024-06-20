@@ -113,7 +113,7 @@ const CrewModifyPage = () => {
     }
   };
 
-  console.log(modifyState)
+  // console.log(modifyState)
 
   const modifyHandler = async () => {
     try {
@@ -134,7 +134,7 @@ const CrewModifyPage = () => {
         formData.append('imgFile', crewImg);
       }
 
-      console.log(modifyInfo)
+      // console.log(modifyInfo)
       const response = await instance.patch(`/crew/${data.crewId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
