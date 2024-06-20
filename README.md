@@ -8,7 +8,7 @@
 
 ## Running Planet from Clo-fi
 
-- 프로젝트 진행 기간: 2023.05.03 ~
+- 프로젝트 진행 기간: 2024.05.03 ~
 - https://runple.site
 - https://www.notion.so/1-Clo-Fi-25872e6d1be34dc7a1b66776c3a09e31
 
