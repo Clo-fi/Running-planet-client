@@ -13,6 +13,7 @@
   --color-black-to-mint: #000000;
   --color-black-to-white : #000000;
   --color-black-to-fff : #000000;
+  --color-black-to-lightgray : #000000;
   
   --color-lightgray-to-mint: lightgray;
   --color-lightgray-to-white: lightgray;
@@ -31,10 +32,11 @@
   --color-white-to-000: #000000;
   --color-white-to-mint: var(--mint);
   --color-white-to-lightgray: lightgray;
-
+  
   --color-black-to-mint: var(--mint);
   --color-black-to-white : var(--white);
   --color-black-to-fff : #ffffff;
+  --color-black-to-lightgray : lightgray;
   
   --color-lightgray-to-mint: var(--mint);
   --color-lightgray-to-white: var(--white);

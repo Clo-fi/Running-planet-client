@@ -37,6 +37,7 @@ const sortChatListByTime = (chatList: ChatData[]): ChatData[] => {
 };
 
 const CrewChatPage = () => {
+  const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
   const navigate = useNavigate();
   const location = useLocation();
   const { crewId } = useParams();
@@ -176,7 +177,9 @@ const CrewChatPage = () => {
       <form className={styles.input_container} onSubmit={sendMessageHandle}>
         <input type='text' value={message} onChange={(e) => setMessage(e.target.value)} className={styles.chat_input} placeholder='채팅을 입력해 주세요' />
         <button type="submit">
-          <img src="/icons/Send_black.png" alt="Send" />
+          <img
+            src={isDarkMode ? '/icons/Send_mint.png' : '/icons/Send_Black.png'}
+            alt="Send" />
         </button>
       </form>
     </div>

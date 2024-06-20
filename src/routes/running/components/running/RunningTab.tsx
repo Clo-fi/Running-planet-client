@@ -18,13 +18,13 @@ import { CustomAlert } from "../../../../libs/sweetAlert/alert";
 import { useUserStore } from '../../../../stores/userStore';
 import useGetLocation from '../../../../libs/hooks/useGetLocation';
 import useInterval from './hooks/useInterval';
-
-
-
+import { useWebSocket } from '../../../../libs/stomp/useWebSocket';
+import { StompSubscription } from '@stomp/stompjs';
+import { myDecode } from '../../../../libs/stomp/decorder';
 
 const RunningTab = () => {
   const location = useUserStore((state) => state.location)
-
+  const user = useUserStore((state) => state.user)
   const queryClient = new QueryClient();
   const { myLat, myLot } = useGetLocation();
   const weight = useUserStore((state) => state.user?.weight) as number;
@@ -66,6 +66,41 @@ const RunningTab = () => {
         queryClient.invalidateQueries({ queryKey: runningKeys.current() });
       },
     });
+
+  const socketClient = useWebSocket();
+
+
+  useEffect(() => {
+    if (!socketClient || !user?.myCrewId || !isRunningMode) return;
+    let subscription: StompSubscription;
+
+    const handleSocketConnection = () => {
+
+      socketClient.onConnect = () => {
+        console.log('운동 응원 소켓 연결');
+        subscription = socketClient.subscribe(
+          `/user/sub/crew/${user.myCrewId}/cheer`,
+          (message) => {
+            const decodedMessage = myDecode(message);
+            CustomAlert.fire({
+              title: `${decodedMessage.nickname} 님이 응원을 보냈어요! `,
+              timer: 5000,
+            });
+          }
+        );
+      };
+    };
+
+    handleSocketConnection();
+
+    return () => {
+      if (socketClient.connected && subscription) {
+        console.log('운동 응원 소켓 연결 해제');
+        subscription.unsubscribe();
+      }
+    };
+  }, [isRunningMode, socketClient, user?.myCrewId]);
+
 
   const exitHandler = async () => {
     try {
@@ -133,9 +168,9 @@ const RunningTab = () => {
       console.log('디스탠스: ', distance);
 
       const newRunDistance = +(userRecord.runDistance + distance).toFixed(2);
-      const newKcal = Number(getKcal(weight, ((userRecord.runDistance + distance) / (currentTime / 60)) * 3600, time).toFixed(1));
-      const newAvgMin = Number(Math.floor(time / ((userRecord.runDistance + distance) / 1000) / 60));
-      const newAvgSec = Number(((time / ((userRecord.runDistance + distance) / 1000)) % 60));
+      const newKcal = Number(getKcal(weight, ((newRunDistance) / (currentTime / 60)) * 3600, time).toFixed(1));
+      const newAvgMin = (Math.floor(time / (newRunDistance / 1000) / 60) > 100) ? 0 : Number(Math.floor(time / (newRunDistance / 1000) / 60));
+      const newAvgSec = Number(((time / (newRunDistance / 1000)) % 60));
       const updatedRecord = {
         ...currentRecord,
         latitude: newLat,

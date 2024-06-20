@@ -5,4 +5,5 @@ export interface runUser {
   runDistance: number;
   isEnd: boolean;
   profileImg: string;
+  canCheer: boolean;
 }
