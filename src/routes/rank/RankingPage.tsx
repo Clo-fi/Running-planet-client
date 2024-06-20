@@ -107,7 +107,7 @@ const RankingPage = () => {
                     <div className={styles.crew_box} key={index}>
                       <p className={styles.crew_rank}>{index + 1}</p>
                       <p>{crew.level}Lv</p>
-                      <p>{crew.crewName}</p>
+                      <p className={styles.box_crewName}>{crew.crewName}</p>
                       <p>{crew.distance}km</p>
                     </div>
                   ))
@@ -115,7 +115,7 @@ const RankingPage = () => {
                   data.map((member, index) => (
                     <div className={styles.crew_box} key={index}>
                       <p>{index + 1}</p>
-                      <p>{member.nickname}Lv</p>
+                      <p>{member.nickname}</p>
                       <p>{member.planetCnt}</p>
                       <p>{member.distance}km</p>
                     </div>
