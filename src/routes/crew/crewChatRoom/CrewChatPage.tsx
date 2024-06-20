@@ -23,12 +23,12 @@ interface ChatResponse {
 }
 
 const fetchInitialChatList = async (crewId: number): Promise<ChatResponse> => {
-  const response = await instance.get(`/crew/${crewId}/chat?size=30`);
+  const response = await instance.get(`/crew/${crewId}/chat?size=10`);
   return response.data;
 };
 
 const fetchPreviousChatList = async (crewId: number, lastChatTimestamp: string): Promise<ChatResponse> => {
-  const response = await instance.get(`/crew/${crewId}/chat?lastChatTimestamp=${encodeURIComponent(lastChatTimestamp)}&size=30`);
+  const response = await instance.get(`/crew/${crewId}/chat?lastChatTimestamp=${encodeURIComponent(lastChatTimestamp)}&size=10`);
   return response.data;
 };
 
@@ -123,6 +123,7 @@ const CrewChatPage = () => {
     const lastTimestamp = oldestChat ? oldestChat.time : lastChatTimestamp;
 
     if (lastTimestamp) {
+      console.log(lastTimestamp);
       const newChatData = await fetchPreviousChatList(Number(crewId), lastTimestamp);
       if (newChatData.chatArray.length > 0) {
         setChatList(prevChatList => {
