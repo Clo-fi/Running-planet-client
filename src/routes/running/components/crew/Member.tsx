@@ -47,9 +47,6 @@ const Member: React.FC<Props> = ({ user }) => {
           }
         </div>
       </div>
-      {
-        // TODO: 닉네임 등 추가 작업
-      }
     </div>
   );
 };
