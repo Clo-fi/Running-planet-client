@@ -1,7 +1,6 @@
 /* eslint-disable */
 import React, { useEffect } from 'react';
 import styles from './Login.module.scss';
-import { useNavigate } from 'react-router-dom';
 import { CustomAlert } from '../../libs/sweetAlert/alert';
 
 // Vite 환경 변수를 이용하여 KAKAO_APP_KEY 가져오기
@@ -32,7 +31,6 @@ declare global {
 }
 
 const Login: React.FC = () => {
-  const nav = useNavigate();
 
   useEffect(() => {
     // 동적으로 Kakao SDK 로드
@@ -56,7 +54,8 @@ const Login: React.FC = () => {
   };
 
   const handleGoogleLogin = () => {
-    nav('/googlelogin');
+    
+    window.location.href = `${import.meta.env.VITE_BASE_URL}/oauth2/authorization/google`;
   };
 
   useEffect(() => {
